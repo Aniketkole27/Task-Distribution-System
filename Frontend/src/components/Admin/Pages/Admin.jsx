@@ -11,7 +11,7 @@ const Admin = () => {
   switch (currentTab) {
     case "dashboard": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
           <Dashboard />
         </main>
@@ -21,7 +21,7 @@ const Admin = () => {
 
     case "projects": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
           <Projects />
         </main>
@@ -31,9 +31,8 @@ const Admin = () => {
 
     case "team": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
-          <Dashboard />
         </main>
       )
     }
@@ -41,9 +40,8 @@ const Admin = () => {
 
     case "todo's": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
-          <Dashboard />
         </main>
       )
     }
