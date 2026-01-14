@@ -1,13 +1,13 @@
-import { CheckCheck, FanIcon, FileSignal, Folder, Timer, TimerReset, WatchIcon } from 'lucide-react'
+import { CheckCheck, Folder, Hourglass, XIcon } from 'lucide-react'
 import React from 'react'
 
 const ProjectData = () => {
     return (
         <div className='px-4 grid gap-3 grid-cols-4 mb-4'>
             <LabelData label={"Total Projects"} icon={<Folder size={16} />} value={12} />
-            <LabelData color="bg-yellow-100" label={"Pending Projects"} icon={<Timer size={16} />} value={12} />
+            <LabelData color="bg-yellow-50" label={"Pending Projects"} icon={<Hourglass size={16} />} value={12} />
             <LabelData color="bg-green-100" label={"Completed Projects"} icon={<CheckCheck size={16}/>} value={12} />
-            <LabelData color="bg-red-100" label={"Failed Projects"} icon={<FanIcon size={16} />} value={12} />
+            <LabelData color="bg-red-100" label={"Failed Projects"} icon={<XIcon size={16} />} value={12} />
         </div>
     )
 }

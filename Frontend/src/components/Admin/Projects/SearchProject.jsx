@@ -7,7 +7,7 @@ const SearchProject = () => {
             <Search size="16" />
             <input type="text" className='outline-none py-1.5 w-90 px-1.5 placeholder:font-medium font-medium ' placeholder='Search Project' />
         </div>
-    )
+    ) 
 }
 
 export default SearchProject

@@ -21,7 +21,7 @@ const ProjectDiv = ({ title, dueDate, status, className="" }) => {
         if (status === "pending") setColor("bg-yellow-100")
         else if (status === "failed") setColor("bg-red-100")
         else setColor("bg-green-200")
-    }, [status])
+    }, [status]) 
 
     return (
         <div className='px-4 py-4 mb-4 border flex items-center justify-between rounded shadow border-stone-300'>
