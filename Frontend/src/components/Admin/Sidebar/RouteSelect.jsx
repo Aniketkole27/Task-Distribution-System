@@ -15,7 +15,7 @@ const RouteSelect = () => {
             />
             <Route
                 title={"Projects"}
-                icon={<Folder size="16" />}
+                icon={<Folder size="16" strokeWidth={2} />}
                 selected={"projects" === isSelected}
                 setIsSelected={setIsSelected}
             />
@@ -62,7 +62,7 @@ const Route = ({ title, selected, setIsSelected, icon: icon }) => {
             onClick={handleSelect}
             className={`flex items-center cursor-pointer justify-start gap-3 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow_background-color_color]
              ${selected ? "bg-white text-stone-950 shadow font-medium" : "hover:bg-stone-200 bg-transparent text-stone-500 shadow-none"}`}>
-            <span className={` ${selected ? "text-blue-400 shadow-xl" :""}`}>{icon}</span>
+            <span className={` ${selected ? "text-black font-bold shadow-xl" :""}`}>{icon}</span>
             <span>{title}</span>
         </button>
     )

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Contribute = () => {
   return (
-    <div className='flex sticky top-[calc(100vh-40px-16px)] flex-col h-12 border-t px-2 border-stone-300 justify-end text-sm'>
+    <div className='flex sticky top-[calc(100vh-48px-16px)] flex-col h-12 border-t px-2 border-stone-300 justify-end text-sm'>
         <div className='flex items-center justify-between'>
             <div >
                 <p className='font-bold'>GitHub</p>
