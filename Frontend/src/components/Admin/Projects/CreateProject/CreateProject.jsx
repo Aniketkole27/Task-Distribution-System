@@ -1,7 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TeamMemberSelect from './TeamMemberSelector'
 
 function CreateProject({ setOpen }) {
+
+  const teamMembers = [
+    { id: 1, name: 'Aniket Kole' },
+    { id: 2, name: 'Sudarshan Salunke' },
+    { id: 3, name: 'Pitter Parker' },
+    { id: 4, name: 'Picky Blander' },
+    { id: 5, name: 'John Carton' },
+    { id: 6, name: 'Picky Blander' },
+    { id: 7, name: 'John Carton' },
+  ]
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -10,15 +20,43 @@ function CreateProject({ setOpen }) {
     }
   }, [])
 
-  const teamMembers = [
-  { id: 1, name: 'Aniket Kole' },
-  { id: 2, name: 'Sudarshan Salunke' },
-  { id: 3, name: 'Pitter Parker' },
-  { id: 4, name: 'Picky Blander' },
-  { id: 5, name: 'John Carton' },
-  { id: 6, name: 'Picky Blander' },
-  { id: 7, name: 'John Carton' },
-]
+
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    date: "",
+    priority: "",
+    teamMembers: []
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleAddTeamMember = (member) => {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        teamMembers: [...prev.teamMembers, member]
+      }
+    })
+  }
+
+  const handleRemoveTeamMember = (id) => {
+    setFormData(prev => ({
+      ...prev,
+      teamMembers: prev.teamMembers.filter(member => member.id !== id)
+    }))
+
+    // OR
+    // setFormData(prev => {
+    //   return { 
+    //   ...prev,
+    //   teamMembers: prev.teamMembers.filter(member => member.id !== id)
+    //   }
+    // })
+  }
 
   return (
     <div
@@ -37,29 +75,42 @@ function CreateProject({ setOpen }) {
           <InputField
             label={"Project Name"}
             placeholder={"Write project name"}
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
           />
           <InputField
             label={"Description"}
             placeholder={"Write description"}
             as='textarea'
             row={4}
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
           />
           <InputField
             label={"Due Date"}
             placeholder={"Write project name"}
             type='date'
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
           />
-          <InputField label={"Priority"} as="select" defaultValue="" >
+          <InputField label={"Priority"} name="priority" as="select" defaultValue="" onChange={handleChange}>
             <option value="" disabled>
               Select Priority
             </option>
-            <option value="">High</option>
-            <option value="">Medium</option>
-            <option value="">Low</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
 
           </InputField>
-          {/* <InputField label={"Team Members"} placeholder={"Write project name"} /> */}
-          <TeamMemberSelect members={teamMembers} />
+
+          <TeamMemberSelect
+            members={teamMembers}
+            handleAddTeamMember={handleAddTeamMember}
+            handleRemoveTeamMember={handleRemoveTeamMember}
+          />
 
           <div className="p-4 border-t flex justify-center gap-2">
             <button
@@ -68,7 +119,11 @@ function CreateProject({ setOpen }) {
             >
               Cancel
             </button>
-            <button className="px-4 py-2 text-sm bg-black text-white rounded">
+            <button onClick={() => {
+              console.log(formData)
+              setOpen(false)
+            }}
+              className="px-4 py-2 text-sm bg-black text-white rounded">
               Create
             </button>
           </div>
@@ -88,17 +143,22 @@ const InputField = ({
   as: Component = "input",
   placeholder,
   className = "",
+  value,
+  onChange,
   ...props
 }) => {
   return (
     <div className='m-4 space-y-1.5'>
       <label className='block text-xs p-0.5'>{label}</label>
       <Component
+        value={value}
+        onChange={onChange}
         type={Component === 'input' ? type : undefined}
         placeholder={placeholder}
         className='px-3 py-2 text-sm outline-none border w-120 text-black font-medium border-stone-300 rounded shadow'
         {...props}
       />
+      {/* <input type="text" o /> */}
     </div>
   )
 }

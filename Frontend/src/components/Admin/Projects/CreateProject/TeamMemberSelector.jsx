@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
 
-const TeamMemberSelect = ({ members }) => {
+const TeamMemberSelect = ({ members, handleAddTeamMember ,handleRemoveTeamMember}) => {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState([])
   const [open, setOpen] = useState(false)
@@ -11,23 +11,23 @@ const TeamMemberSelect = ({ members }) => {
       m.name.toLowerCase().includes(query.toLowerCase()) &&
       !selected.some((s) => s.id === m.id)
   )
-  console.log(query)
 
   const addMember = (member) => {
     setSelected([...selected, member])
     setQuery('')
     setOpen(false)
+    handleAddTeamMember(member)
   }
 
   const removeMember = (id) => {
     setSelected(selected.filter((m) => m.id !== id))
+    handleRemoveTeamMember(id)
   }
 
   return (
     <div className="m-4 space-y-2 relative">
       <label className="block text-xs p-0.5">Team Members</label>
 
-      {/* Selected chips */}
       <div className="flex flex-wrap gap-2 w-full max-w-lg mx-auto">
         {selected.map((member) => (
           <span
@@ -42,7 +42,6 @@ const TeamMemberSelect = ({ members }) => {
         ))}
       </div>
 
-      {/* Search Input */}
       <input
         type="text"
         placeholder="Search team members..."
@@ -55,7 +54,6 @@ const TeamMemberSelect = ({ members }) => {
         className="w-full px-3 py-2 text-sm outline-none border border-stone-300 rounded shadow"
       />
 
-      {/* Dropdown */}
       {open && filteredMembers.length > 0 && (
         <div className="absolute z-10 w-full bg-white border rounded shadow max-h-48 overflow-y-auto">
           {filteredMembers.map((member) => (
