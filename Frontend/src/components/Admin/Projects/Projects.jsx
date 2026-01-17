@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector} from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import Greeting from '../Dashboard/Greeting'
 import ProjectData from './ProjectData'
 import FilterSection from './FilterSection'
@@ -9,32 +9,39 @@ import CreateProject from './CreateProject/CreateProject'
 
 const Projects = () => {
   const subCurrent = useSelector((state) => state.currentTab.subValue)
+  const [open, setOpen] = useState(false)
 
-  switch (subCurrent) {
-    case "projects": {
-      return (
-        <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
-          <Greeting />
-          <ProjectData />
-          <FilterSection />
-          <TotalProjects />
-        </div>
-      )
-    }
-      break;
+  return (
+    <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
+      <Greeting />
+      <ProjectData />
+      <FilterSection setOpen={setOpen} />
+      <TotalProjects />
+      {
+        open ? <CreateProject open={open} setOpen={setOpen} /> : null
+      }
+    </div>
+  )
 
-    case 'createProject': {
-      return (
-        <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
-          <Greeting />
-          <CreateProject />
-        </div>
-      )
-    }
+  // switch (subCurrent) {
+  //   case "projects": {
+  //   }
+  //     break;
 
-    default:
-      break;
-  }
+  //   case 'createProject': {
+  //     return (
+  //       <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
+  //         <Greeting />
+  //         <ProjectData />
+  //         <FilterSection />
+  //         <TotalProjects /> 
+  //       </div>
+  //     )
+  //   }
+
+  //   default:
+  //     break;
+  // }
 }
 
 export default Projects

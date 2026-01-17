@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import Sidebar from '../Sidebar/Sidebar'
 import Dashboard from "../Dashboard/Dashboard"
 import Projects from '../Projects/Projects'
+import Team from '../Team/Team'
 
 const Admin = () => {
 
@@ -11,7 +12,7 @@ const Admin = () => {
   switch (currentTab) {
     case "dashboard": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
           <Dashboard />
         </main>
@@ -21,7 +22,7 @@ const Admin = () => {
 
     case "projects": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
           <Projects />
         </main>
@@ -31,9 +32,9 @@ const Admin = () => {
 
     case "team": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
-          <Dashboard />
+          <Team />
         </main>
       )
     }
@@ -41,13 +42,13 @@ const Admin = () => {
 
     case "todo's": {
       return (
-        <main className='grid gap-4 p-4 grid-cols-[210px_1fr]'>
+        <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
-          <Dashboard />
         </main>
       )
     }
       break;
+
 
     default: return (<> h3llo</>)
       break;

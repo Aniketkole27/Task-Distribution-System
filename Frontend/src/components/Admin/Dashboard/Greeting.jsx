@@ -1,14 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ThemeToggle from '../../ThemeToggle'
 
 const Greeting = () => {
-    let time = Date()
+    const hours = new Date().getHours()
+    let greet;
+    let date = `${new Date().toLocaleDateString('en-US',{
+        weekday: "long",
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    })}`
+
+    if(hours < 12) greet = "Good Morning"
+    else if(hours < 18) greet = "Good Afternoon"
+    else greet = "Good Night"
+
     return (
         <main className='border-b px-4 mb-4 mt-2 pb-4 border-stone-300'>
             <div className='flex p-0.5 items-center justify-between'>
                 <div>
-                    <span className='block text-sm font-bold'>Good Morning, Aniket</span>
-                    <span className='block text-xs text-stone-500'>{time}</span>
+                    <span className='block text-sm font-bold'>{`${greet}, Aniket`}</span>
+                    <span className='block text-xs text-stone-500'>{date}</span>
                 </div>
                 <ThemeToggle />
                 
@@ -21,3 +33,5 @@ const Greeting = () => {
 }
 
 export default Greeting
+
+

@@ -1,12 +1,12 @@
-import { Activity, ActivitySquare, AreaChart, FolderCheckIcon, LucideActivitySquare, ShieldCheck, UsersRoundIcon } from 'lucide-react'
 import React from 'react'
+import {Users, RocketIcon, Folder } from 'lucide-react'
 
 const StatusCard = () => {
     return (
         <>
-            <Card title={"Total Members"} value={30} icon={<UsersRoundIcon size={16} />} />
-            <Card title={"Total Projects"} value={10} icon={<FolderCheckIcon size={16} />} />
-            <Card title={"Active Projects"} value={5} icon={<ShieldCheck size={16} />} />
+            <Card title={"Total Members"} value={30} icon={<Users size={16} />} />
+            <Card title={"Total Projects"} value={10} icon={<Folder size={16} />} />
+            <Card title={"Active Projects"} value={5} icon={<RocketIcon size={16} />} />
         </>
     )
 }

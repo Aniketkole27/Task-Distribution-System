@@ -3,6 +3,7 @@ import AccountName from './AccountName'
 import SearchBar from './SearchBar'
 import RouteSelect from './RouteSelect'
 import Contribute from './Contribute'
+import CommandMenu from './CommandMenu'
 
 const Sidebar = () => {
   return (

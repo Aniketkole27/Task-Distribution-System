@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 
 const FilterButton = () => {
   const [selected, setSelected] = useState("all")
-  console.log(selected)
   /* TODO :- Write Filter Logic */
 
   return (
