@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import Sidebar from '../Sidebar/Sidebar'
 import Dashboard from "../Dashboard/Dashboard"
 import Projects from '../Projects/Projects'
+import Team from '../Team/Team'
 
 const Admin = () => {
 
@@ -33,6 +34,7 @@ const Admin = () => {
       return (
         <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
+          <Team />
         </main>
       )
     }
@@ -46,6 +48,7 @@ const Admin = () => {
       )
     }
       break;
+
 
     default: return (<> h3llo</>)
       break;
