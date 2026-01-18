@@ -1,7 +1,7 @@
 import React from 'react'
 import SearchProject from '../Projects/SearchProject'
 
-const TopSection = () => {
+const TopSection = ({setOpen}) => {
   return (
     <div className='p-4 mt-4 mx-4 border border-stone-200 rounded'>
       <div className='flex items-center justify-between'>
