@@ -10,7 +10,11 @@ const EditMember = ({setOpen }) => {
                 onClick={(e) => e.stopPropagation()}
                 className='bg-white w-full max-w-2xl mx-auto mt-10 min-h-[80vh] rounded'
             >
+<<<<<<< HEAD
                 {/* {
+=======
+                {
+>>>>>>> auth-feature
                     teamMember.map((member) => (
                         <div key={email}>
                             <h1>{member.name}</h1>
@@ -19,8 +23,12 @@ const EditMember = ({setOpen }) => {
                             <h1>{member.isActive}</h1>
                         </div>
                     ))
+<<<<<<< HEAD
                 } */}
                 <h1>Edit Members</h1>
+=======
+                }
+>>>>>>> auth-feature
             </div>
         </div>
     )

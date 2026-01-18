@@ -1,14 +1,11 @@
-import dotenv from "dotenv"
-import express from 'express'
+import express from "express";
+import "dotenv/config";
+import cors from 'cors';
+import {db} from  "./Models/Database.js"
 
-const app = express()
-dotenv.config()
-const port = process.env.PORT || 8000;
+const app = express();
 
-app.get("/", (req, res) => {
-    res.send("<h1>Next handle kar, Darsha</h1>")
-})
+app.use(cors());
+app.use(express.json());
 
-app.listen(port, () => {
-    console.log("Sever listening on port 8000")
-})
+db();
