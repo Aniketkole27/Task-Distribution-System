@@ -1,5 +1,8 @@
-import { Router } from "express";
+import express from "express";
+import {loginValidation,signUpValidation} from "../MiddleWare/AuthValidation.js"; 
+import {login,register} from "../Controller/AuthController.js"
 
-const route = {Router};
+export const authRoute = express.Router();
 
-route.post('/login/auth');
+authRoute.post("/login",loginValidation,login);
+authRoute.post("/signup",signUpValidation,register);

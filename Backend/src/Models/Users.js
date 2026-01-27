@@ -9,17 +9,11 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique:true
     },
     mobile: {
       type: String,
       required: true,
-      validate: {
-        validator: function (v) {
-          return /^[0-9]{10}$/.test(v);
-        },
-        message: (props) => `${props.value} is not a valid 10-digit number`,
-      },
     },
     password: {
       type: String,
@@ -28,7 +22,7 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ['admin', 'subadmin', 'user'],
-      required: true,
+      default:"user"
     },
     department: {
       type: String,

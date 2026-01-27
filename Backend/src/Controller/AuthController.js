@@ -1,4 +1,4 @@
-import { User } from "../Models/Users";
+import { User } from "../Models/Users.js";
 import bcrypt from "bcrypt";
 import jwtWebToken from "jsonwebtoken";
 
@@ -7,27 +7,28 @@ export const login = async(req,res) =>
 {
     try{
         const{email ,password} = req.body;
-        
-        const user = await User.findOne({email});
+        const userData = await User.findOne({email:email});
+         console.log(email+" "+password+" "+userData);
 
-        if(!user){
+        if(!userData){
             return res.status(403).json({message:"Authentication failed email or password is wrong",success:false});
         }
         
-        const passKey = user.password;
+        const passKey = userData.password;
 
-        const check = await bcrypt.compare(passKey,password);
+        const check = await bcrypt.compare(password, passKey);
+
 
         if(!check)
         {
             return res.status(403).json({message:"Authentication failed email or password is wrong",success:false});
         }
         
-        const jsonwebtoken = jwtWebToken.sign({emai:user.email,id:user.id},process.env.secreat_Key,{expires:'24h'})
+        const jsonwebtoken = jwtWebToken.sign({email:userData.email,id:userData._id},process.env.SK,{expiresIn:'24h'})
 
         return res.status(200).json({message:"Login Successfully",jsonwebtoken,success:true,email,
-                name : user.name,
-                role:user.role});
+                name : userData.name,
+                role:userData.role});
     }
     catch
     {
@@ -38,16 +39,22 @@ export const login = async(req,res) =>
 export const register = async(req,res) =>{
      
 try{
-    const{email,name,password,role} = req.body;
+    const{email,name,mobile,password} = req.body;
     
     const user = await User.findOne({email:email});
     if(user)
     {
-        return res.satus(409).json({message:"User already exists",success: false} );
+        return res.status(409).json({message:"User already exists",success: false} );
     }
 
-    const userModel = new User({name,email,password,role});
-    userModel.password = await bcrypt.hash(password,hash);
+    const hashedPassword = await bcrypt.hash(password,10);
+
+     const userModel = new User({
+      name,
+      email,
+      mobile,
+      password: hashedPassword
+    });
 
     await userModel.save();
 

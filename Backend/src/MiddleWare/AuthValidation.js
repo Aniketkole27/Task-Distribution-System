@@ -16,22 +16,25 @@ export const loginValidation= (req,res,next) =>
     next();
 }
 
-export const signUpValidation = (req,res,next)=>{
-    const joiObj = joi.object({
-        name:joi.string().min().max(12).required(),
-        email:joi.string().email().required(),
-        password:joi.string().min(4).max(10).required(),
-        role:joi.string().required(),
-        department:joi.string(),
-        isActive:joi.boolean
-    })
+export const signUpValidation = (req, res, next) => {
+  const joiObj = joi.object({
+    name: joi.string().min(4).max(12).required(),
+    email: joi.string().email().required(),
+    mobile: joi.string().length(10).required(),
+    password: joi.string().min(4).max(10).required(),
+    department: joi.string().optional()
+  });
 
-    const {error} = joiObj.validate(req.body);
+  const { error } = joiObj.validate(req.body, {
+    stripUnknown: true
+  });
 
-    if(error)
-    {
-        return res.status(400).json({message:"Bad request",success:false});
-    }
+  if (error) {
+    return res.status(400).json({
+      message: error.details[0].message,
+      success: false
+    });
+  }
 
-    next();
-}
+  next();
+};
