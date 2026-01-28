@@ -155,7 +155,7 @@ const InputField = ({
         onChange={onChange}
         type={Component === 'input' ? type : undefined}
         placeholder={placeholder}
-        className='px-3 py-2 text-sm outline-none border w-120 text-black font-medium border-stone-300 rounded shadow'
+        className={`px-3 py-2 text-sm outline-none border w-120 text-black font-medium border-stone-300 rounded shadow ${className}`}
         {...props}
       />
       {/* <input type="text" o /> */}

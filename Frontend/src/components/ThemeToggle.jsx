@@ -1,4 +1,5 @@
 import React, { use, useState } from 'react'
+import {MoonIcon, Sun} from 'lucide-react'
 
 const ThemeToggle = () => {
     const [isDarkMode, setIsDarkMode] = useState(false)
@@ -12,8 +13,10 @@ const ThemeToggle = () => {
         }
     }
     return (
-        <button onClick={handleToggle} className='px-2 py-1 text-sm text-black rounded focus:outline-none hover:text-violet-500 hover:bg-violet-200 cursor-pointer transition-colors duration-300 bg-stone-200'>
-            Theme
+        <button onClick={handleToggle} className='px-2 py-1 text-sm text-black rounded focus:outline-none hover:text-violet-500 hover:bg-violet-200 cursor-pointer transition-colors duration-300'>
+            {
+                isDarkMode ? <MoonIcon /> : <Sun />  
+            }
         </button>
     )
 }
