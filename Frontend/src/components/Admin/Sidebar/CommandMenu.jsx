@@ -1,5 +1,5 @@
 import { Command } from 'cmdk'
-import { Delete, Eye, Folder, LucideDelete, PlusIcon, ThermometerSnowflake } from 'lucide-react'
+import { Delete, Eye, Folder, FolderCheck, FolderClockIcon, LucideDelete, PlusIcon, ThermometerSnowflake, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 const CommandMenu = ({ open, setOpen }) => {
 
@@ -57,7 +57,7 @@ const CommandMenu = ({ open, setOpen }) => {
                         </Command.Item>
                         {/* <Command.Separator /> */}
                         <Command.Item className='flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2'>
-                            <LucideDelete size="14" />
+                            <Trash2 size="14" />
                             Delete Member
                         </Command.Item>
                     </Command.Group>
@@ -67,16 +67,16 @@ const CommandMenu = ({ open, setOpen }) => {
                         className="text-sm mb-3 text-stone-400"
                     >
                         <Command.Item className={`flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2`}>
-                            <Folder size="14"/>
+                            <FolderCheck size="14"/>
                             New Project
                         </Command.Item>
                         <Command.Item className='flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2'>
-                            
+                            <FolderClockIcon size="14" />
                             Project Progress
                         </Command.Item>
                         {/* <Command.Separator /> */}
                         <Command.Item className='flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2'>
-                            <ThermometerSnowflake />
+                            
                             Assign Task
                         </Command.Item>
                     </Command.Group>
