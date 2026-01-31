@@ -9,8 +9,6 @@ function CreateProject({ setOpen }) {
     { id: 3, name: 'Pitter Parker' },
     { id: 4, name: 'Picky Blander' },
     { id: 5, name: 'John Carton' },
-    { id: 6, name: 'Picky Blander' },
-    { id: 7, name: 'John Carton' },
   ]
 
   useEffect(() => {
