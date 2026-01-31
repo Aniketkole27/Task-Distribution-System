@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
-const TotalProjects = () => {
+const TotalProjects = ({projectList}) => {
+
     return (
         <div className='border rounded border-stone-300 p-4 mx-4 mt-6'>
             <h2 className='mb-8 test-sm font-bold'>All Projects</h2>
-            <ProjectDiv title={"Task Distribution System "} dueDate={"20/1/2026"} status={"pending"} />
-            <ProjectDiv title={"Task Distribution System "} dueDate={"20/1/2026"} status={"completed"} />
-            <ProjectDiv title={"Task Distribution System "} dueDate={"20/1/2026"} status={"failed"} />
-            <ProjectDiv title={"Task Distribution Distribution System "} dueDate={"20/1/2026"} status={"pending"} />
+            {
+                projectList.map((project) => ( 
+                    <ProjectDiv
+                        title={project.name}
+                        dueDate={project.dueDate} 
+                        status={project.status}
+                    />
+                ))
+            }
         </div>
     )
 }
@@ -15,13 +21,13 @@ const TotalProjects = () => {
 export default TotalProjects
 
 
-const ProjectDiv = ({ title, dueDate, status, className="" }) => {
+const ProjectDiv = ({ title, dueDate, status, className = "" }) => {
     const [color, setColor] = useState("")
     useEffect(() => {
         if (status === "pending") setColor("bg-yellow-100")
         else if (status === "failed") setColor("bg-red-100")
         else setColor("bg-green-200")
-    }, [status]) 
+    }, [status])
 
     return (
         <div className='px-4 py-4 mb-4 border flex items-center justify-between rounded shadow hover:bg-stone-200 cursor-pointer border-stone-300'>
