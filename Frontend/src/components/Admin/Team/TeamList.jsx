@@ -4,7 +4,7 @@ import PrintList from './DisplayMembers'
 const TeamList = () => {
     const teamMembers = [
         {
-            id: 1,
+            id: "admin-001",
             name: "Smitaa Kasar",
             email: "smitaakasar@gmail.com",
             mobile: "9923345899",
@@ -12,7 +12,7 @@ const TeamList = () => {
             isActive: true
         },
         {
-            id: 2,
+            id: "user-001",
             name: "Picky Blander",
             email: "pickyblander@gmail.com",
             mobile: "2334512310",
@@ -20,7 +20,7 @@ const TeamList = () => {
             isActive: true
         },
         {
-            id: 3,
+            id: "user-002",
             name: "Iron Man",
             email: "ironman@gmail.com",
             mobile: "9232298321",
@@ -28,7 +28,7 @@ const TeamList = () => {
             isActive: true
         },
         {
-            id: 4,
+            id: "user-003",
             name: "Hulk",
             email: "hulk@gmail.com",
             mobile: "2334512310",
@@ -36,7 +36,7 @@ const TeamList = () => {
             isActive: true
         },
         {
-            id: 5,
+            id: "user-004",
             name: "Walter White",
             email: "walterwhite@gmail.com",
             mobile: "2334512310",

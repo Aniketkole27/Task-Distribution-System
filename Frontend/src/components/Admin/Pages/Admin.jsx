@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Sidebar from '../Sidebar/Sidebar'
 import Dashboard from "../Dashboard/Dashboard"
 import Projects from '../Projects/Projects'
 import Team from '../Team/Team'
+import ProjectInfo from '../Projects/ProjectInfo/ProjectInfo'
 
 const Admin = () => {
 
   const currentTab = useSelector((state) => state.currentTab.value)
+  const projectInfo = useSelector(state => state.currentTab.ProjectInfo)
 
   switch (currentTab) {
     case "dashboard": {
@@ -24,7 +26,9 @@ const Admin = () => {
       return (
         <main className='grid gap-4 p-4 grid-cols-[200px_1fr]'>
           <Sidebar />
-          <Projects />
+          {
+            false ? <ProjectInfo /> : <Projects />
+          }
         </main>
       )
     }
@@ -51,7 +55,6 @@ const Admin = () => {
 
 
     default: return (<> h3llo</>)
-      break;
   }
 
 

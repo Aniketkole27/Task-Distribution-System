@@ -1,18 +1,20 @@
 import { Filter } from 'lucide-react'
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setSelected } from "../app/projectSlice"
 
 const FilterButton = () => {
-  const [selected, setSelected] = useState("all")
   /* TODO :- Write Filter Logic */
+  const dispatch = useDispatch()
 
   return (
     <div className="flex gap-3 items-center">
       <h2><Filter size="16" /></h2>
       <div className='border border-stone-300 rounded shadow p-1'>
-        <select onChange={(e) => setSelected(e.target.value)} className='outline-none cursor-pointer'>
+        <select onChange={(e) => dispatch(setSelected(e.target.value))} className='outline-none cursor-pointer'>
           <option value="all">All</option>
           <option value="completed">Completed</option>
-          <option value="pending">Pending</option>
+          <option value="in-progress">in-progress</option>
           <option value="failed">Failed</option>
         </select>
       </div>

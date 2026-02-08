@@ -5,7 +5,7 @@ import { store } from './components/Admin/app/store'
 import LocomotiveScroll from 'locomotive-scroll';
 
 function App() {
-  const scroll = new LocomotiveScroll();
+  // const scroll = new LocomotiveScroll();
   return (
     <>
       <div className='max-w-screen-2xl mx-auto 2xl:8px'>
