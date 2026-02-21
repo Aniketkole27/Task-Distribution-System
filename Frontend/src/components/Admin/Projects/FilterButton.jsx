@@ -1,7 +1,7 @@
 import { Filter } from 'lucide-react'
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setSelected } from "../app/projectSlice"
+import { setSelected } from "../app/projectDataSlice"
 
 const FilterButton = () => {
   /* TODO :- Write Filter Logic */

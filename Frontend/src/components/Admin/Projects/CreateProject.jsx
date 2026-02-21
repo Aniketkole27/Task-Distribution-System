@@ -149,6 +149,7 @@ const InputField = ({
     <div className='m-4 space-y-1.5'>
       <label className='block text-xs p-0.5'>{label}</label>
       <Component
+        required
         value={value}
         onChange={onChange}
         type={Component === 'input' ? type : undefined}

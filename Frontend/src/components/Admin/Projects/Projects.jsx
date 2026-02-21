@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 import Greeting from '../Dashboard/Greeting'
 import ProjectData from './ProjectData'
 import FilterSection from './FilterSection'
 import TotalProjects from './TotalProjects'
 import CreateProject from './CreateProject'
+import NavigationSection from './ProjectInfo/NavigationSection'
+import ProjectStatistic from './ProjectInfo/ProjectStatistic'
+import FilterTasks from './ProjectInfo/FilterTasks'
+import TaskList from './ProjectInfo/TaskList'
+import { useSelector, useDispatch } from 'react-redux'
+import { setData } from '../app/projectDataSlice'
 
 
 const Projects = () => {
-  const subCurrent = useSelector((state) => state.currentTab.subValue)
+  // const subCurrent = useSelector((state) => state.currentTab.subValue)
   const [open, setOpen] = useState(false)
+  const [projectDetails, setProjectDetails] = useState(false)
+  const [clickedProject, setClickedProject] = useState("")
 
   const projectList = [
     {
@@ -29,7 +36,9 @@ const Projects = () => {
 
       tasks: [
         { id: "task-001", title: "Design UI", priority: "high", description: "Create dashboard layout", assignedTo: "Aniket Kole", assignedBy: "admin", status: "completed" },
-        { id: "task-002", title: "Setup Backend", priority: "medium", description: "Configure Express server", assignedTo: "Iron Man", assignedBy: "admin", status: "in-review" }
+        { id: "task-002", title: "Setup Backend", priority: "medium", description: "Configure Express server", assignedTo: "Iron Man", assignedBy: "admin", status: "in-review" },
+        { id: "task-003", title: "Product API", priority: "high", description: "Build product CRUD APIs", assignedTo: "Peter Parker", assignedBy: "Bruce Wayne", status: "completed" }
+
       ]
     },
 
@@ -48,6 +57,7 @@ const Projects = () => {
       ],
 
       tasks: [
+        { id: "task-001", title: "Design UI", priority: "high", description: "Create dashboard layout", assignedTo: "Aniket Kole", assignedBy: "admin", status: "completed" },
         { id: "task-003", title: "Product API", priority: "high", description: "Build product CRUD APIs", assignedTo: "Peter Parker", assignedBy: "Bruce Wayne", status: "completed" }
       ]
     },
@@ -110,17 +120,39 @@ const Projects = () => {
     }
   ];
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setData(projectList))
+  }, [])
+
+  const projectData = useSelector(state => state.projectData.projectData);
+  // console.log(projectData)
+
   return (
-    <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
-      <Greeting />
-      <ProjectData />
-      <FilterSection setOpen={setOpen} />
-      <TotalProjects projectList={projectList} />
-      {
-        open ? <CreateProject open={open} setOpen={setOpen} /> : null
-      }
-    </div>
+    !projectDetails ? (
+      <div className='bg-white text-black rounded-lg pb-3 shadow h-full' >
+        <Greeting />
+        <ProjectData />
+        <FilterSection setOpen={setOpen} />
+        <TotalProjects setProjectDetails={setProjectDetails} setClickedProject={setClickedProject} />
+        {
+          open ? <CreateProject open={open} setOpen={setOpen} /> : null
+        }
+      </div >
+    ) : (
+      <div className='bg-white text-black rounded-lg pb-3 shadow h-full' >
+        <Greeting />
+        <NavigationSection setProjectDetails={setProjectDetails} />
+        <ProjectStatistic clickedProject={clickedProject} />
+        <FilterTasks />
+        <TaskList clickedProject={clickedProject} />
+      </div>
+    )
+
   )
+
+
 
   // switch (subCurrent) {
   //   case "projects": {

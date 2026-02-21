@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setProjectInfo } from '../app/currentTabSlice';
 
-const TotalProjects = ({ projectList }) => {
+const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
 
-    const searchResult = useSelector((state) => state.project.projectSearch)
-    const selectedFilter = useSelector(state => state.project.selected);
-    const dispatch = useDispatch();
+    const projectData = useSelector((state) => state.projectData.projectData)
+    const searchResult = useSelector((state) => state.projectData.projectSearch)
+    const selectedFilter = useSelector(state => state.projectData.selected);
 
-    const filteredResult = projectList.filter((project) =>
+    const filteredResult = projectData.filter((project) =>
         (!searchResult || project.name.toLowerCase().includes(searchResult.toLowerCase())) &&
         (selectedFilter === "all" || project.status.toLowerCase().includes(selectedFilter.toLowerCase()))
     )
@@ -19,9 +19,12 @@ const TotalProjects = ({ projectList }) => {
             {
                 filteredResult.map((project) => (
                     <ProjectDiv
+                        id={project.id}
                         title={project.name}
                         dueDate={project.dueDate}
                         status={project.status}
+                        setProjectDetails={setProjectDetails}
+                        setClickedProject={setClickedProject}
                     />
                 ))
             }
@@ -35,7 +38,7 @@ const TotalProjects = ({ projectList }) => {
 export default TotalProjects
 
 
-const ProjectDiv = ({ title, dueDate, status, className = "" }) => {
+const ProjectDiv = ({ id, title, dueDate, status, className = "", setProjectDetails, setClickedProject }) => {
     const [color, setColor] = useState("")
     useEffect(() => {
         if (status === "in-progress") setColor("bg-yellow-100")
@@ -45,6 +48,11 @@ const ProjectDiv = ({ title, dueDate, status, className = "" }) => {
 
     return (
         <div
+            key={id}
+            onClick={() => {
+                setProjectDetails(true)
+                setClickedProject(id)
+            }}
             className='px-4 py-4 mb-4 border flex items-center justify-between rounded shadow hover:bg-stone-200 cursor-pointer border-stone-300'>
             <div className='space-y-1'>
                 <p className='text-sm text-black font-semibold'>{title}</p>

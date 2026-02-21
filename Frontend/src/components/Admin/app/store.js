@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import currentTabSlice from './currentTabSlice'
 import teamSlice from './teamSlice'
-import projectSlice from './projectSlice'
+import projectDataSlice from "../app/projectDataSlice"
 
 
 export const store = configureStore({
     reducer: {
         currentTab: currentTabSlice,
         team: teamSlice,
-        project: projectSlice
+        projectData: projectDataSlice
     }
 })
