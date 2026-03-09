@@ -4,11 +4,14 @@ import Sidebar from '../Sidebar/Sidebar'
 import Dashboard from "../Dashboard/Dashboard"
 import Projects from '../Projects/Projects'
 import Team from '../Team/Team'
+import Todos from '../Todos/Todos'
+import { Calendar } from 'lucide-react'
+import AcademicCalender from '../AcademicCalender/AcademicCalender'
 
 const Admin = () => {
 
   const currentTab = useSelector((state) => state.currentTab.value)
-  const projectInfo = useSelector(state => state.currentTab.ProjectInfo)
+  // const projectInfo = useSelector(state => state.currentTab.ProjectInfo)
 
   const renderContent = () => {
     switch (currentTab) {
@@ -19,10 +22,13 @@ const Admin = () => {
         return <Projects />;
 
       case "team":
-        return <Team />;  
+        return <Team />;
 
       case "todo's":
         return <Todos />;
+
+      case "academic-calender":
+        return <AcademicCalender />
 
       default:
         return <>h3llo</>;

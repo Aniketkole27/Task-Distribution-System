@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 const TaskList = ({ clickedProject }) => {
   const projectData = useSelector(state => state.projectData.projectData);
   const projectInfo = projectData.filter((project) => project.id === clickedProject)[0]
-  console.log(projectInfo)
+  // console.log(projectInfo)
   return (
     <div className='m-4'>
       {/* All Task */}

@@ -10,6 +10,7 @@ import FilterTasks from './ProjectInfo/FilterTasks'
 import TaskList from './ProjectInfo/TaskList'
 import { useSelector, useDispatch } from 'react-redux'
 import { setData } from '../app/projectDataSlice'
+import CreateTask from './ProjectInfo/CreateTask'
 
 
 const Projects = () => {
@@ -17,6 +18,7 @@ const Projects = () => {
   const [open, setOpen] = useState(false)
   const [projectDetails, setProjectDetails] = useState(false)
   const [clickedProject, setClickedProject] = useState("")
+  const [openTask, setOpenTask] = useState(false)
 
   const projectList = [
     {
@@ -143,7 +145,10 @@ const Projects = () => {
     ) : (
       <div className='bg-white text-black rounded-lg pb-3 shadow h-full' >
         <Greeting />
-        <NavigationSection setProjectDetails={setProjectDetails} />
+        {
+          openTask ? <CreateTask openTask={openTask} setOpenTask={setOpenTask} /> : null
+        }
+        <NavigationSection setProjectDetails={setProjectDetails} setOpenTask={setOpenTask} />
         <ProjectStatistic clickedProject={clickedProject} />
         <FilterTasks />
         <TaskList clickedProject={clickedProject} />

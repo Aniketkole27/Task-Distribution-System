@@ -16,7 +16,7 @@ const Greeting = () => {
     else greet = "Good Night"
 
     return (
-        <main className='border-b px-4 mb-4 mt-2 pb-4 border-stone-300'>
+        <main className='border-b px-4 mb-4 mt-1 pb-4 border-stone-300'>
             <div className='flex p-0.5 items-center justify-between'>
                 <div>
                     <span className='block text-sm font-bold'>{`${greet}, Aniket`}</span>

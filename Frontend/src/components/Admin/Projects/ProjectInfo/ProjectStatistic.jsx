@@ -6,7 +6,7 @@ const ProjectStatistic = ({ clickedProject }) => {
   const allData = useSelector(state => state.projectData.projectData);
   const selectedProject = allData.filter((data) => data.id === clickedProject)[0]
   const taskInfoObject = {
-    totalTask: selectedProject.tasks.length,
+    totalTask: selectedProject.tasks.length, 
     completed: selectedProject.tasks.filter((task) => task.status === "completed").length,
     inReview: selectedProject.tasks.filter((task) => task.status === "in-review").length,
     failed: selectedProject.tasks.filter((task) => task.status === "failed").length,

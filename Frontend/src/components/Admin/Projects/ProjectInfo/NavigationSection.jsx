@@ -1,7 +1,8 @@
 import { ArrowLeft, ArrowUpRight, Folder, Slash } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 
-const NavigationSection = ({ setProjectDetails }) => {
+const NavigationSection = ({ setProjectDetails, setOpenTask }) => {
+   
     return (
         <div className='flex justify-between items-center mx-4'>
             <div
@@ -23,6 +24,7 @@ const NavigationSection = ({ setProjectDetails }) => {
             </div>
             <div className='flex flex-col gap-2'>
                 <button
+                    onClick={() => setOpenTask(true)}
                     className='cursor-pointer text-shadow-xs border border-stone-300  px-4 py-2 rounded font-medium text-black shadow hover:border-blue-300 hover:bg-blue-100  h hover:text-blue-500 active:bg-blue-200 transition-colors duration-300'
                 >
                     Create Task
