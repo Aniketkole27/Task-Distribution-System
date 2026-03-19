@@ -1,7 +1,7 @@
 import React from 'react'
-import Greeting from './Greeting'
-import Grid from './Grid'
-import Overview from './Overview'
+import Greeting from '@shared/components/Greeting'
+import Grid from './components/Grid'
+import Overview from './components/Overview'
 
 const Dashboard = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { handleAdd } from '../app/todoSlice';
+import { handleAdd } from '@app/todoSlice';
 import TodoFormate from './TodoFormate';
 
 const TaskList = () => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CheckCheck, CheckCircle, Edit, Save, Trash2 } from 'lucide-react'
-import { handleComplete, handleDelete, handleEdit } from '../app/todoSlice';
+import { handleComplete, handleDelete, handleEdit } from '@app/todoSlice';
 
 const TodoFormate = ({ task }) => {
     const dispatch = useDispatch();

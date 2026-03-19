@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { handleAdd } from '../app/todoSlice'
+import { handleAdd } from '@app/todoSlice'
 
 const AddTask = ({ searchResult, setSearchResult }) => {
     const dispatch = useDispatch()
