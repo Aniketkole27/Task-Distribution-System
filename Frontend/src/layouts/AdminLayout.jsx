@@ -7,16 +7,18 @@ import Team from '@features/Team/Team'
 import Todos from '@features/Todos/Todos'
 import { Calendar, Settings } from 'lucide-react'
 import AcademicCalender from '@features/AcademicCalender/AcademicCalender'
+import ProjectDetails from '../features/Projects/ProjectDetails';
 
 const AdminLayout = () => {
   return (
     <main className='grid gap-4 p-4 grid-cols-[200px_1fr]' >
       <Sidebar />
-      
+
       <Routes>
-        <Route path="/" element={<Navigate to="dashboard" />} />
+        {/* <Route path="/" element={<Navigate to="dashboard" />} /> */}
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="projects" element={<Projects />} />
+        <Route path="projects/:id" element={<ProjectDetails />} />
         <Route path="team" element={<Team />} />
         <Route path="todos" element={<Todos />} />
         <Route path="academic-calendar" element={<AcademicCalender />} />

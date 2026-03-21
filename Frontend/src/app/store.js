@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import currentTabSlice from './currentTabSlice'
+import currentUserSlice from './currentUserSlice'
 import teamSlice from './teamSlice'
 import projectDataSlice from "./projectDataSlice"
 import todoSlice from "./todoSlice"
@@ -7,7 +7,7 @@ import todoSlice from "./todoSlice"
 
 export const store = configureStore({
     reducer: {
-        currentTab: currentTabSlice,
+        currentUser: currentUserSlice,
         team: teamSlice,
         projectData: projectDataSlice,
         todos: todoSlice

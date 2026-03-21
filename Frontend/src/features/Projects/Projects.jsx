@@ -14,11 +14,8 @@ import CreateTask from './ProjectInfo/CreateTask'
 
 
 const Projects = () => {
-  // const subCurrent = useSelector((state) => state.currentTab.subValue)
   const [open, setOpen] = useState(false)
-  const [projectDetails, setProjectDetails] = useState(false)
-  const [clickedProject, setClickedProject] = useState("")
-  const [openTask, setOpenTask] = useState(false)
+  const dispatch = useDispatch();
 
   const projectList = [
     {
@@ -122,61 +119,22 @@ const Projects = () => {
     }
   ];
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(setData(projectList))
   }, [])
 
-  const projectData = useSelector(state => state.projectData.projectData);
 
   return (
-    !projectDetails ? (
-      <div className='bg-white text-black rounded-lg pb-3 shadow h-full' >
-        <Greeting />
-        <ProjectData />
-        <FilterSection setOpen={setOpen} />
-        <TotalProjects setProjectDetails={setProjectDetails} setClickedProject={setClickedProject} />
-        {
-          open ? <CreateProject open={open} setOpen={setOpen} /> : null
-        }
-      </div >
-    ) : (
-      <div className='bg-white text-black rounded-lg pb-3 shadow h-full' >
-        <Greeting />
-        {
-          openTask ? <CreateTask openTask={openTask} setOpenTask={setOpenTask} /> : null
-        }
-        <NavigationSection setProjectDetails={setProjectDetails} setOpenTask={setOpenTask} />
-        <ProjectStatistic clickedProject={clickedProject} />
-        <FilterTasks />
-        <TaskList clickedProject={clickedProject} />
-      </div>
-    )
+    <div className='bg-white text-black rounded-lg pb-3 shadow h-full' >
+      <Greeting />
+      <ProjectData />
+      <FilterSection setOpen={setOpen} />
+      <TotalProjects />
+      {open ? <CreateProject open={open} setOpen={setOpen} /> : null}
+    </div >
 
   )
 
-
-
-  // switch (subCurrent) {
-  //   case "projects": {
-  //   }
-  //     break;
-
-  //   case 'createProject': {
-  //     return (
-  //       <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
-  //         <Greeting />
-  //         <ProjectData />
-  //         <FilterSection />
-  //         <TotalProjects /> 
-  //       </div>
-  //     )
-  //   }
-
-  //   default:
-  //     break;
-  // }
 }
 
 export default Projects

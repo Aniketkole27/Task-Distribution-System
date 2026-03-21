@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
     const projectData = useSelector((state) => state.projectData.projectData)
@@ -41,6 +42,7 @@ export default TotalProjects
 
 const ProjectItem = ({ id, title, dueDate, status, setProjectDetails, setClickedProject }) => {
 
+    const navigate = useNavigate()
     const color =
         status === "active"
             ? "bg-yellow-100"
@@ -50,10 +52,11 @@ const ProjectItem = ({ id, title, dueDate, status, setProjectDetails, setClicked
 
     return (
         <div
-            onClick={() => {
-                setProjectDetails(true)
-                setClickedProject(id)
-            }}
+            // onClick={() => {
+            //     setProjectDetails(true)
+            //     setClickedProject(id)
+            // }}
+            onClick={() => navigate(`/admin/projects/${id}`)}
             className='px-4 py-4 mb-4 border flex items-center justify-between rounded shadow hover:bg-stone-200 cursor-pointer border-stone-300'
         >
             <div className='space-y-1'>

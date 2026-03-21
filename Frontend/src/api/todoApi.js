@@ -1,4 +1,4 @@
-import API from "../axiosInstance";
+import API from "./axiosInstance";
 
 export const fetchTodos = async () => {
         return API.get('/todos/');
