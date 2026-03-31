@@ -80,8 +80,14 @@ export default function SignIn() {
                     {errors.password && <span className="text-red-500 text-sm mt-1 block">{errors.password}</span>}
                 </div>
 
-                <button type="submit" disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 rounded-lg transition">
+                <button type="submit" disabled={loading} className=" relative w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 rounded-lg transition">
                     {loading ? 'Signing in...' : 'Sign In'}
+                    {
+                        loading &&
+                        <span className="absolute inset-0 flex left-30 items-center justify-center">
+                            <span className="w-5 h-5 border-2 border-white  border-t-transparent rounded-full animate-spin"></span>
+                        </span>
+                    }
                 </button>
 
                 <div className="text-center mt-1 flex items-center justify-center">

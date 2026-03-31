@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Greeting from '@shared/components/Greeting'
 import Grid from './components/Grid'
 import Overview from './components/Overview'
@@ -10,7 +10,10 @@ const Dashboard = () => {
   const { loading, userProfile, refetch } = useUserProfile()
 
   const dispatch = useDispatch();
+
   dispatch(updateProfile(userProfile))
+  useEffect(() => {
+  }, [])
 
 
   return (
