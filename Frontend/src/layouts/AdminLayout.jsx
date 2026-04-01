@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from '@features/Sidebar/Sidebar'
-import Dashboard from "@features/Dashboard/Dashboard"
-import Projects from '@features/Projects/Projects'
-import Team from '@features/Team/Team'
-import Todos from '@features/Todos/Todos'
-import { Calendar, Settings } from 'lucide-react'
-import AcademicCalender from '@features/AcademicCalender/AcademicCalender'
-import ProjectDetails from '../features/Projects/ProjectDetails';
+
+import {
+  Sidebar, Dashboard, Projects, Team, Todos, Settings, AcademicCalender, ProjectDetails,
+  useUserProfile, updateProfile, useDispatch
+} from './index'
 
 const AdminLayout = () => {
+  const dispatch = useDispatch();
+  const { loading, userProfile, refetch } = useUserProfile()
+
+  useEffect(() => {
+    if (userProfile) {
+      dispatch(updateProfile(userProfile))
+    }
+  }, [userProfile])
+
+  dispatch(updateProfile(userProfile))
+
   return (
     <main className='grid gap-4 p-4 grid-cols-[200px_1fr]' >
       <Sidebar />

@@ -2,19 +2,21 @@ import React, { useEffect } from 'react'
 import Greeting from '@shared/components/Greeting'
 import Grid from './components/Grid'
 import Overview from './components/Overview'
-import { useUserProfile } from './hook/useUserProfile'
+import { useProjects } from './hook/useProjects'
 import { useDispatch } from 'react-redux'
-import { updateProfile } from '../../app/currentUserSlice'
+import { setData } from '../../app/projectDataSlice'
+
 
 const Dashboard = () => {
-  const { loading, userProfile, refetch } = useUserProfile()
-
   const dispatch = useDispatch();
+  const { loading, allProjects, refetch } = useProjects()
+  // console.log(allProjects)
 
-  dispatch(updateProfile(userProfile))
   useEffect(() => {
-  }, [])
-
+    if (allProjects) {
+      dispatch(setData(allProjects))
+    }
+  }, [allProjects])
 
   return (
     <div className='bg-[#FFFFFF] text-black rounded-lg pb-3 shadow h-full'>
