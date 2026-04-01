@@ -11,7 +11,7 @@ const API = axios.create({
 
 // Request Interceptor
 API.interceptors.request.use((config) => {
-    console.log("Request Config:", config);
+    // console.log("Request Config:", config);
     return config;
 });
 
