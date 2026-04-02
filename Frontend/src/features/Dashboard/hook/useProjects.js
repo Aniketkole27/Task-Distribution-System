@@ -6,9 +6,10 @@ const useProjects = () => {
     const [loading, setLoading] = useState(true)
 
     const getAllProjects = async () => {
+        setLoading(false)
         try {
             const response = await fetchAllProjects();
-            setAllProjects(response.data.projects)
+            setAllProjects(response?.data?.projects || [])
             console.log("All projects = ", response.data.projects)
         } catch (error) {
             console.log("Error fetching projects = ", error)

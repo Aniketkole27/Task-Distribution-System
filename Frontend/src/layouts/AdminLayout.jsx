@@ -8,15 +8,14 @@ import {
 
 const AdminLayout = () => {
   const dispatch = useDispatch();
-  const { loading, userProfile, refetch } = useUserProfile()
+  const { userProfile } = useUserProfile()
 
   useEffect(() => {
     if (userProfile) {
       dispatch(updateProfile(userProfile))
     }
-  }, [userProfile])
+  }, [userProfile, dispatch])
 
-  dispatch(updateProfile(userProfile))
 
   return (
     <main className='grid gap-4 p-4 grid-cols-[200px_1fr]' >

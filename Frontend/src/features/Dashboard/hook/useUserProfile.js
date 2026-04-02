@@ -9,7 +9,7 @@ const useUserProfile = () => {
         try {
             const response = await fetchUserProfile();
             setUserProfile(response.data.user);
-            console.log("User Profile data = ", response.data.user)
+            // console.log("User Profile data = ", response.data.user)
         } catch (error) {
             console.error('Error fetching user profile:', error);
         } finally {

@@ -13,10 +13,10 @@ const Dashboard = () => {
   // console.log(allProjects)
 
   useEffect(() => {
-    if (allProjects) {
+    if (allProjects.length > 0) {
       dispatch(setData(allProjects))
     }
-  }, [allProjects])
+  }, [allProjects, dispatch])
 
   return (
     <div className='bg-[#FFFFFF] text-black rounded-lg pb-3 shadow h-full'>
