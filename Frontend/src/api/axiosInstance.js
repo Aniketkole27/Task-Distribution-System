@@ -11,14 +11,14 @@ const API = axios.create({
 
 // Request Interceptor
 API.interceptors.request.use((config) => {
-    // console.log("Request Config:", config);
+    console.log("Request Config:", config);
     return config;
 });
 
 // Response Interceptor
 API.interceptors.response.use(
     (response) => {
-        console.log("Response:", response);
+        // console.log("Response:", response);
         return response;
     },
     (error) => {

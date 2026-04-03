@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux'
 
 const ProjectData = () => {
 
-    const projectData = useSelector((state) => state.projectData.projectData)
+    const projectData = useSelector((state) => state.projectData.data)
     const projectInfoObject = {
         total: projectData.length,
         completed: projectData.filter((project) => project.status === "completed").length,
-        active: projectData.filter((project) => project.status === "in-progress").length,
+        active: projectData.filter((project) => project.status === "active").length,
         failed: projectData.filter((project) => project.status === "failed").length,
     }
 

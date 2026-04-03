@@ -17,7 +17,6 @@ const ProjectDetails = () => {
         <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
 
             <Greeting />
-
             {openTask && (
                 <CreateTask openTask={openTask} setOpenTask={setOpenTask} />
             )}

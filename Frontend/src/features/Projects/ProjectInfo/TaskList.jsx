@@ -2,14 +2,14 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 const TaskList = ({ clickedProject }) => {
-  const projectData = useSelector(state => state.projectData.projectData);
-  const projectInfo = projectData.find((project) => project.id === clickedProject)
+  const projectData = useSelector(state => state.projectData.data);
+  const projectInfo = projectData.find((project) => project._id === clickedProject)
 
   return (
     <div className='m-4'>
       {/* All Task */}
       <div>
-        <TaskFormate key={projectInfo.title} projectInfo={projectInfo} />
+        <TaskFormate key={projectInfo.name} projectInfo={projectInfo} />
       </div>
     </div>
   )

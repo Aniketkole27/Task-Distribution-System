@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    projectData: [],
+    data: [],
     projectSearch: "",
     selected: "all"
 }
@@ -11,7 +11,7 @@ const projectDataSlice = createSlice({
     initialState,
     reducers: {
         setData: (state, action) => {
-            state.projectData = action.payload;
+            state.data = action.payload;
         },
         setProjectSearch(state, action) {
             state.projectSearch = action.payload

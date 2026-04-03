@@ -32,7 +32,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const ProjectStatistic = ({ clickedProject }) => {
-  const allData = useSelector(state => state.projectData.projectData);
+  const allData = useSelector(state => state.projectData.data);
 
   const selectedProject = allData.find(
     (data) => data.id === clickedProject

@@ -24,7 +24,7 @@ const Greeting = () => {
                 <div>
                     <span className='block text-sm font-bold'>
                         {
-                            profile?.name? (
+                            profile?.name ? (
                                 `${greet}, ${profile.name}`
                             ) : (
                                 <div className="h-4 w-40 bg-gray-300 rounded animate-pulse"></div>

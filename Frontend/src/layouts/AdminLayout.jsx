@@ -3,18 +3,22 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import {
   Sidebar, Dashboard, Projects, Team, Todos, Settings, AcademicCalender, ProjectDetails,
-  useUserProfile, updateProfile, useDispatch
+  useUserProfile, updateProfile, useDispatch, useProjects, setData
 } from './index'
 
 const AdminLayout = () => {
   const dispatch = useDispatch();
   const { userProfile } = useUserProfile()
+  const { allProjects } = useProjects()
 
   useEffect(() => {
     if (userProfile) {
       dispatch(updateProfile(userProfile))
     }
-  }, [userProfile, dispatch])
+    if (allProjects.length > 0) {
+      dispatch(setData(allProjects))
+    }
+  }, [allProjects, userProfile, dispatch])
 
 
   return (

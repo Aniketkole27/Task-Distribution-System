@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
-    const projectData = useSelector((state) => state.projectData.projectData)
+    const projectData = useSelector((state) => state.projectData.data)
     const searchResult = useSelector((state) => state.projectData.projectSearch)
     const selectedFilter = useSelector(state => state.projectData.selected)
 
@@ -20,8 +20,8 @@ const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
 
             {filteredResult.map((project) => (
                 <ProjectItem
-                    key={project.id}
-                    id={project.id}
+                    key={project._id}
+                    id={project._id}
                     title={project.name}
                     dueDate={project.dueDate}
                     status={project.status}
@@ -31,7 +31,7 @@ const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
             ))}
 
             {filteredResult.length === 0 && (
-                <h1 className='text-xl font-semibold'>Project Not Found !</h1>
+                <h1 className='text-center text-sm font-medium text-gray-500'>No projects found</h1>
             )}
         </div>
     )

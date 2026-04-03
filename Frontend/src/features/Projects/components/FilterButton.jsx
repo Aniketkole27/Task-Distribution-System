@@ -1,6 +1,6 @@
 import { Filter } from 'lucide-react'
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setSelected } from "@app/projectDataSlice"
 
 const FilterButton = () => {
@@ -14,7 +14,7 @@ const FilterButton = () => {
         <select onChange={(e) => dispatch(setSelected(e.target.value))} className='outline-none cursor-pointer'>
           <option value="all">All</option>
           <option value="completed">Completed</option>
-          <option value="in-progress">in-progress</option>
+          <option value="active">active</option>
           <option value="failed">Failed</option>
         </select>
       </div>
