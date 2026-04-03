@@ -8,6 +8,8 @@ import AcademicCalender from '@features/AcademicCalender/AcademicCalender'
 import ProjectDetails from '../features/Projects/ProjectDetails';
 import { updateProfile } from '../app/currentUserSlice';
 import { useUserProfile } from '@features/Dashboard/hook/useUserProfile';
+import { useProjects } from "../features/Dashboard/hook/useProjects"
+import { setData } from '../app/projectDataSlice'
 
 import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -28,4 +30,6 @@ export {
     Routes,
     Route,
     Navigate,
+    useProjects,
+    setData
 }
