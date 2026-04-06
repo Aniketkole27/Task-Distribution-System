@@ -1,23 +1,26 @@
-const jwt = require('jsonwebtoken');
-const ensureAuthenticated = (req,res,next) =>{
-    const auth = req.headers['authorization'];
+import jwt from "jsonwebtoken";
 
-    if(!auth)
-    {
-        return res.status(401)
-           .json({message:"Unauthorized , JWT token is require"});
+const ensureAuthenticated = (req, res, next) => {
+    // console.log("Request = ", req.headers)
+    const auth = req.cookies?.token || req.headers?.authorization;
+    // console.log("Auth = ", auth)
+
+    if (!auth) {
+        return res.status(401).json({
+            message: "Unauthorized , token is require"
+        });
     }
-    try{
-        const decoded = jwt.verify(auth,process.env.JWT_SECRET);
+
+    try {
+        const token = auth.split(" ");
+        const jwtToken = token.length === 2 ? token[1] : token[0];
+        const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     }
-    catch (err)
-    {
-        return res.status(401)
-           .json({message:"Unauthorized , JWT token is wrong or expired"});
-   
+    catch (err) {
+        return res.status(401).json({ message: "Unauthorized , JWT token is wrong or expired" });
     }
 }
 
-module.exports = ensureAuthenticated;
+export { ensureAuthenticated }

@@ -9,11 +9,11 @@ const projectSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    deuDate: {
+    dueDate: {
       type: String,
       required: true,
     },
-    privority: {
+    priority: {
       type: String,
       enum: ['high', 'medium', 'low'],
       required: true,
@@ -35,7 +35,7 @@ const projectSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps }
+  { timestamps:true }
 );
 
 export const Project = mongoose.model('Project', projectSchema);

@@ -1,28 +1,29 @@
 import joi from "joi";
 
-export const loginValidation= (req,res,next) =>
-{   
-    const joiObj = joi.object({
-    email : joi.string().email().required(),
-    password : joi.string().min(4).max(10).required()});
+const loginValidation = (req, res, next) => {
+  const joiObj = joi.object({
+    email: joi.string().email().required(),
+    password: joi.string().min(8).max(15).required()
+  });
 
-    const {error} = joiObj.validate(req.body);
+  const { error } = joiObj.validate(req.body);
 
-    if(error)
-    {
-        return res.status(400).json({message:"Bad request",success:false});
-    }
+  if (error) {
+    return res.status(400).json({ message: "Bad request", success: false });
+  }
 
-    next();
+  next();
 }
 
-export const signUpValidation = (req, res, next) => {
+const signUpValidation = (req, res, next) => {
   const joiObj = joi.object({
     name: joi.string().min(4).max(12).required(),
     email: joi.string().email().required(),
     mobile: joi.string().length(10).required(),
-    password: joi.string().min(4).max(10).required(),
-    department: joi.string().optional()
+    password: joi.string().min(8).max(15).required(),
+    department: joi.string().optional(),
+    role: joi.string().valid('admin', 'sub-admin', 'user').optional(),
+    isActive: joi.boolean().optional()
   });
 
   const { error } = joiObj.validate(req.body, {
@@ -37,4 +38,9 @@ export const signUpValidation = (req, res, next) => {
   }
 
   next();
+};
+
+export {
+  loginValidation,
+  signUpValidation
 };

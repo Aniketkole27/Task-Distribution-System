@@ -1,18 +1,28 @@
 import express from "express";
 import "dotenv/config";
 import cors from 'cors';
-import {db} from  "./src/Models/database.js"
+import { db } from "./src/database.js"
 import { authRoute } from "./src/Routes/AuthRoutes.js";
+import { todoRoutes } from "./src/Routes/TodoRoutes.js";
+import { projectRoutes } from "./src/Routes/ProjectRoutes.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
-
-app.use(cors());
-app.use(express.json());
-
 db();
 
-app.use("/api",authRoute);
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+})
+);
 
-app.listen(process.env.port,()=>{
-  console.log("Sever started on port "+process.env.port);
+app.use(cookieParser());
+app.use(express.json());
+
+app.use("/api/auth", authRoute);
+app.use("/api/todos", todoRoutes);
+app.use("/api/project", projectRoutes);
+
+app.listen(process.env.PORT, () => {
+  console.log("Sever started on port ", process.env.PORT);
 })
