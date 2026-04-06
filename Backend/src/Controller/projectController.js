@@ -1,5 +1,6 @@
 import { Project } from "../models/project.model.js";
 import { User } from "../models/users.model.js"
+import { Task } from "../models/task.model.js"
 
 const handleGetAllProjects = async (req, res) => {
     try {
@@ -224,10 +225,39 @@ const handleDeleteProjectById = async (req, res) => {
     }
 }
 
+const handleGetAllTaskByProjectId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const tasks = await Task.find({ project: id });
+
+        if (tasks.length === 0) {
+            return res.status(403).json({
+                message: "No tasks found for this project",
+                success: false
+            })
+        }
+
+        return res.status(200).json({
+            message: "Tasks retrieved successfully",
+            success: true,
+            tasks
+        });
+
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: "Fail to get tasks",
+            success: false
+        })
+    }
+}
+
 export {
     handleCreateProject,
     handleGetAllProjects,
     handleGetProjectById,
     handleUpdateProjectById,
-    handleDeleteProjectById
+    handleDeleteProjectById,
+    handleGetAllTaskByProjectId
 }
