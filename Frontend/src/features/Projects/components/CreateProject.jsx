@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import TeamMemberSelect from './TeamMemberSelector'
+import { useSelector } from 'react-redux'
 
 function CreateProject({ setOpen }) {
 
-  const teamMembers = [
-    { id: 1, name: 'Aniket Kole' },
-    { id: 2, name: 'Sudarshan Salunke' },
-    { id: 3, name: 'Pitter Parker' },
-    { id: 4, name: 'Picky Blander' },
-    { id: 5, name: 'John Carton' },
-  ]
+  const allUsers = useSelector(state => state.currentUser.allUsers)
+
+
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -105,7 +102,7 @@ function CreateProject({ setOpen }) {
           </InputField>
 
           <TeamMemberSelect
-            members={teamMembers}
+            allUsers={allUsers}
             handleAddTeamMember={handleAddTeamMember}
             handleRemoveTeamMember={handleRemoveTeamMember}
           />

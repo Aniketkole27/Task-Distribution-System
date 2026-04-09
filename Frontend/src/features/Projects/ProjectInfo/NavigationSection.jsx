@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import ProjectPanelDetails from './ProjectPanelDetails'
 
-const NavigationSection = ({ setOpenTask }) => {
+const NavigationSection = ({ setOpenTask, selectedProjectDetails }) => {
     const navigate = useNavigate()
+    const [isOpen, setIsOpen] = useState(false);
     return (
         <div className='flex justify-between items-center mx-4'>
             <div className='flex flex-col gap-3'>
@@ -12,15 +14,19 @@ const NavigationSection = ({ setOpenTask }) => {
                         onClick={() => navigate('/admin/projects')}
                         className="hover:text-blue-500 flex items-center gap-1 text-sm text-black"
                     >
-                        Projects
+                        projects
                     </button>
                     <span>/</span>
-                    <span className="text-black font-medium">
-                        Task Distribution System
-                    </span>
-                    <span className='cursor-pointer p-1 text-black rounded-full hover:bg-stone-300 active:bg-stone-400'>
-                        <ArrowUpRight size={13} />
-                    </span>
+                    <div
+                        onClick={() => setIsOpen(true)}
+                        className='hover:text-blue-500 cursor-pointer flex items-center gap-1 text-sm text-black'>
+                        <span className="text-black font-medium">
+                            {selectedProjectDetails?.name}
+                        </span>
+                        <span className='cursor-pointer p-1 text-black rounded-full hover:bg-stone-300 active:bg-stone-400'>
+                            <ArrowUpRight size={13} />
+                        </span>
+                    </div>
                 </div>
 
             </div>
@@ -31,6 +37,9 @@ const NavigationSection = ({ setOpenTask }) => {
                 >
                     Create Task
                 </button>
+                {
+                    isOpen && (<ProjectPanelDetails isOpen={isOpen} setIsOpen={setIsOpen} />)
+                }
             </div>
         </div>
     )

@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import {
   Sidebar, Dashboard, Projects, Team, Todos, Settings, AcademicCalender, ProjectDetails,
-  useUserProfile, updateProfile, useDispatch, useProjects, setData
+  useUserProfile, updateProfile, useDispatch, useProjects, setData, setAllUsers, useGetAllUsers
 } from './index'
+
 
 const AdminLayout = () => {
   const dispatch = useDispatch();
+
   const { userProfile } = useUserProfile()
   const { allProjects } = useProjects()
+  const { users } = useGetAllUsers()
 
   useEffect(() => {
     if (userProfile) {
       dispatch(updateProfile(userProfile))
+    }
+    if (users.length > 0) {
+      dispatch(setAllUsers(users))
     }
     if (allProjects.length > 0) {
       dispatch(setData(allProjects))

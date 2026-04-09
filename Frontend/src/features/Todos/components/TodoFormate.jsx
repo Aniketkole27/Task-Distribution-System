@@ -18,7 +18,7 @@ const TodoFormate = ({ task }) => {
         }
     }
     return (
-        <div key={task.id} className={`flex justify-between items-center my-1 border border-stone-300 px-3 py-2 rounded shadow ${task.isCompleted ? "bg-gray-400" : ""}`}>
+        <div key={task.id} className={`flex justify-between items-center my-1 border border-stone-300 px-3 py-2 rounded shadow ${task.isCompleted ? "bg-gray-300" : ""}`}>
             <div className='flex gap-5 items-center'>
                 <span className={`border border-stone-500 rounded-full  ${task.priority === 'high' ? "bg-red-500" : "bg-amber-400"} w-3 h-3`}></span>
                 {isEditing ? (
@@ -26,7 +26,7 @@ const TodoFormate = ({ task }) => {
                         type="text"
                         value={editedTitle}
                         onChange={(e) => setEditedTitle(e.target.value)}
-                        className='font-semibold border rounded px-3 py-0.5 w-200 outline-none'
+                        className='font-semibold border rounded px-3 py-0.5 w-170 outline-none'
                         autoFocus
                     />
                 ) : (
@@ -45,7 +45,8 @@ const TodoFormate = ({ task }) => {
                 </button>
                 <button
                     onClick={() => EditTodos(task.id)}
-                    className='px-2 py-1 text-blue-500 text-sm rounded-full active:bg-blue-300 cursor-pointer'>
+                    disabled={task.isCompleted}
+                    className={`px-2 py-1 text-blue-500 text-sm rounded-full active:bg-blue-300 cursor-pointer ${task.isCompleted ? "cursor-default opacity-50" : ""}`}>
                     {isEditing ? <Save size={15} /> : <Edit size={15} />}
 
                 </button>
