@@ -48,11 +48,11 @@ const handleCreateProject = async (req, res) => {
         const { name, description, priority, dueDate, teamMembers } = req.body;
 
         const members = await Promise.all(
-            teamMembers.map(async (email) => {
-                const user = await User.findOne({ email });
+            teamMembers.map(async (name) => {
+                const user = await User.findOne({ name });
 
                 if (!user) {
-                    throw new Error(`User not found: ${email}`);
+                    throw new Error(`User not found: ${name}`);
                 }
 
                 return user._id;
@@ -227,8 +227,15 @@ const handleDeleteProjectById = async (req, res) => {
 
 const handleGetAllTaskByProjectId = async (req, res) => {
     try {
+        if (req.user.role !== "admin") {
+            return res.status(403).json({
+                message: "Only admin and sub-admin can access tasks",
+                success: false
+            })
+        }
+
         const { id } = req.params;
-        const tasks = await Task.find({ project: id });
+        const tasks = await Task.find({ project: id }).populate("assignedTo", "name email");
 
         if (tasks.length === 0) {
             return res.status(403).json({
@@ -240,6 +247,7 @@ const handleGetAllTaskByProjectId = async (req, res) => {
         return res.status(200).json({
             message: "Tasks retrieved successfully",
             success: true,
+            project: id,
             tasks
         });
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import {Users, RocketIcon, Folder } from 'lucide-react'
 
-const StatusCard = () => {
+const StatusCard = ({totalMembers, totalProjects, totalActiveProjects}) => {
     return (
         <>
-            <Card title={"Total Members"} value={30} icon={<Users size={16} />} />
-            <Card title={"Total Projects"} value={10} icon={<Folder size={16} />} />
-            <Card title={"Active Projects"} value={5} icon={<RocketIcon size={16} />} />
+            <Card title={"Total Members"} value={totalMembers} icon={<Users size={16} />} />
+            <Card title={"Total Projects"} value={totalProjects} icon={<Folder size={16} />} />
+            <Card title={"Active Projects"} value={totalActiveProjects} icon={<RocketIcon size={16} />} />
         </>
     )
 }

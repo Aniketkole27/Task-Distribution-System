@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'http://localhost:8000',
     headers: {
         'Content-Type': 'application/json',
         // 'Authorization': 'Bearer token', // automatically token from cookies get set in the header for each request,
@@ -11,7 +11,7 @@ const API = axios.create({
 
 // Request Interceptor
 API.interceptors.request.use((config) => {
-    console.log("Request Config:", config);
+    // console.log("Request Config:", config);
     return config;
 });
 
