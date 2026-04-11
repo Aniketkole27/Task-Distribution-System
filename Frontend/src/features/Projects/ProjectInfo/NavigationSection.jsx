@@ -6,6 +6,7 @@ import ProjectPanelDetails from './ProjectPanelDetails'
 const NavigationSection = ({ setOpenTask, selectedProjectDetails }) => {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false);
+    console.log("selectedProjectDetails = ", selectedProjectDetails)
     return (
         <div className='flex justify-between items-center mx-4'>
             <div className='flex flex-col gap-3'>
@@ -21,7 +22,7 @@ const NavigationSection = ({ setOpenTask, selectedProjectDetails }) => {
                         onClick={() => setIsOpen(true)}
                         className='hover:text-blue-500 cursor-pointer flex items-center gap-1 text-sm text-black'>
                         <span className="text-black font-medium">
-                            {selectedProjectDetails?.name}
+                            {selectedProjectDetails.name}
                         </span>
                         <span className='cursor-pointer p-1 text-black rounded-full hover:bg-stone-300 active:bg-stone-400'>
                             <ArrowUpRight size={13} />
@@ -37,9 +38,11 @@ const NavigationSection = ({ setOpenTask, selectedProjectDetails }) => {
                 >
                     Create Task
                 </button>
-                {
-                    isOpen && (<ProjectPanelDetails isOpen={isOpen} setIsOpen={setIsOpen} />)
-                }
+                <ProjectPanelDetails
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    project={selectedProjectDetails}
+                />
             </div>
         </div>
     )

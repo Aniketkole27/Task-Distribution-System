@@ -6,26 +6,29 @@ function CalenderHeader({ currentDate, onPrevMonth, onNextMonth, onToday }) {
     const year = currentDate.getFullYear();
 
     return (
-        <div className="sticky top-2 px-5 py-1 flex items-center justify-between mb-4 bg-white z-10">
-            <div className="flex items-center space-x-4">
-                <h2 className="text-2xl font-bold text-gray-800">{monthName} {year}</h2>
+        <div className="mb-4 flex flex-col gap-3 rounded border border-stone-300 bg-stone-50 px-4 py-3 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+                <div>
+                    <h2 className="text-xl font-semibold text-stone-900">{monthName} {year}</h2>
+                    <p className="text-xs text-stone-500">Review the month and manage events day by day.</p>
+                </div>
                 <button
                     onClick={onToday}
-                    className='border px-3 py-1 text-black rounded hover:bg-blue-100 hover:border-blue-500 active:bg-blue-200 active:text-blue-800 transition-colors text-sm'
+                    className="rounded border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-100"
                 >
                     Today
                 </button>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-2 self-end md:self-auto">
                 <button
                     onClick={onPrevMonth}
-                    className="p-2 text-gray-600 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="rounded border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-100 focus:outline-none"
                 >
                     <ChevronLeft size={20} />
                 </button>
                 <button
                     onClick={onNextMonth}
-                    className="p-2 text-gray-600 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="rounded border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-100 focus:outline-none"
                 >
                     <ChevronRight size={20} />
                 </button>
