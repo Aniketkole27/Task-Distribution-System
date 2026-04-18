@@ -25,9 +25,9 @@ const ProjectData = () => {
 export default ProjectData
 
 
-const LabelData = ({ label, value, icon, color = "bg-white" }) => {
+const LabelData = ({ label, value, icon, color = "bg-background dark:bg-card" }) => {
     return (
-        <div className='p-4 border rounded border-stone-300 shadow'>
+        <div className='p-4 border rounded border-border dark:border-border shadow'>
             <div className='flex mb-3 gap-2 items-start '>
                 <div className='grid gap-2'>
                     <span className={`text-xs font-medium px-2 py-1 rounded ${color}`}>
@@ -35,7 +35,7 @@ const LabelData = ({ label, value, icon, color = "bg-white" }) => {
                     </span>
                     <p className='text-2xl font-semibold'>{value}</p>
                 </div>
-                <h3 className='text-stone-500 mb-2 text-sm'>{label}</h3>
+                <h3 className='text-muted-foreground dark:text-muted-foreground mb-2 text-sm'>{label}</h3>
             </div>
         </div>
     )

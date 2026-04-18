@@ -68,7 +68,7 @@ function CalenderGrid({ currentDate, events, onDayClick }) {
     };
 
     return (
-        <div className="bg-white border border-gray-500 rounded-lg overflow-hidden shadow-2xs h-full flex flex-col">
+        <div className="bg-background border border-gray-500 rounded-lg overflow-hidden shadow-2xs h-full flex flex-col">
             <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50 shrink-0">
                 {weekDays.map((day) => (
                     <div key={day} className="py-2 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0">

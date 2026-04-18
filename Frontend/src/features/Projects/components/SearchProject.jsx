@@ -8,7 +8,7 @@ const SearchProject = () => {
     const dispatch = useDispatch()
     const searchResult = useSelector((state) => state.projectData.projectSearch)
     return (
-        <div className='flex items-center border border-stone-400 px-3 rounded gap-2'>
+        <div className='flex items-center border border-stone-400 dark:border-border px-3 rounded gap-2'>
             <Search size="16" />
             <input
                 value={searchResult}

@@ -10,13 +10,13 @@ function Team() {
   const allMembers = useSelector(state => state.currentUser.allUsers);
 
   return (
-    <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
+    <div className='bg-card text-foreground rounded-lg pb-3 shadow h-full'>
       <Greeting />
       <TopSection setOpen={setOpen} />
       {
         open ? <EditMember setOpen={setOpen} /> : null
       }
-      <TeamList allMembers = {allMembers} />
+      <TeamList allMembers={allMembers} />
     </div>
   )
 }

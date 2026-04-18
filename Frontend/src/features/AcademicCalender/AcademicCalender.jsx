@@ -17,11 +17,10 @@ function AcademicCalender() {
   };
 
   const handleNextMonth = () => {
-    console.log('Current Date:', currentDate);
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
 
-  const  handleToday = () => {
+  const handleToday = () => {
     setCurrentDate(new Date());
   };
 
@@ -62,36 +61,36 @@ function AcademicCalender() {
   }, 0);
 
   return (
-    <div className="bg-white text-black rounded-lg pb-3 shadow h-full flex flex-col">
+    <div className="bg-card text-foreground rounded-lg pb-3 shadow h-full flex flex-col">
       <div>
         <Greeting />
       </div>
 
       <div className="px-4 pb-4 flex flex-1 flex-col gap-4">
         <div className="grid gap-3 md:grid-cols-2">
-          <div className="rounded border border-stone-300 p-4 shadow">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">Academic Calendar</p>
-            <h2 className="mt-2 text-2xl font-semibold text-stone-900">{currentMonthLabel}</h2>
-            <p className="mt-1 text-sm text-stone-500">
+          <div className="rounded border border-border p-4 shadow">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">Academic Calendar</p>
+            <h2 className="mt-2 text-2xl font-semibold text-foreground">{currentMonthLabel}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
               Track deadlines, events, and day-wise notes in one place.
             </p>
           </div>
 
-          <div className="rounded border border-stone-300 p-4 shadow">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">This Month</p>
+          <div className="rounded border border-border p-4 shadow">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">This Month</p>
             <div className="mt-3 flex items-end justify-between gap-3">
               <div>
-                <p className="text-3xl font-semibold text-stone-900">{currentMonthEvents}</p>
-                <p className="text-sm text-stone-500">Scheduled items</p>
+                <p className="text-3xl font-semibold text-foreground">{currentMonthEvents}</p>
+                <p className="text-sm text-muted-foreground">Scheduled items</p>
               </div>
-              <p className="rounded bg-stone-100 px-3 py-1 text-xs font-medium text-stone-600">
+              <p className="rounded bg-muted px-3 py-1 text-xs font-medium text-stone-600">
                 Click a day to add an event
               </p>
             </div>
           </div>
         </div>
 
-        <div className="rounded border border-stone-300 p-4 shadow flex-1 flex flex-col min-h-175">
+        <div className="rounded border border-border p-4 shadow flex-1 flex flex-col min-h-175">
           <CalenderHeader
             currentDate={currentDate}
             onPrevMonth={handlePrevMonth}

@@ -22,7 +22,7 @@ const ProjectDetails = () => {
     const selectedProjectDetails = allProject.find(project => project._id === id)
 
     return (
-        <div className='bg-white text-black rounded-lg pb-3 shadow h-full'>
+        <div className='bg-card text-foreground rounded-lg pb-3 shadow h-full'>
 
             <Greeting />
             {openTask && (

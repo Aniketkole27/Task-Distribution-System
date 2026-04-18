@@ -29,9 +29,9 @@ const CreateTask = ({ setOpenTask }) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className=' bg-white rounded-lg shadow-xl border-stone-300 w-full max-w-2xl mx-auto mt-5 flex flex-col'
+                className=' bg-background dark:bg-card rounded-lg shadow-xl border-border dark:border-border w-full max-w-2xl mx-auto mt-5 flex flex-col'
             >
-                <div className="p-4 border-b text-center text-shadow-2xs border-stone-300 text-lg font-semibold">
+                <div className="p-4 border-b text-center text-shadow-2xs border-border dark:border-border text-lg font-semibold">
                     Create New Task
                 </div>
 
@@ -123,7 +123,7 @@ const InputField = ({
                 onChange={onChange}
                 type={Component === 'input' ? type : undefined}
                 placeholder={placeholder}
-                className={`px-3 py-2 text-sm outline-none border w-120 text-black font-medium border-stone-300 rounded shadow ${className}`}
+                className={`px-3 py-2 text-sm outline-none border w-120 text-foreground dark:text-foreground font-medium border-border dark:border-border rounded shadow ${className}`}
                 {...props}
             />
             {/* <input type="text" o /> */}

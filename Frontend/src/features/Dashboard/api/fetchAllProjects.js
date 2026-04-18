@@ -1,5 +1,5 @@
 import API from "../../../api/axiosInstance";
 
-export const fetchAllProjects =  () =>{
+export const fetchAllProjects = () => {
     return API.get('api/project/')
 }

@@ -6,8 +6,8 @@ import Contribute from './components/Contribute'
 
 const Sidebar = () => {
   return (
-    <div>
-      <div id="sidebar" className='overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)]'>
+    <div className=' h-full rounded-lg transition-colors'>
+      <div id="sidebar" className='overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)] px-2'>
         <AccountName />
         <SearchBar />
         <RouteSelect />

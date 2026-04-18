@@ -73,7 +73,7 @@ const ProjectPanelDetails = ({ isOpen, setIsOpen, project }) => {
 
             {/* Side Panel — slide + fade */}
             <div
-                className="fixed top-0 right-0 h-full w-105 bg-white z-50 flex flex-col"
+                className="fixed top-0 right-0 h-full w-105 bg-background dark:bg-card z-50 flex flex-col"
                 style={{
                     transform: animateIn ? 'translateX(0)' : 'translateX(100%)',
                     opacity: animateIn ? 1 : 0.5,
@@ -85,17 +85,17 @@ const ProjectPanelDetails = ({ isOpen, setIsOpen, project }) => {
             >
                 {/* Header */}
                 <div
-                    className="flex items-center justify-between px-6 py-4 border-b border-stone-200"
+                    className="flex items-center justify-between px-6 py-4 border-b border-border dark:border-border"
                     style={{
                         opacity: animateIn ? 1 : 0,
                         transform: animateIn ? 'translateY(0)' : 'translateY(-8px)',
                         transition: 'opacity 300ms ease 100ms, transform 300ms ease 100ms',
                     }}
                 >
-                    <h2 className="text-lg font-semibold text-black">Project Details</h2>
+                    <h2 className="text-lg font-semibold text-foreground dark:text-foreground">Project Details</h2>
                     <button
                         onClick={() => setIsOpen(false)}
-                        className="cursor-pointer p-1.5 rounded-full hover:bg-stone-200 active:bg-stone-300 transition-colors duration-200"
+                        className="cursor-pointer p-1.5 rounded-full hover:bg-muted dark:bg-muted dark:hover:bg-muted active:bg-stone-300 dark:active:bg-border transition-colors duration-200"
                     >
                         <X size={18} className="text-stone-600" />
                     </button>
@@ -106,7 +106,7 @@ const ProjectPanelDetails = ({ isOpen, setIsOpen, project }) => {
 
                     {/* Project Name */}
                     <AnimatedSection animateIn={animateIn} delay={120}>
-                        <h3 className="text-xl font-bold text-black leading-snug">
+                        <h3 className="text-xl font-bold text-foreground dark:text-foreground leading-snug">
                             {project?.name || 'Untitled Project'}
                         </h3>
                     </AnimatedSection>
@@ -137,7 +137,7 @@ const ProjectPanelDetails = ({ isOpen, setIsOpen, project }) => {
                     {/* Due Date */}
                     <AnimatedSection animateIn={animateIn} delay={300}>
                         <DetailSection icon={<Calendar size={16} />} label="Due Date">
-                            <p className="text-sm font-medium text-black">
+                            <p className="text-sm font-medium text-foreground dark:text-foreground">
                                 {project?.dueDate}
                             </p>
                         </DetailSection>
@@ -152,7 +152,7 @@ const ProjectPanelDetails = ({ isOpen, setIsOpen, project }) => {
                                     {project.teamMembers.map((member, idx) => (
                                         <span
                                             key={idx}
-                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-stone-100 text-stone-700 rounded-full border border-stone-200"
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-muted dark:bg-muted text-stone-700 dark:text-foreground rounded-full border border-border dark:border-border"
                                         >
                                             <span className="w-5 h-5 rounded-full bg-stone-300 flex items-center justify-center text-[10px] font-bold text-stone-600">
                                                 {typeof member === 'string' ? member.charAt(0).toUpperCase() : (member?.name?.charAt(0)?.toUpperCase() || '?')}
@@ -162,7 +162,7 @@ const ProjectPanelDetails = ({ isOpen, setIsOpen, project }) => {
                                     ))}
                                 </div>
                             ) : (
-                                <p className="text-sm text-stone-400 italic">No members assigned</p>
+                                <p className="text-sm text-muted-foreground italic">No members assigned</p>
                             )}
                         </DetailSection>
                     </AnimatedSection>
@@ -172,12 +172,12 @@ const ProjectPanelDetails = ({ isOpen, setIsOpen, project }) => {
                         <DetailSection icon={<Clock size={16} />} label="Timeline">
                             <div className="space-y-2">
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-stone-500">Created</span>
-                                    <span className="font-medium text-black">{formatDate(project?.createdAt)}</span>
+                                    <span className="text-muted-foreground dark:text-muted-foreground">Created</span>
+                                    <span className="font-medium text-foreground dark:text-foreground">{formatDate(project?.createdAt)}</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-stone-500">Last Updated</span>
-                                    <span className="font-medium text-black">{formatDate(project?.updatedAt)}</span>
+                                    <span className="text-muted-foreground dark:text-muted-foreground">Last Updated</span>
+                                    <span className="font-medium text-foreground dark:text-foreground">{formatDate(project?.updatedAt)}</span>
                                 </div>
                             </div>
                         </DetailSection>
@@ -203,7 +203,7 @@ const AnimatedSection = ({ animateIn, delay = 0, children }) => (
 
 const DetailSection = ({ icon, label, children }) => (
     <div className="space-y-2">
-        <div className="flex items-center gap-2 text-stone-500">
+        <div className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground">
             {icon}
             <span className="text-xs font-semibold uppercase tracking-wider">{label}</span>
         </div>

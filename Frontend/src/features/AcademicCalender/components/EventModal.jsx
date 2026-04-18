@@ -53,7 +53,7 @@ function EventModal({ isOpen, onClose, selectedDate, events = [], onSaveEvent })
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden">
+                className="bg-background rounded-lg shadow-xl w-full max-w-md overflow-hidden">
                 <div className="flex items-center justify-between p-4 border-b">
                     <h3 className="text-lg font-semibold text-gray-900">Events for {formattedDate}</h3>
                     <button

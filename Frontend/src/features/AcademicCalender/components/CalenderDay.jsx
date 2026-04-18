@@ -4,7 +4,7 @@ function CalenderDay({ date, isCurrentMonth, isToday, events = [], onClick }) {
     return (
         <div
             onClick={() => isCurrentMonth && onClick(date)}
-            className={`p-2 border-r border-b border-gray-500 hover:shadow-2xl  min-h-40 overflow-hidden ${!isCurrentMonth ? 'bg-gray-50/50 cursor-default' : 'bg-white cursor-pointer transition-colors hover:bg-gray-50 flex flex-col'}`}
+            className={`p-2 border-r border-b border-gray-500 hover:shadow-2xl  min-h-40 overflow-hidden ${!isCurrentMonth ? 'bg-gray-50/50 cursor-default' : 'bg-background cursor-pointer transition-colors hover:bg-gray-50 flex flex-col'}`}
         >
             {isCurrentMonth && (
                 <>

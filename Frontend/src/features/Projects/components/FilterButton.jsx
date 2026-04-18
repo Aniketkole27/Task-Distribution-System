@@ -10,7 +10,7 @@ const FilterButton = () => {
   return (
     <div className="flex gap-3 items-center">
       <h2><Filter size="16" /></h2>
-      <div className='border border-stone-300 rounded shadow p-1'>
+      <div className='border border-border dark:border-border rounded shadow p-1'>
         <select onChange={(e) => dispatch(setSelected(e.target.value))} className='outline-none cursor-pointer'>
           <option value="all">All</option>
           <option value="completed">Completed</option>

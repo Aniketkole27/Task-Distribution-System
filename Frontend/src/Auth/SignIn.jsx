@@ -51,7 +51,7 @@ export default function SignIn() {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <form onSubmit={handleSubmit} autoComplete="on" className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <form onSubmit={handleSubmit} autoComplete="on" className="bg-background p-8 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">Sign In</h2>
 
                 {apiError && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">{apiError}</div>}

@@ -11,7 +11,7 @@ function App() {
   // const scroll = new LocomotiveScroll();
   return (
     <>
-      <div className='max-w-screen-2xl mx-auto 2xl:8px'>
+      <div className='bg-background max-w-screen-2xl mx-auto 2xl:8px'>
         <Provider store={store}>
           <BrowserRouter>
             <Routes>

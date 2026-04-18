@@ -15,7 +15,7 @@ const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
     }, [projectData, searchResult, selectedFilter])
 
     return (
-        <div className='border rounded border-stone-300 p-4 mx-4 mt-6'>
+        <div className='border rounded border-border dark:border-border p-4 mx-4 mt-6'>
             <h2 className='mb-8 text-sm font-bold'>All Projects</h2>
 
             {filteredResult.map((project) => (
@@ -57,16 +57,16 @@ const ProjectItem = ({ id, title, dueDate, status, setProjectDetails, setClicked
             //     setClickedProject(id)
             // }}
             onClick={() => navigate(`/admin/projects/${id}`)}
-            className='px-4 py-4 mb-4 border flex items-center justify-between rounded shadow hover:bg-stone-200 cursor-pointer border-stone-300'
+            className='px-4 py-4 mb-4 border flex items-center justify-between rounded shadow hover:bg-muted dark:bg-muted dark:hover:bg-muted cursor-pointer border-border'
         >
             <div className='space-y-1'>
-                <p className='text-sm text-black font-semibold'>{title}</p>
-                <p className='text-xs text-stone-500 font-medium'>
+                <p className='text-sm text-foreground dark:text-foreground font-semibold'>{title}</p>
+                <p className='text-xs text-muted-foreground dark:text-muted-foreground font-medium'>
                     Due date: {dueDate}
                 </p>
             </div>
 
-            <p className={`${color} text-xs border py-1 border-stone-300 text-center w-17 rounded`}>
+            <p className={`${color} text-xs border py-1 border-border dark:border-border text-center w-17 rounded`}>
                 {status}
             </p>
         </div>

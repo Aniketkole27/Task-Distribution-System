@@ -2,7 +2,7 @@ import { useState } from 'react'
 import PrintList from './DisplayMembers'
 import { useSelector } from 'react-redux'
 
-const TeamList = ({allMembers}) => {
+const TeamList = ({ allMembers }) => {
 
     const searchTerm = useSelector(state => state.currentUser.userSearch);
 
@@ -13,10 +13,10 @@ const TeamList = ({allMembers}) => {
     );
 
     return (
-        <div className='px-4 mt-4 pb-4 mx-4 border border-stone-200 rounded'>
+        <div className='px-4 mt-4 pb-4 mx-4 rounded'>
             <div>
                 <div className=''>
-                    <h1 className='text-xs py-2.5 px-1 text-stone-500 capitalize'>Admin</h1>
+                    <h1 className='text-xs py-2.5 px-1 text-muted-foreground capitalize'>Admin</h1>
                     {
                         filteredMembers?.map((member) => (
                             member.role === "admin" ?
@@ -31,7 +31,7 @@ const TeamList = ({allMembers}) => {
 
                     }
 
-                    <h1 className='text-xs py-2.5 px-1 text-stone-500 capitalize'>Sub-Admin</h1>
+                    <h1 className='text-xs py-2.5 px-1 text-muted-foreground capitalize'>Sub-Admin</h1>
                     {
                         filteredMembers?.map((member) => (
                             member.role === "sub-admin" ?
@@ -45,7 +45,7 @@ const TeamList = ({allMembers}) => {
                         ))
                     }
 
-                    <h1 className='text-xs py-2.5 px-1 text-stone-500 capitalize'>Users</h1>
+                    <h1 className='text-xs py-2.5 px-1 text-muted-foreground capitalize'>Users</h1>
                     {
                         filteredMembers?.map((member) => (
                             member.role === "user" ?

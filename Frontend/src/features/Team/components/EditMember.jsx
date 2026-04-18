@@ -8,11 +8,11 @@ const EditMember = ({ setOpen }) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className='bg-white w-full max-w-2xl mx-auto mt-10 min-h-[80vh] rounded'
+                className='bg-background w-full max-w-2xl mx-auto mt-10 min-h-[80vh] rounded'
             >
                 <div>
                     <h1 className="heading text-3xl text-center py-5">Create New Member</h1>
-                    <div className="border-b border-stone-300"></div>
+                    <div className="border-b border-border"></div>
                     <div className="flex flex-col -gap-3 items-center">
                         <InputField
                             label="Name"
@@ -46,7 +46,7 @@ const InputField = ({
             <label className="block text-xs p-0.5">{label}</label>
             <Component
                 type={Component === 'input' ? type : ""}
-                className={`px-3 py-2 text-sm outline-none border w-120 text-black font-medium border-stone-500 rounded shadow`}
+                className={`px-3 py-2 text-sm outline-none border w-120 text-foreground font-medium border-stone-500 rounded shadow`}
                 placeholder={placeholder}
                 {...props}
             />

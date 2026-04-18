@@ -27,15 +27,15 @@ const PrintList = ({ name, email, id }) => {
             <div
                 className='px-4 py-2 mb-1 border flex items-center justify-between rounded border-stone-300'>
                 <div className='space-y-1'>
-                    <p className='text-sm text-black font-semibold'>{name}</p>
-                    <p className='text-xs text-stone-500'>{email}</p>
+                    <p className='text-sm  text-foreground font-semibold'>{name}</p>
+                    <p className='text-xs text-muted-foreground'>{email}</p>
                 </div>
                 <p
                     onClick={(e) => {
                         dispatch(setOpenMenu(isOpen ? null : id))
                         e.stopPropagation()
                     }}
-                    className='text-xs capitalize font-medium cursor-pointer hover:bg-stone-200 active:bg-stone-300 p-1.5 rounded-full'>
+                    className='text-xs capitalize font-medium cursor-pointer hover:bg-muted active:bg-stone-300 p-1.5 rounded-full'>
                     <MoreHorizontal size={14} />
                 </p>
             </div>

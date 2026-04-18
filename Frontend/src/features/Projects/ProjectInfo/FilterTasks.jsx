@@ -31,7 +31,7 @@ const SectionDropDown = ({ options, label }) => {
         <div>
             <label className='block text-xs p-0.5'>{label}</label>
             <select
-                className={`border w-full flex cursor-pointer border-stone-300 shadow px-2 py-0.5 rounded font-semibold outline-none`}>
+                className={`border w-full flex cursor-pointer border-border dark:border-border shadow px-2 py-0.5 rounded font-semibold outline-none`}>
                 {options.map((option) => (
                     <option  disabled={option.disable} key={option.value} value={option.value}>
                         {option.label}

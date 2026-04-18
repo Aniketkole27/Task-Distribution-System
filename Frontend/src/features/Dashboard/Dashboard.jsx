@@ -8,7 +8,7 @@ const Dashboard = () => {
 
 
   return (
-    <div className='bg-[#FFFFFF] text-black rounded-lg pb-3 shadow h-full'>
+    <div className='bg-[#FFFFFF] text-foreground rounded-lg pb-3 shadow h-full'>
       <Greeting />
       <Grid />
       <Overview />

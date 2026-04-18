@@ -36,7 +36,7 @@ const TeamMemberSelect = ({ allUsers, handleAddTeamMember, handleRemoveTeamMembe
         {selected.map((member) => (
           <span
             key={member.id}
-            className="flex items-center gap-1 px-2 py-1 text-xs bg-stone-200 rounded-full"
+            className="flex items-center gap-1 px-2 py-1 text-xs bg-muted dark:bg-muted rounded-full"
           >
             {member.name}
             <button onClick={() => removeMember(member._id)}>
@@ -55,16 +55,16 @@ const TeamMemberSelect = ({ allUsers, handleAddTeamMember, handleRemoveTeamMembe
           setOpen(true)
         }}
         onFocus={() => setOpen(true)}
-        className="w-full px-3 py-2 text-sm outline-none border border-stone-300 rounded shadow"
+        className="w-full px-3 py-2 text-sm outline-none border border-border dark:border-border rounded shadow"
       />
 
       {open && filteredMembers?.length > 0 && (
-        <div className="absolute z-10 w-full bg-white border rounded shadow max-h-48 overflow-y-auto">
+        <div className="absolute z-10 w-full bg-background dark:bg-card border rounded shadow max-h-48 overflow-y-auto">
           {filteredMembers?.map((member) => (
             <div
               key={member._id}
               onClick={() => addMember(member)}
-              className="px-3 py-2 cursor-pointer hover:bg-stone-100 text-sm"
+              className="px-3 py-2 cursor-pointer hover:bg-muted dark:hover:bg-muted dark:bg-muted text-sm"
             >
               {member.name}
             </div>

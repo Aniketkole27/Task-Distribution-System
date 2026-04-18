@@ -52,11 +52,11 @@ const RouteItems = ({ title, icon: icon, to }) => {
                 <div
                     className={`flex items-center cursor-pointer gap-3 w-full rounded px-2 py-1.5 text-sm transition-all
                     ${isActive
-                            ? "bg-white text-stone-950 shadow font-medium"
-                            : "hover:bg-stone-200 text-stone-500"
+                            ? "bg-card text-foreground shadow font-medium"
+                            : "hover:bg-card/50 text-muted-foreground"
                         }`}
                 >
-                    <span className={isActive ? "text-black font-bold" : ""}>
+                    <span className={isActive ? "text-foreground font-bold" : ""}>
                         {icon}
                     </span>
                     <span>{title}</span>
