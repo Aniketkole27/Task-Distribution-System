@@ -5,6 +5,7 @@ import { ClipboardList } from 'lucide-react';
 
 const TodoList = () => {
     const allTask = useSelector(state => state.todos.allTask);
+    console.log(allTask)
 
     return (
         <div className='pb-10'>
@@ -20,7 +21,9 @@ const TodoList = () => {
                 ) : (
                     <>
                         {allTask.map((task) => (
-                            task ? <TodoItem key={task._id || task.id} task={task} /> : null
+                            task && (
+                                <TodoItem key={task._id} task={task} />
+                            )
                         ))}
                     </>
                 )}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ThemeToggle from '../../features/ThemeToggle'
+import ThemeToggle from './ToggleTheme'
 import { useSelector } from 'react-redux'
 
 const Greeting = () => {

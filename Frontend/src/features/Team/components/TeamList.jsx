@@ -21,8 +21,8 @@ const TeamList = ({ allMembers }) => {
                         filteredMembers?.map((member) => (
                             member.role === "admin" ?
                                 <PrintList
-                                    key={member.id}
-                                    id={member.id}
+                                    key={member._id}
+                                    id={member._id}
                                     name={member.name}
                                     email={member.email}
                                     active={member.isActive}
@@ -36,8 +36,8 @@ const TeamList = ({ allMembers }) => {
                         filteredMembers?.map((member) => (
                             member.role === "sub-admin" ?
                                 <PrintList
-                                    key={member.id}
-                                    id={member.id}
+                                    key={member._id}
+                                    id={member._id}
                                     name={member.name}
                                     email={member.email}
                                     active={member.isActive}
@@ -50,8 +50,8 @@ const TeamList = ({ allMembers }) => {
                         filteredMembers?.map((member) => (
                             member.role === "user" ?
                                 <PrintList
-                                    key={member.id}
-                                    id={member.id}
+                                    key={member._id}
+                                    id={member._id}
                                     name={member.name}
                                     email={member.email}
                                     active={member.isActive}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CheckCircle, Edit, Save, Trash2, Calendar } from 'lucide-react'
-import { handleComplete, handleDelete, handleEdit, triggerRefetch } from '@app/todoSlice';
+import { editTodo, deleteTodo, toggleTodo } from '@app/todoSlice';
 
 const TodoItem = ({ task }) => {
     const dispatch = useDispatch();
@@ -10,8 +10,7 @@ const TodoItem = ({ task }) => {
 
     const EditTodos = (id) => {
         if (isEditing) {
-            dispatch(handleEdit({ id, title: editedTitle }));
-            dispatch(triggerRefetch());
+            dispatch(editTodo({ id, title: editedTitle }));
             setIsEditing(false);
             setEditedTitle("");
         } else {
@@ -27,7 +26,7 @@ const TodoItem = ({ task }) => {
     }
 
     return (
-        <div key={task.id} className={`group flex justify-between items-center bg-background border border-border px-4 py-3 rounded-xl transition-all border-stone-400 hover:shadow-md ${task.isCompleted ? "opacity-60 grayscale-[0.5]" : ""}`}>
+        <div key={task._id} className={`group flex justify-between items-center bg-background border border-border px-4 py-3 rounded-xl transition-all border-stone-400 hover:shadow-md ${task.isCompleted ? "opacity-60 grayscale-[0.5]" : ""}`}>
             <div className='flex gap-4 items-center flex-1'>
                 <div className={`w-2.5 h-2.5 rounded-full ${priorityColors[task.priority] || priorityColors.medium}`}></div>
                 <div className='flex-1'>
@@ -54,8 +53,7 @@ const TodoItem = ({ task }) => {
             <div className='flex items-center gap-1 ml-4 opacity-0 group-hover:opacity-100 transition-opacity'>
                 <button
                     onClick={() => {
-                        dispatch(handleComplete(task))
-                        dispatch(triggerRefetch())
+                        dispatch(toggleTodo(task))
                     }}
                     title={task.isCompleted ? "Mark incomplete" : "Mark complete"}
                     className={`p-2 rounded-lg transition-colors ${task.isCompleted ? "text-emerald-600 bg-emerald-50" : "text-muted-foreground hover:text-emerald-600 hover:bg-emerald-50"}`}>
@@ -70,8 +68,7 @@ const TodoItem = ({ task }) => {
                 </button>
                 <button
                     onClick={() => {
-                        dispatch(handleDelete(task._id))
-                        dispatch(triggerRefetch())
+                        dispatch(deleteTodo(task._id))
                     }}
                     title="Delete todo"
                     className='p-2 rounded-lg text-muted-foreground hover:text-red-600 hover:bg-red-50 transition-colors'>

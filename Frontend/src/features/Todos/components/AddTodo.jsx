@@ -17,11 +17,6 @@ const AddTodo = ({ setOpenAddTask }) => {
                     placeholder='Add a new todo...'
                     className='w-full bg-transparent placeholder:text-muted-foreground font-medium focus:outline-none cursor-pointer text-foreground'
                 />
-
-                {/* <span className='p-1 text-[10px] font-bold flex items-center gap-0.5 shadow-sm bg-background border border-border rounded text-muted-foreground ml-2'>
-                    <Command size={10} />
-                    K
-                </span> */}
             </div>
 
             <button

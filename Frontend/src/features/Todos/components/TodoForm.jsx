@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { handleAdd, triggerRefetch } from '@app/todoSlice'
+import { addTodo } from '@app/todoSlice'
 import { Calendar, Flag, X } from 'lucide-react'
 
 const TodoForm = ({ setOpenAddTask }) => {
@@ -15,11 +15,10 @@ const TodoForm = ({ setOpenAddTask }) => {
         e.preventDefault()
         if (!task.title.trim()) return
 
-        dispatch(handleAdd({
+        dispatch(addTodo({
             ...task,
             isCompleted: false
         }))
-        // dispatch(triggerRefetch())
         setOpenAddTask(false)
     }
 

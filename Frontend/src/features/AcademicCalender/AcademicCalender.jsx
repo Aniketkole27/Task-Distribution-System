@@ -46,6 +46,14 @@ function AcademicCalender() {
     }));
   };
 
+  const handleDeleteEvent = (eventId) => {
+    const key = formatDateKey(selectedDate);
+    setEvents(prev => ({
+      ...prev,
+      [key]: prev[key].filter(e => e.id !== eventId)
+    }));
+  };
+
   const selectedDateKey = formatDateKey(selectedDate);
   const currentMonthLabel = currentDate.toLocaleDateString('default', {
     month: 'long',
@@ -90,7 +98,7 @@ function AcademicCalender() {
           </div>
         </div>
 
-        <div className="rounded border border-border p-4 shadow flex-1 flex flex-col min-h-175">
+        <div className="rounded border border-border p-4 shadow flex-1 flex flex-col h-[700px] overflow-hidden">
           <CalenderHeader
             currentDate={currentDate}
             onPrevMonth={handlePrevMonth}
@@ -114,6 +122,7 @@ function AcademicCalender() {
         selectedDate={selectedDate}
         events={events[selectedDateKey] || []}
         onSaveEvent={handleSaveEvent}
+        onDeleteEvent={handleDeleteEvent}
       />
     </div>
   );

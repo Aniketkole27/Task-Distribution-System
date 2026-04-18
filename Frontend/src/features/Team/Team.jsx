@@ -3,6 +3,7 @@ import Greeting from '@shared/components/Greeting'
 import TopSection from './components/TopSection'
 import TeamList from './components/TeamList'
 import EditMember from './components/EditMember'
+import MemberDetailsSidebar from './components/MemberDetailsSidebar'
 import { useSelector } from 'react-redux'
 
 function Team() {
@@ -10,13 +11,14 @@ function Team() {
   const allMembers = useSelector(state => state.currentUser.allUsers);
 
   return (
-    <div className='bg-card text-foreground rounded-lg pb-3 shadow h-full'>
+    <div className='bg-card text-foreground rounded-lg pb-3 shadow h-full relative overflow-hidden'>
       <Greeting />
       <TopSection setOpen={setOpen} />
       {
         open ? <EditMember setOpen={setOpen} /> : null
       }
       <TeamList allMembers={allMembers} />
+      <MemberDetailsSidebar />
     </div>
   )
 }

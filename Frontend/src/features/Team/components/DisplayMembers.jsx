@@ -1,45 +1,34 @@
 import { MoreHorizontal } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import KebabMenu from './KebabMenu'
-import { setOpenMenu } from '@app/teamSlice'
+import { useDispatch } from 'react-redux'
+import { setSelectedMemberId, setDetailsSidebarOpen } from '@app/teamSlice'
 
 
 const PrintList = ({ name, email, id }) => {
 
     const dispatch = useDispatch();
-    const openMenu = useSelector((state) => state.team.openMenu)
 
-    useEffect(() => {
-        const close = () => dispatch(setOpenMenu(null));
-        document.addEventListener("click", close);
-        return () => document.removeEventListener("click", close);
-    }, []);
-
-    const handleClick = (label, title) => {
-        alert(`Clicked on ${title}`)
-    }
-
-    const isOpen = openMenu === id;
+    const handleOpenSidebar = (e) => {
+        e.stopPropagation();
+        dispatch(setSelectedMemberId(id));
+        dispatch(setDetailsSidebarOpen(true));
+    };
 
     return (
         <>
             <div
-                className='px-4 py-2 mb-1 border flex items-center justify-between rounded border-stone-300'>
+                className='px-4 py-2 mb-1 border flex items-center justify-between rounded border-border hover:bg-muted/30 transition-colors group cursor-pointer'
+                onClick={handleOpenSidebar}
+            >
                 <div className='space-y-1'>
-                    <p className='text-sm  text-foreground font-semibold'>{name}</p>
+                    <p className='text-sm text-foreground font-semibold group-hover:text-primary transition-colors'>{name}</p>
                     <p className='text-xs text-muted-foreground'>{email}</p>
                 </div>
-                <p
-                    onClick={(e) => {
-                        dispatch(setOpenMenu(isOpen ? null : id))
-                        e.stopPropagation()
-                    }}
-                    className='text-xs capitalize font-medium cursor-pointer hover:bg-muted active:bg-stone-300 p-1.5 rounded-full'>
+                <button
+                    onClick={handleOpenSidebar}
+                    className='p-1.5 rounded-full transition-all hover:bg-muted active:scale-90 text-muted-foreground'>
                     <MoreHorizontal size={14} />
-                </p>
+                </button>
             </div>
-            {isOpen && <KebabMenu handleClick={handleClick} />}
         </>
     )
 }

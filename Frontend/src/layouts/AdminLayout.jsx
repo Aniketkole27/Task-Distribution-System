@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import {
   Sidebar, Dashboard, Projects, Team, Todos, Settings, AcademicCalender, ProjectDetails,
-  useUserProfile, updateProfile, useDispatch, useProjects, setData, setAllUsers, useGetAllUsers,Navigate
+  useUserProfile, updateProfile, useDispatch, useProjects, setData, setAllUsers, useGetAllUsers, Navigate
 } from './index'
 
 

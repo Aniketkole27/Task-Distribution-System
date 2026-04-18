@@ -4,7 +4,9 @@ const initialState = {
     team: [],
     openMenu: null,
     buttonClick: null,
-    selectedId : null
+    selectedId: null,
+    isDetailsSidebarOpen: false,
+    selectedMemberId: null
 }
 
 const teamSlice = createSlice({
@@ -19,14 +21,22 @@ const teamSlice = createSlice({
         setOpenMenu(state, action) {
             state.openMenu = action.payload;
         },
+
+        setDetailsSidebarOpen(state, action) {
+            state.isDetailsSidebarOpen = action.payload;
+        },
+
+        setSelectedMemberId(state, action) {
+            state.selectedMemberId = action.payload;
+        },
         
-        handelButtonClick(state, action){
-            state.buttonClick = action.payload.buttonClick;
-       }
+        handleButtonClick(state, action){
+            state.buttonClick = action.payload;
+        }
         
     }
 })
 
 
-export const { setOpenMenu,handelButtonClick } = teamSlice.actions;
+export const { setOpenMenu, handleButtonClick, setDetailsSidebarOpen, setSelectedMemberId } = teamSlice.actions;
 export default teamSlice.reducer;

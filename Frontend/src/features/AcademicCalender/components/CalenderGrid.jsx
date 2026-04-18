@@ -68,15 +68,15 @@ function CalenderGrid({ currentDate, events, onDayClick }) {
     };
 
     return (
-        <div className="bg-background border border-gray-500 rounded-lg overflow-hidden shadow-2xs h-full flex flex-col">
-            <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50 shrink-0">
+        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-2xs h-full flex flex-col transition-colors">
+            <div className="grid grid-cols-7 border-b border-border bg-muted/30 shrink-0">
                 {weekDays.map((day) => (
-                    <div key={day} className="py-2 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0">
+                    <div key={day} className="py-2.5 text-center text-[10px] font-bold text-muted-foreground uppercase tracking-widest border-r border-border last:border-r-0">
                         {day}
                     </div>
                 ))}
             </div>
-            <div className="grid grid-cols-7 flex-1 auto-rows-[1fr]">
+            <div className="grid grid-cols-7 grid-rows-6 flex-1 h-full overflow-hidden">
                 {days.map((dayObj, index) => {
                     const dateKey = formatDateKey(dayObj.date);
                     const dayEvents = events[dateKey] || [];
