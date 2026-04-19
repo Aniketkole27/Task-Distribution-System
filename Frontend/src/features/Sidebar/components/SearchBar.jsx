@@ -4,28 +4,26 @@ import CommandMenu from './CommandMenu'
 
 const SearchBar = () => {
   const [open, setOpen] = useState(false)
+
   return (
     <>
-      <div className='bg-card mb-4 relative rounded flex items-center px-2 py-1 text-sm shadow-sm border border-border'>
-        <span className='mr-2 text-muted-foreground'><Search size={16} /></span>
-        <input
-          type="text"
-          onFocus={(e) => {
-            e.target.blur()
-            setOpen(true)
-          }}
-          placeholder='Search'
-          className='w-full bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none'
-        />
+      <div
+        onClick={() => setOpen(true)}
+        className='group bg-card mb-4 relative rounded-xl flex items-center px-3 py-2 text-sm shadow-sm border border-border cursor-text transition-all hover:bg-muted/50 hover:shadow-md ring-primary/10 hover:ring-2'
+      >
+        <Search className='mr-2.5 h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors' />
+        <span className='flex-1 text-muted-foreground select-none'>Quick search...</span>
 
-        <span className='p-1 text-xs px-1.5 flex items-center gap-0.5 shadow-xs bg-muted text-muted-foreground rounded-sm border border-border'>
-          <span><Command size={13} /></span>
-          K
-        </span>
+        <kbd className='hidden sm:flex items-center gap-1 ml-auto px-1.5 py-0.5 rounded border border-border bg-muted/50 font-mono text-[10px] font-medium text-muted-foreground'>
+          <Command size={10} className="mb-0.5" />
+          <span>K</span>
+        </kbd>
       </div>
+
       <CommandMenu open={open} setOpen={setOpen} />
     </>
   )
 }
 
 export default SearchBar
+

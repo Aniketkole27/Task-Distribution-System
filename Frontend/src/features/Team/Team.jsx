@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Greeting from '@shared/components/Greeting'
 import TopSection from './components/TopSection'
 import TeamList from './components/TeamList'
-import EditMember from './components/EditMember'
+import CreateMember from './components/CreateMember'
 import MemberDetailsSidebar from './components/MemberDetailsSidebar'
 import { useSelector } from 'react-redux'
 
@@ -11,16 +11,17 @@ function Team() {
   const allMembers = useSelector(state => state.currentUser.allUsers);
 
   return (
-    <div className='bg-card text-foreground rounded-lg pb-3 shadow h-full relative overflow-hidden'>
+    <div className='bg-background text-foreground rounded-2xl pb-6 min-h-full'>
       <Greeting />
-      <TopSection setOpen={setOpen} />
-      {
-        open ? <EditMember setOpen={setOpen} /> : null
-      }
-      <TeamList allMembers={allMembers} />
+      <div className='space-y-6'>
+        <TopSection setOpen={setOpen} />
+        <TeamList allMembers={allMembers} />
+      </div>
+      {open ? <CreateMember setOpen={setOpen} /> : null}
       <MemberDetailsSidebar />
     </div>
   )
 }
 
 export default Team
+

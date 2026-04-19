@@ -26,7 +26,7 @@ const TodoItem = ({ task }) => {
     }
 
     return (
-        <div key={task._id} className={`group flex justify-between items-center bg-background border border-border px-4 py-3 rounded-xl transition-all border-stone-400 hover:shadow-md ${task.isCompleted ? "opacity-60 grayscale-[0.5]" : ""}`}>
+        <div key={task._id} className={`group flex justify-between items-center bg-background border border-border px-4 py-3 rounded-xl transition-all hover:shadow-md ${task.isCompleted ? "opacity-60 grayscale-[0.5]" : ""}`}>
             <div className='flex gap-4 items-center flex-1'>
                 <div className={`w-2.5 h-2.5 rounded-full ${priorityColors[task.priority] || priorityColors.medium}`}></div>
                 <div className='flex-1'>

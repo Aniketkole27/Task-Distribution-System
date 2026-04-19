@@ -50,13 +50,13 @@ const RouteItems = ({ title, icon: icon, to }) => {
         <NavLink to={to}>
             {({ isActive }) => (
                 <div
-                    className={`flex items-center cursor-pointer gap-3 w-full rounded px-2 py-1.5 text-sm transition-all
+                    className={`flex items-center cursor-pointer gap-3 w-full rounded-xl px-3 py-2 text-sm transition-all duration-200 group
                     ${isActive
-                            ? "bg-card text-foreground shadow font-medium"
-                            : "hover:bg-card/50 text-muted-foreground"
+                            ? "bg-white text-primary shadow-sm border-border/50 font-bold"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
                 >
-                    <span className={isActive ? "text-foreground font-bold" : ""}>
+                    <span className={isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground transition-colors"}>
                         {icon}
                     </span>
                     <span>{title}</span>

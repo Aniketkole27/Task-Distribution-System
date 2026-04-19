@@ -1,10 +1,7 @@
-import { MoreHorizontal } from 'lucide-react'
 import { useDispatch } from 'react-redux'
 import { setSelectedMemberId, setDetailsSidebarOpen } from '@app/teamSlice'
 
-
-const PrintList = ({ name, email, id }) => {
-
+const PrintList = ({ name, email, id, active }) => {
     const dispatch = useDispatch();
 
     const handleOpenSidebar = (e) => {
@@ -14,23 +11,24 @@ const PrintList = ({ name, email, id }) => {
     };
 
     return (
-        <>
-            <div
-                className='px-4 py-2 mb-1 border flex items-center justify-between rounded border-border hover:bg-muted/30 transition-colors group cursor-pointer'
-                onClick={handleOpenSidebar}
-            >
-                <div className='space-y-1'>
-                    <p className='text-sm text-foreground font-semibold group-hover:text-primary transition-colors'>{name}</p>
-                    <p className='text-xs text-muted-foreground'>{email}</p>
-                </div>
-                <button
-                    onClick={handleOpenSidebar}
-                    className='p-1.5 rounded-full transition-all hover:bg-muted active:scale-90 text-muted-foreground'>
-                    <MoreHorizontal size={14} />
-                </button>
+        <div
+            className='group p-4 mb-3 border border-border rounded-xl flex items-center justify-between transition-all hover:shadow-md hover:border-primary/20 hover:bg-muted/30 cursor-pointer animate-in fade-in slide-in-from-bottom-2 duration-300'
+            onClick={handleOpenSidebar}
+        >
+            <div className='space-y-1'>
+                <h3 className='text-sm font-semibold group-hover:text-primary transition-colors'>{name}</h3>
+                <p className='text-[10px] text-muted-foreground font-medium tracking-tight'>{email}</p>
             </div>
-        </>
+
+            <div className='flex items-center gap-4'>
+                <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border uppercase tracking-wider ${active ? 'text-green-600 bg-green-50 border-green-100' : 'text-stone-400 bg-stone-50 border-stone-100'}`}>
+                    <div className={`w-1 h-1 rounded-full ${active ? 'bg-green-600' : 'bg-stone-400'}`} />
+                    {active ? 'Active' : 'Offline'}
+                </span>
+            </div>
+        </div>
     )
 }
 
 export default PrintList
+

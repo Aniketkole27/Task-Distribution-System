@@ -8,14 +8,14 @@ const SearchProject = () => {
     const dispatch = useDispatch()
     const searchResult = useSelector((state) => state.projectData.projectSearch)
     return (
-        <div className='flex items-center border border-stone-400 dark:border-border px-3 rounded gap-2'>
-            <Search size="16" />
+        <div className='flex items-center bg-muted/30 border border-border px-3.5 rounded-xl gap-2.5 focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary/30 transition-all duration-200'>
+            <Search size={16} className="text-muted-foreground" />
             <input
                 value={searchResult}
                 onChange={(e) => dispatch(setProjectSearch(e.target.value))}
                 type="text"
-                className='outline-none py-1.5 w-90 px-1.5 placeholder:font-medium font-medium'
-                placeholder='Search Project'
+                className='outline-none py-2 text-sm w-64 placeholder:text-muted-foreground font-medium bg-transparent'
+                placeholder='Search projects...'
             />
         </div>
     )

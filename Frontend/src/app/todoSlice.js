@@ -43,7 +43,8 @@ export const fetchTodos = createAsyncThunk(
         try {
             const response = await API.get("/api/todos");
             const todos = response.data.todos || [];
-            // Standarize: move 'todo' properties to the top level so state is consistent
+            console.log("Fetching todos = ",todos)
+            // Standardize: move 'todo' properties to the top level so state is consistent
             return todos.map(t => t.todo ? { ...t.todo, _id: t._id } : t);
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to fetch todos");

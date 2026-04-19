@@ -4,16 +4,16 @@ import Grid from './components/Grid'
 import Overview from './components/Overview'
 
 const Dashboard = () => {
-
-
-
   return (
-    <div className='bg-[#FFFFFF] text-foreground rounded-lg pb-3 shadow h-full'>
+    <div className='bg-background text-foreground rounded-2xl pb-6 min-h-full'>
       <Greeting />
-      <Grid />
-      <Overview />
+      <div className='space-y-6'>
+        <Grid />
+        <Overview />
+      </div>
     </div>
   )
 }
+
 
 export default Dashboard

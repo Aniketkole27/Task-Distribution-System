@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { Calendar } from 'lucide-react'
 
 const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
     const projectData = useSelector((state) => state.projectData.data)
@@ -15,60 +16,72 @@ const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
     }, [projectData, searchResult, selectedFilter])
 
     return (
-        <div className='border rounded border-border dark:border-border p-4 mx-4 mt-6'>
-            <h2 className='mb-8 text-sm font-bold'>All Projects</h2>
+        <div className='p-6 mx-4 bg-card border border-border rounded-xl shadow-sm mt-6'>
+            <div className='flex items-center justify-between mb-8'>
+                <div className='space-y-1'>
+                    <h2 className='text-lg font-bold tracking-tight'>All Projects</h2>
+                    <p className='text-xs text-muted-foreground'>Manage and track your active workspace projects</p>
+                </div>
+            </div>
 
-            {filteredResult.map((project) => (
-                <ProjectItem
-                    key={project._id}
-                    id={project._id}
-                    title={project.name}
-                    dueDate={project.dueDate}
-                    status={project.status}
-                    setProjectDetails={setProjectDetails}
-                    setClickedProject={setClickedProject}
-                />
-            ))}
+            <div className='space-y-4'>
+                {filteredResult.map((project) => (
+                    <ProjectItem
+                        key={project._id}
+                        id={project._id}
+                        title={project.name}
+                        dueDate={project.dueDate}
+                        status={project.status}
+                    />
+                ))}
 
-            {filteredResult.length === 0 && (
-                <h1 className='text-center text-sm font-medium text-gray-500'>No projects found</h1>
-            )}
+                {filteredResult.length === 0 && (
+                    <div className='flex flex-col items-center justify-center py-12 text-center'>
+                        <div className='w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-3'>
+                            <Calendar size={20} className='text-muted-foreground' />
+                        </div>
+                        <h3 className='text-sm font-semibold text-muted-foreground'>No projects found</h3>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }
 
 export default TotalProjects
 
-
-const ProjectItem = ({ id, title, dueDate, status, setProjectDetails, setClickedProject }) => {
-
+const ProjectItem = ({ id, title, dueDate, status }) => {
     const navigate = useNavigate()
-    const color =
-        status === "active"
-            ? "bg-yellow-100"
-            : status === "failed"
-                ? "bg-red-100"
-                : "bg-green-200";
+
+    const statusConfig = {
+        active: { color: 'text-blue-600 bg-blue-50 border-blue-100' },
+        completed: { color: 'text-green-600 bg-green-50 border-green-100' },
+        failed: { color: 'text-red-600 bg-red-50 border-red-100' },
+        pending: { color: 'text-amber-600 bg-amber-50 border-amber-100' }
+    }
+
+    const config = statusConfig[status.toLowerCase()] || statusConfig.pending
 
     return (
         <div
-            // onClick={() => {
-            //     setProjectDetails(true)
-            //     setClickedProject(id)
-            // }}
             onClick={() => navigate(`/admin/projects/${id}`)}
-            className='px-4 py-4 mb-4 border flex items-center justify-between rounded shadow hover:bg-muted dark:bg-muted dark:hover:bg-muted cursor-pointer border-border'
+            className='group p-4 border border-border rounded-xl flex items-center justify-between transition-all hover:shadow-md hover:border-primary/20 hover:bg-muted/30 cursor-pointer animate-in fade-in slide-in-from-bottom-2 duration-300'
         >
             <div className='space-y-1'>
-                <p className='text-sm text-foreground dark:text-foreground font-semibold'>{title}</p>
-                <p className='text-xs text-muted-foreground dark:text-muted-foreground font-medium'>
-                    Due date: {dueDate}
-                </p>
+                <h3 className='text-sm font-semibold group-hover:text-primary transition-colors'>{title}</h3>
+                <div className='flex items-center gap-3 text-[10px] text-muted-foreground'>
+                    <span className='flex items-center gap-1'>
+                        <Calendar size={12} strokeWidth={2.5} />
+                        Due {dueDate}
+                    </span>
+                </div>
             </div>
 
-            <p className={`${color} text-xs border py-1 border-border dark:border-border text-center w-17 rounded`}>
-                {status}
-            </p>
+            <div className='flex items-center gap-4'>
+                <span className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold border uppercase tracking-wider ${config.color}`}>
+                    {status}
+                </span>
+            </div>
         </div>
     )
-}
+}
