@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Calendar } from 'lucide-react'
 
-const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
+const TotalProjects = () => {
     const projectData = useSelector((state) => state.projectData.data)
     const searchResult = useSelector((state) => state.projectData.projectSearch)
     const selectedFilter = useSelector(state => state.projectData.selected)
+    const currentUser = useSelector(state => state.currentUser.profile)
+    const onlyAccess = currentUser.role === "admin" || currentUser.role === "sub-admin"
 
     const filteredResult = useMemo(() => {
         return projectData.filter((project) =>
@@ -14,6 +16,8 @@ const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
             (selectedFilter === "all" || project.status.toLowerCase().includes(selectedFilter.toLowerCase()))
         )
     }, [projectData, searchResult, selectedFilter])
+
+
 
     return (
         <div className='p-6 mx-4 bg-card border border-border rounded-xl shadow-sm mt-6'>
@@ -32,6 +36,7 @@ const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
                         title={project.name}
                         dueDate={project.dueDate}
                         status={project.status}
+                        onlyAccess={onlyAccess}
                     />
                 ))}
 
@@ -50,7 +55,9 @@ const TotalProjects = ({ setProjectDetails, setClickedProject }) => {
 
 export default TotalProjects
 
-const ProjectItem = ({ id, title, dueDate, status }) => {
+const ProjectItem = ({ id, title, dueDate, status, onlyAccess }) => {
+
+    const currentUser = useSelector(state => state.currentUser.profile)
     const navigate = useNavigate()
 
     const statusConfig = {
@@ -64,7 +71,7 @@ const ProjectItem = ({ id, title, dueDate, status }) => {
 
     return (
         <div
-            onClick={() => navigate(`/admin/projects/${id}`)}
+            onClick={() => navigate(`${onlyAccess ? currentUser.role === "admin" ? "/admin" : "/manager" : ""}/projects/${id}`)}
             className='group p-4 border border-border rounded-xl flex items-center justify-between transition-all hover:shadow-md hover:border-primary/20 hover:bg-muted/30 cursor-pointer animate-in fade-in slide-in-from-bottom-2 duration-300'
         >
             <div className='space-y-1'>
@@ -84,4 +91,4 @@ const ProjectItem = ({ id, title, dueDate, status }) => {
             </div>
         </div>
     )
-}
+}

@@ -5,9 +5,9 @@ import { Task } from "../models/task.model.js"
 const handleGetAllProjects = async (req, res) => {
     try {
 
-        if (req.user.role !== "admin") {
+        if (req.user.role !== "admin" && req.user.role !== "sub-admin") {
             return res.status(403).json({
-                message: "Only admin can view all projects",
+                message: "Only admin and sub-admin can view all projects",
             });
         }
 
@@ -225,47 +225,11 @@ const handleDeleteProjectById = async (req, res) => {
     }
 }
 
-const handleGetAllTaskByProjectId = async (req, res) => {
-    try {
-        if (req.user.role !== "admin") {
-            return res.status(403).json({
-                message: "Only admin and sub-admin can access tasks",
-                success: false
-            })
-        }
-
-        const { id } = req.params;
-        const tasks = await Task.find({ project: id }).populate("assignedTo", "name email");
-
-        if (tasks.length === 0) {
-            return res.status(403).json({
-                message: "No tasks found for this project",
-                success: false
-            })
-        }
-
-        return res.status(200).json({
-            message: "Tasks retrieved successfully",
-            success: true,
-            project: id,
-            tasks
-        });
-
-
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({
-            message: "Fail to get tasks",
-            success: false
-        })
-    }
-}
 
 export {
     handleCreateProject,
     handleGetAllProjects,
     handleGetProjectById,
     handleUpdateProjectById,
-    handleDeleteProjectById,
-    handleGetAllTaskByProjectId
+    handleDeleteProjectById
 }

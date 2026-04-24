@@ -5,12 +5,11 @@ import {
     handleGetAllProjects,
     handleGetProjectById,
     handleUpdateProjectById,
-    handleDeleteProjectById,
-    handleGetAllTaskByProjectId
+    handleDeleteProjectById
 } from "../Controller/projectController.js"
 
 import {
-    // handleGetAllTaskByProjectId,
+    handleGetAllTaskByProjectId,
     handleCreateTaskByProjectId
 } from "../Controller/taskController.js"
 

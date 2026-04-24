@@ -1,11 +1,14 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Calendar, ChevronRight, Clock } from 'lucide-react'
 
+
 const Overview = () => {
     const navigate = useNavigate()
+
     const allProjects = useSelector(state => state.projectData.data);
+    const currentUser = useSelector(state => state.currentUser.profile)
+    const onlyAccess = currentUser.role === "admin" || currentUser.role === "sub-admin"
 
     return (
         <div className='p-6 mx-4 bg-card border border-border rounded-xl shadow-sm h-fit'>
@@ -15,7 +18,7 @@ const Overview = () => {
                     <p className='text-xs text-muted-foreground'>Overview of your current project landscape</p>
                 </div>
                 <button
-                    onClick={() => navigate("/admin/projects")}
+                    onClick={() => navigate(`${onlyAccess ? currentUser.role === "admin" ? "/admin" : "/manager" : ""}/projects`)}
                     className='text-xs px-3 py-1.5 font-medium transition-all bg-secondary hover:bg-muted border border-border rounded-lg flex items-center gap-1 group'
                 >
                     View All
@@ -32,6 +35,8 @@ const Overview = () => {
                             name={project.name}
                             status={project.status}
                             dueDate={project.dueDate}
+                            onlyAccess={onlyAccess}
+                            currentUser={currentUser}
                         />
                     ))
                 ) : (
@@ -52,7 +57,7 @@ const Overview = () => {
 
 export default Overview
 
-const ProjectCard = ({ id, name, status, dueDate }) => {
+const ProjectCard = ({ id, name, status, dueDate, onlyAccess, currentUser }) => {
     const navigate = useNavigate()
 
     const statusConfig = {
@@ -66,7 +71,7 @@ const ProjectCard = ({ id, name, status, dueDate }) => {
 
     return (
         <div
-            onClick={() => navigate(`/admin/projects/${id}`)}
+            onClick={() => navigate(`${onlyAccess ? currentUser.role === "admin" ? "/admin" : "/manager" : ""}/projects/${id}`)}
             className='group p-4 border border-border rounded-xl flex items-center justify-between transition-all hover:shadow-md hover:border-primary/20 hover:bg-muted/30 cursor-pointer animate-in fade-in slide-in-from-bottom-2 duration-300'
         >
             <div className='space-y-1'>

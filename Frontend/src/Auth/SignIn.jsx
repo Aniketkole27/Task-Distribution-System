@@ -5,6 +5,7 @@ import axios from 'axios'
 
 export default function SignIn() {
     const navigate = useNavigate()
+
     const [formData, setFormData] = useState({ email: '', password: '' })
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
@@ -41,7 +42,18 @@ export default function SignIn() {
             const response = await axios.post('http://localhost:8000/api/auth/login', formData)
             console.log('API response:', response.data)
             document.cookie = `token=${response.data.token}; path=/; secure; samesite=strict`
-            navigate('/admin/dashboard')
+
+            const userRole = response.data.user.role
+            if (userRole === 'admin') {
+                navigate('/admin/dashboard')
+            } else if (userRole === 'sub-admin') {
+                navigate('/manager/dashboard')
+            } else if (userRole === 'user') {
+                navigate('/user/dashboard')
+            } else {
+                navigate('/')
+            }
+
         } catch (error) {
             setApiError(error.response?.data?.message || 'Sign in failed. Please try again.')
         } finally {

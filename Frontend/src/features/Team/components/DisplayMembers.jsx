@@ -1,8 +1,11 @@
 import { useDispatch } from 'react-redux'
 import { setSelectedMemberId, setDetailsSidebarOpen } from '@app/teamSlice'
+import { useSelector } from 'react-redux'
 
 const PrintList = ({ name, email, id, active }) => {
     const dispatch = useDispatch();
+    const userProfile = useSelector((state) => state.currentUser.profile)
+    const isAdmin = userProfile?.role === 'admin'
 
     const handleOpenSidebar = (e) => {
         e.stopPropagation();
@@ -12,11 +15,11 @@ const PrintList = ({ name, email, id, active }) => {
 
     return (
         <div
-            className='group p-4 mb-3 border border-border rounded-xl flex items-center justify-between transition-all hover:shadow-md hover:border-primary/20 hover:bg-muted/30 cursor-pointer animate-in fade-in slide-in-from-bottom-2 duration-300'
+            className={`group p-4 mb-3 border border-border rounded-xl flex items-center justify-between transition-all duration-300 animate-in fade-in slide-in-from-bottom-2`}
             onClick={handleOpenSidebar}
         >
             <div className='space-y-1'>
-                <h3 className='text-sm font-semibold group-hover:text-primary transition-colors'>{name}</h3>
+                <h3 className={`text-sm font-semibold transition-colors ${isAdmin ? 'group-hover:text-primary' : ''}`}>{name}</h3>
                 <p className='text-[10px] text-muted-foreground font-medium tracking-tight'>{email}</p>
             </div>
 
@@ -31,4 +34,5 @@ const PrintList = ({ name, email, id, active }) => {
 }
 
 export default PrintList
+
 

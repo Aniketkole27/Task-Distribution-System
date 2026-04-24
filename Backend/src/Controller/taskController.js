@@ -3,7 +3,8 @@ import { User } from "../models/users.model.js"
 
 const handleGetAllTaskByProjectId = async (req, res) => {
     try {
-        if (!req.user.role.includes("admin") && !req.user.role.includes("sub-admin")) {
+
+        if (req.user.role !== "admin" && req.user.role !== "sub-admin") {
             return res.status(403).json({
                 message: "Forbidden, only admin and sub-admin can access this resource",
                 status: "error",
@@ -39,7 +40,7 @@ const handleGetAllTaskByProjectId = async (req, res) => {
 }
 
 const handleCreateTaskByProjectId = async (req, res) => {
-    if (!req.user.role.includes("admin") && !req.user.role.includes("sub-admin")) {
+    if (req.user.role !== "admin" && req.user.role !== "sub-admin") {
         return res.status(403).json({
             message: "Forbidden, only admin and sub-admin can access this resource",
             status: "error",

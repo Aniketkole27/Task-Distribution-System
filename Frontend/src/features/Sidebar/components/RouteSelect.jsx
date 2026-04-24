@@ -2,45 +2,65 @@ import React from 'react'
 import { LayoutDashboard, UsersIcon, Settings, Calendar, ListCheck, Folder } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
+import { useSelector } from 'react-redux'
+
 const RouteSelect = () => {
+    const userProfile = useSelector((state) => state.currentUser.profile)
+    const role = userProfile?.role
+
+    const getBasePath = () => {
+        if (role === 'admin') return '/admin'
+        if (role === 'sub-admin') return '/manager'
+        return '/user'
+    }
+
+    const basePath = getBasePath()
+
     return (
         <div className='space-y-1'>
-
             <RouteItems
-                to={"/admin/dashboard"}
+                to={`${basePath}/dashboard`}
                 title={"Dashboard"}
                 icon={<LayoutDashboard size="16" />}
             />
 
             <RouteItems
-                to={"/admin/projects"}
+                to={`${basePath}/projects`}
                 title={"Projects"}
                 icon={<Folder size="16" strokeWidth={2} />}
             />
+
+            {(role === 'admin' || role === 'sub-admin') && (
+                <RouteItems
+                    to={`${basePath}/team`}
+                    title={"Team"}
+                    icon={<UsersIcon size="16" />}
+                />
+            )}
+
             <RouteItems
-                to={"/admin/team"}
-                title={"Team"}
-                icon={<UsersIcon size="16" />}
-            />
-            <RouteItems
-                to="/admin/todos"
+                to={`${basePath}/todos`}
                 title={"Todo's"}
                 icon={<ListCheck size="16" />}
             />
-            <RouteItems
-                to="/admin/academic-calendar"
-                title={"Academic Calender"}
-                icon={<Calendar size="16" />}
-            />
+
+            {(role === 'admin' || role === 'sub-admin') && (
+                <RouteItems
+                    to={`${basePath}/academic-calendar`}
+                    title={"Academic Calender"}
+                    icon={<Calendar size="16" />}
+                />
+            )}
 
             <RouteItems
-                to="/admin/settings"
+                to={`${basePath}/settings`}
                 title={"Settings"}
                 icon={<Settings size="16" />}
             />
         </div>
     )
 }
+
 
 export default RouteSelect
 
