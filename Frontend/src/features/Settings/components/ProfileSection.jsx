@@ -14,7 +14,7 @@ const ProfileSection = ({ user = {} }) => {
                     <div className="w-32 h-32 rounded-3xl bg-muted flex items-center justify-center text-muted-foreground border-2 border-dashed border-border group-hover:bg-primary/5 group-hover:border-primary/50 transition-all overflow-hidden shadow-inner">
                         <User size={48} className="group-hover:scale-110 transition-transform duration-300" />
                     </div>
-                    <button className="absolute -bottom-2 -right-2 p-2 bg-stone-900 text-white rounded-xl shadow-lg hover:scale-110 transition-all">
+                    <button className="absolute -bottom-2 -right-2 p-2 bg-foreground text-background rounded-xl shadow-lg hover:scale-110 transition-all">
                         <Camera size={16} />
                     </button>
                 </div>
@@ -55,7 +55,7 @@ const ProfileSection = ({ user = {} }) => {
                     </div>
 
                     <div className="flex justify-end pt-4">
-                        <button className="px-8 py-3 bg-stone-900 text-white rounded-xl font-bold text-xs shadow-lg shadow-stone-950/20 active:scale-95 transition-all">
+                        <button className="px-8 py-3 bg-foreground text-background rounded-xl font-bold text-xs shadow-lg active:scale-95 transition-all">
                             Update Profile
                         </button>
                     </div>

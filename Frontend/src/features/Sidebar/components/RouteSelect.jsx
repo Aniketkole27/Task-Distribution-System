@@ -72,7 +72,7 @@ const RouteItems = ({ title, icon: icon, to }) => {
                 <div
                     className={`flex items-center cursor-pointer gap-3 w-full rounded-xl px-3 py-2 text-sm transition-all duration-200 group
                     ${isActive
-                            ? "bg-white text-primary shadow-sm border-border/50 font-bold"
+                            ? "bg-card text-primary shadow-sm border-border/50 font-bold"
                             : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
                 >

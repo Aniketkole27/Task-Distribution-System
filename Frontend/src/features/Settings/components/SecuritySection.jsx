@@ -59,7 +59,7 @@ const SecuritySection = () => {
                     <div className="flex items-center gap-2 text-xs font-bold text-emerald-600">
                         <ShieldCheck size={14} /> Password Strength: Strong
                     </div>
-                    <button className="px-8 py-3 bg-stone-900 text-white rounded-xl font-bold text-xs shadow-lg shadow-stone-950/20 active:scale-95 transition-all">
+                    <button className="px-8 py-3 bg-foreground text-background rounded-xl font-bold text-xs shadow-lg active:scale-95 transition-all">
                         Update Password
                     </button>
                 </div>

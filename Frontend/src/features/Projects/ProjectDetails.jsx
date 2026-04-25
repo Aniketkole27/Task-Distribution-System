@@ -19,7 +19,6 @@ const ProjectDetails = () => {
 
     const [openTask, setOpenTask] = useState(false)
     const { taskProject, loading } = useProjectTask(id)
-    console.log("taskProject", taskProject)
 
     const allProject = useSelector(state => state.projectData.data);
     const selectedProjectDetails = allProject.find(project => project._id === id)
@@ -45,7 +44,10 @@ const ProjectDetails = () => {
             {
                 taskProject.length === 0
                     ? <div className='flex px-4 py-8 font-semibold items-center h-10'><p>No Statistic</p></div>
-                    : <ProjectStatistic taskProject={taskProject} />
+                    : <ProjectStatistic
+                        loading={loading}
+                        taskProject={taskProject}
+                    />
             }
 
             <FilterTasks />
@@ -60,7 +62,10 @@ const ProjectDetails = () => {
                             </button>
                         )}
                     </div>
-                    : <TaskList taskProject={taskProject} />
+                    : <TaskList
+                        taskProject={taskProject}
+                        loading={loading}
+                    />
             }
         </div>
     )

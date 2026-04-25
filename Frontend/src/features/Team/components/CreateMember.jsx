@@ -24,7 +24,7 @@ const CreateMember = ({ setOpen }) => {
 
     return (
         <div 
-            className='fixed inset-0 bg-stone-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200'
+            className='fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200'
             onClick={() => setOpen(false)}
         >
             <div 

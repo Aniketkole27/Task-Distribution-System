@@ -18,7 +18,7 @@ const MemberDetailsSidebar = () => {
         <>
             {/* Backdrop */}
             <div 
-                className={`fixed inset-0 bg-stone-900/20 backdrop-blur-sm z-[60] transition-opacity duration-300 ${isDetailsSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                className={`fixed inset-0 bg-background/60 backdrop-blur-sm z-[60] transition-opacity duration-300 ${isDetailsSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 onClick={onClose}
             />
 

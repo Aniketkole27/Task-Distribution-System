@@ -2,10 +2,18 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useProjectsWithTask } from '../hook/useProjectsWithTask'
 
-const TaskList = ({ taskProject }) => {
+const TaskList = ({ taskProject, loading }) => {
   // const projectData = useSelector(state => state.projectData.data);
   // const projectInfo = projectData.find((project) => project._id === clickedProject)
   // console.log("taskProject", taskProject)
+
+  if (loading) {
+    return (
+      <div className='flex item-center justify-center h-40 mt-20 mb-30'>
+        <div className="animate-spin border-4 border-t-blue-500 border-r-blue-500 rounded-full w-12 h-12"></div>
+      </div>
+    )
+  }
 
   return (
     <div className='m-4'>

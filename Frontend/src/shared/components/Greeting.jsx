@@ -19,7 +19,7 @@ const Greeting = () => {
     else greet = "Good Night"
 
     return (
-        <main className='border-b px-4 mb-4 mt-1 pb-4 border-stone-300'>
+        <main className='border-b px-4 mb-4 mt-1 pb-4 border-border'>
             <div className='flex p-0.5 items-center justify-between'>
                 <div>
                     <span className='block text-sm font-bold'>
@@ -27,11 +27,11 @@ const Greeting = () => {
                             profile?.name ? (
                                 `${greet}, ${profile.name}`
                             ) : (
-                                <div className="h-4 w-40 bg-gray-300 rounded animate-pulse"></div>
+                                <div className="h-4 w-40 bg-muted rounded animate-pulse"></div>
                             )
                         }
                     </span>
-                    <span className='block text-xs text-stone-500'>{date}</span>
+                    <span className='block text-xs text-muted-foreground'>{date}</span>
                 </div>
                 <ThemeToggle />
             </div>

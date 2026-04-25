@@ -22,7 +22,7 @@ const ThemeToggle = () => {
     return (
         <button
             onClick={() => setIsDark(!isDark)}
-            className="group relative flex items-center justify-center w-9 h-9 rounded-lg bg-muted hover:bg-stone-300 transition-all duration-300 cursor-pointer"
+            className="group relative flex items-center justify-center w-9 h-9 rounded-lg bg-muted hover:bg-border transition-all duration-300 cursor-pointer"
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
         >
             <div className="relative flex items-center justify-center w-5 h-5">

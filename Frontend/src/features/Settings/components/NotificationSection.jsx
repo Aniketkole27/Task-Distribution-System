@@ -24,7 +24,7 @@ const NotificationSection = () => {
             </div>
             <button 
                 onClick={onToggle}
-                className={`relative w-12 h-6 rounded-full transition-all duration-300 overflow-hidden ${active ? 'bg-stone-900' : 'bg-muted'}`}
+                className={`relative w-12 h-6 rounded-full transition-all duration-300 overflow-hidden ${active ? 'bg-foreground' : 'bg-muted'}`}
             >
                 <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-300 shadow-sm ${active ? 'left-7' : 'left-1'}`} />
             </button>
@@ -77,7 +77,7 @@ const NotificationSection = () => {
             </div>
 
             <div className="flex justify-end pt-4 max-w-2xl">
-                <button className="px-8 py-3 bg-stone-900 text-white rounded-xl font-bold text-xs shadow-lg shadow-stone-950/20 active:scale-95 transition-all">
+                <button className="px-8 py-3 bg-foreground text-background rounded-xl font-bold text-xs shadow-lg active:scale-95 transition-all">
                     Save Changes
                 </button>
             </div>

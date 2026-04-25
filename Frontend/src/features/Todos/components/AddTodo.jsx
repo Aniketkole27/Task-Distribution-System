@@ -21,7 +21,7 @@ const AddTodo = ({ setOpenAddTask }) => {
 
             <button
                 onClick={() => setOpenAddTask(true)}
-                className='flex items-center gap-2 bg-stone-900 hover:bg-black text-white text-sm font-bold px-5 py-2.5 rounded-lg shadow-sm active:scale-95 transition-all whitespace-nowrap'
+                className='flex items-center gap-2 bg-foreground hover:bg-foreground/90 text-background text-sm font-bold px-5 py-2.5 rounded-lg shadow-sm active:scale-95 transition-all whitespace-nowrap'
             >
                 <Plus size={16} />
                 <span className='hidden sm:inline'>New Todo</span>

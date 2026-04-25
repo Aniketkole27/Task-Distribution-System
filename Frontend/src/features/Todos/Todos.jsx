@@ -22,7 +22,7 @@ const Todos = () => {
     }
 
     return (
-        <div className='bg-white text-stone-900 rounded-lg pb-3 shadow h-full'>
+        <div className='bg-card text-foreground rounded-lg pb-3 shadow h-full'>
             <Greeting />
             <AddTodo
                 setOpenAddTask={setOpenAddTask}

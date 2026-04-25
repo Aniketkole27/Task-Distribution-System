@@ -42,6 +42,7 @@ const CommandMenu = ({ open, setOpen }) => {
         <Command.Dialog
             open={open}
             onOpenChange={setOpen}
+            onClick={(e) => e.stopPropagation()}
             label="Global Command Menu"
             className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh] p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200"
         >
@@ -61,7 +62,7 @@ const CommandMenu = ({ open, setOpen }) => {
                     </div>
                 </div>
 
-                <Command.List className="max-h-[450px] overflow-y-auto p-2 scrollbar-hide">
+                <Command.List className="max-h-[350px] overflow-y-auto p-2 scrollbar-hide">
                     <Command.Empty className="py-12 text-center text-sm">
                         <div className="flex flex-col items-center gap-2">
                             <div className="p-3 rounded-full bg-muted/50">

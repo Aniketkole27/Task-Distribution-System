@@ -12,7 +12,7 @@ const TodoList = () => {
             <div className='space-y-3 mt-4 mx-4 max-w-2xl md:mx-auto'>
                 {(!Array.isArray(allTask) || allTask.length === 0) ? (
                     <div className='flex flex-col items-center justify-center py-20 bg-background/50 rounded-2xl border border-dashed border-border'>
-                        <div className='w-12 h-12 bg-background rounded-xl shadow-sm border border-stone-100 flex items-center justify-center text-stone-300 mb-4'>
+                        <div className='w-12 h-12 bg-card rounded-xl shadow-sm border border-border flex items-center justify-center text-muted-foreground mb-4'>
                             <ClipboardList size={24} />
                         </div>
                         <h2 className='text-foreground font-bold'>No todos yet</h2>

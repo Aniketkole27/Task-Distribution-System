@@ -35,7 +35,7 @@ const TodoItem = ({ task }) => {
                             type="text"
                             value={editedTitle}
                             onChange={(e) => setEditedTitle(e.target.value)}
-                            className='font-semibold text-foreground border-b-2 border-stone-900 w-full outline-none bg-transparent py-0.5'
+                            className='font-semibold text-foreground border-b-2 border-primary w-full outline-none bg-transparent py-0.5'
                             autoFocus
                         />
                     ) : (

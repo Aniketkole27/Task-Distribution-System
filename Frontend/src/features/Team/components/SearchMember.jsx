@@ -9,7 +9,7 @@ const SearchMember = () => {
 
 
     return (
-        <div className='flex items-center border border-stone-400 px-3 rounded gap-2'>
+        <div className='flex items-center border border-border px-3 rounded gap-2'>
             <Search size="16" />
             <input
                 type="text"

@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import '@fontsource/inter/index.css';
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
@@ -25,6 +27,17 @@
     --border: 210 20% 90%;
     --muted: 210 20% 95%;
     --muted-foreground: 210 10% 45%;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --border: 0 0% 15%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
   }
 
   body {

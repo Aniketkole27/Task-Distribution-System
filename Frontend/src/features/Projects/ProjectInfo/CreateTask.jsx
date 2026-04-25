@@ -24,7 +24,7 @@ const CreateTask = ({ setOpenTask }) => {
     }
     return (
         <div
-            className='fixed inset-0 bg-stone-950/50 border z-50 flex items-start justify-center'
+            className='fixed inset-0 bg-background/80 border z-50 flex items-start justify-center'
             onClick={() => setOpenTask(false)}
         >
             <div
