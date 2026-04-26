@@ -18,12 +18,12 @@ const MemberDetailsSidebar = () => {
         <>
             {/* Backdrop */}
             <div 
-                className={`fixed inset-0 bg-background/60 backdrop-blur-sm z-[60] transition-opacity duration-300 ${isDetailsSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                className={`fixed inset-0 bg-background/60 backdrop-blur-sm z-60 transition-opacity duration-300 ${isDetailsSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 onClick={onClose}
             />
 
             {/* Sidebar */}
-            <div className={`fixed right-0 top-0 h-full w-full max-w-md bg-card border-l border-border shadow-2xl z-[70] transform transition-transform duration-300 ease-in-out ${isDetailsSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed right-0 top-0 h-full w-full max-w-md bg-card border-l border-border shadow-2xl z-70 transform transition-transform duration-300 ease-in-out ${isDetailsSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className='flex flex-col h-full'>
                     {/* Header */}
                     <div className='flex items-center justify-between p-6 border-b border-border'>

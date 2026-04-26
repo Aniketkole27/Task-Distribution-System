@@ -62,7 +62,7 @@ const CommandMenu = ({ open, setOpen }) => {
                     </div>
                 </div>
 
-                <Command.List className="max-h-[350px] overflow-y-auto p-2 scrollbar-hide">
+                <Command.List className="max-h-87.5 overflow-y-auto p-2 scrollbar-hide">
                     <Command.Empty className="py-12 text-center text-sm">
                         <div className="flex flex-col items-center gap-2">
                             <div className="p-3 rounded-full bg-muted/50">
@@ -72,7 +72,7 @@ const CommandMenu = ({ open, setOpen }) => {
                         </div>
                     </Command.Empty>
 
-                    <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-[0.1em]">Navigation</span>}>
+                    <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Navigation</span>}>
                         <Item
                             onSelect={() => runCommand(() => navigate('/admin/dashboard'))}
                             icon={<LayoutDashboard className="h-4 w-4" />}
@@ -107,7 +107,7 @@ const CommandMenu = ({ open, setOpen }) => {
 
                     <div className="h-px bg-border my-2 mx-2 opacity-50" />
 
-                    <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-[0.1em]">Actions</span>}>
+                    <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Actions</span>}>
                         <Item
                             onSelect={() => runCommand(() => console.log('New Project'))}
                             icon={<FolderPlus className="h-4 w-4 text-blue-500" />}
@@ -130,7 +130,7 @@ const CommandMenu = ({ open, setOpen }) => {
 
                     <div className="h-px bg-border my-2 mx-2 opacity-50" />
 
-                    <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-[0.1em]">System</span>}>
+                    <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">System</span>}>
                         <Item
                             onSelect={() => runCommand(() => navigate('/admin/settings'))}
                             icon={<Settings className="h-4 w-4" />}
@@ -152,11 +152,11 @@ const CommandMenu = ({ open, setOpen }) => {
                 <div className="flex items-center justify-between border-t border-border px-4 py-2.5 bg-muted/20">
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground font-medium">
-                            <kbd className="rounded-[4px] border border-border bg-card px-1.5 py-0.5 shadow-sm">↑↓</kbd>
+                            <kbd className="rounded-sm border border-border bg-card px-1.5 py-0.5 shadow-sm">↑↓</kbd>
                             <span>Navigate</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground font-medium">
-                            <kbd className="rounded-[4px] border border-border bg-card px-1.5 py-0.5 shadow-sm">↵</kbd>
+                            <kbd className="rounded-sm border border-border bg-card px-1.5 py-0.5 shadow-sm">↵</kbd>
                             <span>Open</span>
                         </div>
                     </div>
@@ -183,7 +183,7 @@ const Item = ({ icon, label, shortcut, onSelect, className = "" }) => (
         {shortcut && (
             <div className="flex items-center gap-1 opacity-60 group-aria-selected:opacity-100 transition-opacity">
                 {shortcut.split(' ').map((key, i) => (
-                    <kbd key={i} className="pointer-events-none h-5 min-w-5 flex items-center justify-center rounded-[4px] border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground transition-all">
+                    <kbd key={i} className="pointer-events-none h-5 min-w-5 flex items-center justify-center rounded-sm border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground transition-all">
                         {key}
                     </kbd>
                 ))}

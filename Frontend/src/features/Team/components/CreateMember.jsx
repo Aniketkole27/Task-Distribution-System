@@ -45,7 +45,7 @@ const CreateMember = ({ setOpen }) => {
                             <UserPlus className="text-primary" size={24} />
                         </div>
                         <h2 className="text-xl font-bold tracking-tight">Add Team Member</h2>
-                        <p className="text-xs text-muted-foreground mt-1.5 max-w-[280px]">
+                        <p className="text-xs text-muted-foreground mt-1.5 max-w-70">
                             Invoke a new member to join your workspace and start collaborating.
                         </p>
                     </div>
@@ -118,7 +118,7 @@ const CreateMember = ({ setOpen }) => {
                         </button>
                         <button
                             type="submit"
-                            className="flex-[2] px-4 py-2.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                            className="flex-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
                         >
                             Create Member
                         </button>

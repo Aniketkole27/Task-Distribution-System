@@ -1,5 +1,5 @@
 import React from 'react'
-import { LayoutDashboard, UsersIcon, Settings, Calendar, ListCheck, Folder } from 'lucide-react'
+import { LayoutDashboard, UsersIcon, Settings, Calendar, ListCheck, Layout, Folder } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
 import { useSelector } from 'react-redux'
@@ -22,13 +22,25 @@ const RouteSelect = () => {
                 to={`${basePath}/dashboard`}
                 title={"Dashboard"}
                 icon={<LayoutDashboard size="16" />}
+
             />
 
-            <RouteItems
-                to={`${basePath}/projects`}
-                title={"Projects"}
-                icon={<Folder size="16" strokeWidth={2} />}
-            />
+            {
+                role === 'user' && (
+                    <RouteItems
+                        to={`${basePath}/jiraboard`}
+                        title={"Jira Board"}
+                        icon={<Layout size="16" strokeWidth={2} />}
+                    />
+                )
+            }
+            {(role === 'admin' || role === 'sub-admin') && (
+                <RouteItems
+                    to={`${basePath}/projects`}
+                    title={"Projects"}
+                    icon={<Folder size="16" strokeWidth={2} />}
+                />
+            )}
 
             {(role === 'admin' || role === 'sub-admin') && (
                 <RouteItems

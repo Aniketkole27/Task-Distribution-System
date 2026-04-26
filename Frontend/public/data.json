@@ -1,0 +1,94 @@
+[
+  {
+    "title": "Todo",
+    "tasks": [
+      {
+        "id": "TSK-101",
+        "title": "Finalize Chief Guest for Kalahvengam",
+        "description": "Contact potential chief guests for the inauguration ceremony and confirm their availability.",
+        "projectName": "Kalahvengam 2026",
+        "assignedBy": "HOD Computer Science",
+        "dueDate": "May 01, 2026",
+        "priority": "High"
+      },
+      {
+        "id": "TSK-102",
+        "title": "Submit Syllabus Coverage Report",
+        "description": "Compile and submit the mid-semester syllabus coverage for all second-year courses.",
+        "projectName": "Academic Planning",
+        "assignedBy": "Principal",
+        "dueDate": "Apr 28, 2026",
+        "priority": "Medium"
+      },
+      {
+        "id": "TSK-103",
+        "title": "Approve Budget for Sound System",
+        "description": "Review the quotations submitted by the student committee for the Kalahvengam sound and lighting setup.",
+        "projectName": "Kalahvengam 2026",
+        "assignedBy": "Aniket Kole",
+        "dueDate": "Apr 30, 2026",
+        "priority": "High"
+      }
+    ]
+  },
+  {
+    "title": "In Progress",
+    "tasks": [
+      {
+        "id": "TSK-104",
+        "title": "Audition Student Performances",
+        "description": "Coordinate with the cultural committee to review and select dance and singing performances for the main event.",
+        "projectName": "Kalahvengam 2026",
+        "assignedBy": "Ganesh Ekambe",
+        "dueDate": "May 05, 2026",
+        "priority": "High"
+      },
+      {
+        "id": "TSK-105",
+        "title": "Prepare Department Timetable",
+        "description": "Draft the academic timetable for the upcoming even semester and assign faculties to respective subjects.",
+        "projectName": "Department Admin",
+        "assignedBy": "HOD Computer Science",
+        "dueDate": "May 10, 2026",
+        "priority": "Medium"
+      }
+    ]
+  },
+  {
+    "title": "Review",
+    "tasks": [
+      {
+        "id": "TSK-106",
+        "title": "Review Faculty Leave Applications",
+        "description": "Process the pending leave applications of staff members for the current month.",
+        "projectName": "Department Admin",
+        "assignedBy": "Aniket Kole",
+        "dueDate": "Apr 27, 2026",
+        "priority": "Low"
+      }
+    ]
+  },
+  {
+    "title": "Done",
+    "tasks": [
+      {
+        "id": "TSK-107",
+        "title": "Book College Auditorium",
+        "description": "Secure the main college auditorium for the two days of the Kalahvengam festival.",
+        "projectName": "Kalahvengam 2026",
+        "assignedBy": "Cultural Secretary",
+        "dueDate": "Apr 20, 2026",
+        "priority": "High"
+      },
+      {
+        "id": "TSK-108",
+        "title": "Upload Internal Marks to Portal",
+        "description": "Ensure all subject teachers have uploaded their assignment marks to the university portal.",
+        "projectName": "Academic Planning",
+        "assignedBy": "Ganesh Ekambe",
+        "dueDate": "Apr 22, 2026",
+        "priority": "Medium"
+      }
+    ]
+  }
+]

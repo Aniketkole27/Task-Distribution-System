@@ -4,7 +4,7 @@ import Header from "./components/Header";
 
 const JiraDashboard = () => {
     return (
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex text-black flex-col gap-4 w-full">
             <Greeting />
             <Header />
             <Sections />

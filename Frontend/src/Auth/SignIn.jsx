@@ -62,7 +62,7 @@ export default function SignIn() {
     }
 
     return (
-        <div className="flex  items-center justify-center min-h-screen bg-gray-800">
+        <div className="flex text-black  items-center justify-center min-h-screen bg-gray-800">
             <form onSubmit={handleSubmit} autoComplete="on" className="bg-zinc-300 p-8 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">Sign In</h2>
 

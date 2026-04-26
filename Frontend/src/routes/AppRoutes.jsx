@@ -5,6 +5,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import SignIn from "../Auth/SignIn";
 import SignUp from "../Auth/SignUp";
 import JiraDashboard from "../features/JiraBoard/JiraDashboard";
+import UserDashboard from "../features/UserDashboard/UserDashboard";
 
 const AppRoutes = () => {
     return (
@@ -45,8 +46,8 @@ const AppRoutes = () => {
             <Route element={<ProtectedRoute allowedRoles={['user']} />}>
                 <Route path="/user" element={<AdminLayout />}>
                     <Route index element={<Navigate to="dashboard" replace />} />
-                    <Route path="dashboard" element={<JiraDashboard />} />
-                    <Route path="projects" element={<Projects />} />
+                    <Route path="dashboard" element={<UserDashboard />} />
+                    <Route path="jiraboard" element={<JiraDashboard />} />
                     <Route path="projects/:id" element={<ProjectDetails />} />
                     <Route path="todos" element={<Todos />} />
                     <Route path="settings" element={<Settings />} />
