@@ -23,7 +23,7 @@ const SectionCard = ({ title, tasks = [] }) => {
             <div className="space-y-3 flex-1 overflow-y-auto hide-scrollbar">
                 {
                     tasks.map((task) => (
-                        <TaskCard key={task.id} task={task} />
+                        <TaskCard key={task.id} task={task} status={title} />
                     ))
                 }
             </div>

@@ -14,6 +14,8 @@ const UserDashboard = () => {
         return [...acc, ...tasksWithStatus];
     }, []);
 
+    console.log(allTasks)
+
     const totalTasks = allTasks.length;
     const completedTasks = allTasks.filter(t => t.status === "Done").length;
     const inProgressTasks = allTasks.filter(t => t.status === "In Progress").length;
