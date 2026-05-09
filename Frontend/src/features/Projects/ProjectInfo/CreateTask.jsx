@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const CreateTask = ({ setOpenTask }) => {
+
+    const allUsers = useSelector(state => state.currentUser.allUsers)
 
     useEffect(() => {
         document.body.style.overflow = 'hidden'
@@ -10,12 +13,14 @@ const CreateTask = ({ setOpenTask }) => {
     }, [])
 
 
+
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         date: "",
         priority: "",
-        assignedTo: ""
+        assignedTo: "",
+        projectId: "",
     })
 
     const handleChange = (e) => {
@@ -70,14 +75,30 @@ const CreateTask = ({ setOpenTask }) => {
 
                     </InputField>
 
-                    <InputField
+                    <InputField label={"Assigned To"} name="assignedTo" as="select" defaultValue="" onChange={handleChange}>
+                        <option value="" disabled>
+                            Select Member to Assign
+                        </option>
+
+                        {
+                            // Map through team members and create options
+                            allUsers.map((user) => (
+                                <option key={user.id} value={user.id}>
+                                    {user.name}
+                                </option>
+                            ))
+                        }
+
+                    </InputField>
+
+                    {/* <InputField
                         label={"Assigned To"}
                         placeholder={"assigned to"}
                         type='type'
                         name="assignedTo"
                         value={formData.assignedTo}
                         onChange={handleChange}
-                    />
+                    /> */}
 
                     <div className="p-4 border-t flex justify-center gap-2">
                         <button

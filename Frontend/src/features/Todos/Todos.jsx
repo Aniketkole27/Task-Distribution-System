@@ -22,19 +22,21 @@ const Todos = () => {
     }
 
     return (
-        <div className='bg-card text-foreground rounded-lg pb-3 shadow h-full'>
+        <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 h-full'>
             <Greeting />
-            <AddTodo
-                setOpenAddTask={setOpenAddTask}
-            />
-            {
-                openAddTask && (
-                    <TodoForm
-                        setOpenAddTask={setOpenAddTask}
-                    />
-                )
-            }
-            <TodoList />
+            <div className='bg-card text-foreground rounded-lg shadow flex-1 flex flex-col overflow-hidden'>
+                <AddTodo
+                    setOpenAddTask={setOpenAddTask}
+                />
+                {
+                    openAddTask && (
+                        <TodoForm
+                            setOpenAddTask={setOpenAddTask}
+                        />
+                    )
+                }
+                <TodoList />
+            </div>
         </div>
     )
 }

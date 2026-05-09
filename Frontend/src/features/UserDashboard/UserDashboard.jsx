@@ -45,7 +45,7 @@ const UserDashboard = () => {
         <div className="flex flex-col gap-6 w-full max-w-7xl mx-auto">
             <Greeting />
 
-            <div className="w-full -mt-5">
+            <div className="w-full">
                 <StatsCards statsData={stats} />
             </div>
 

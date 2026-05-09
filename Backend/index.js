@@ -5,6 +5,7 @@ import { db } from "./src/database.js"
 import { authRoute } from "./src/Routes/AuthRoutes.js";
 import { todoRoutes } from "./src/Routes/TodoRoutes.js";
 import { projectRoutes } from "./src/Routes/ProjectRoutes.js";
+import { taskRoutes} from "./src/Routes/Task.routes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/todos", todoRoutes);
 app.use("/api/project", projectRoutes);
+app.use("/api/task", taskRoutes)
 
 app.listen(process.env.PORT, () => {
   console.log("Sever started on port ", process.env.PORT);

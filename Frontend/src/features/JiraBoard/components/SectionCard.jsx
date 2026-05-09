@@ -1,6 +1,10 @@
+import { useState } from "react"
 import TaskCard from "./TaskCard"
+import { ChevronDown } from "lucide-react"
 
-const SectionCard = ({ title, tasks = [] }) => {
+const SectionCard = ({ key, title, tasks = [] }) => {
+    const [showCard, setShowCard] = useState(true)
+
     // Define subtle, premium background and border colors for each column
     const sectionStyles = {
         "Todo": "bg-slate-50/80 dark:bg-slate-900/20 border-slate-200/60 dark:border-slate-800/60",
@@ -15,14 +19,31 @@ const SectionCard = ({ title, tasks = [] }) => {
         <div className={`border rounded-xl p-4 h-full min-h-[calc(100vh-200px)] transition-colors duration-300 flex flex-col ${currentStyle}`}>
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">{title}</h3>
-                <div className="px-2 py-0.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 shadow-sm">
-                    {tasks.length}
+
+                <div className="flex items-center gap-2">
+                    <div className="px-2 py-0.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 shadow-sm">
+                        {tasks.length}
+                    </div>
+                    <div>
+                        <button
+                            type="button"
+                            onClick={() => setShowCard((prev) => !prev)}
+                            className="p-1   shadow-2xl rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition"
+                            aria-label={showCard ? "Hide tasks" : "Show tasks"}
+                        >
+                            <ChevronDown
+                                size={16}
+                                className={`text-slate-400 transition-transform ${showCard ? "" : "rotate-180"}`}
+                            />
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div className="space-y-3 flex-1 overflow-y-auto hide-scrollbar">
+
                 {
-                    tasks.map((task) => (
+                    showCard && tasks.map((task) => (
                         <TaskCard key={task.id} task={task} status={title} />
                     ))
                 }

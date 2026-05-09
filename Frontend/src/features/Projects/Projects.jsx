@@ -9,9 +9,9 @@ const Projects = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className='bg-background text-foreground rounded-2xl pb-6 h-full' >
+    <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 h-full' >
       <Greeting />
-      <div className='space-y-6'>
+      <div className='flex flex-col'>
         <ProjectData />
         <FilterSection setOpen={setOpen} />
         <TotalProjects />

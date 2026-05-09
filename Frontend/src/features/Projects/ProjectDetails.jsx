@@ -19,6 +19,7 @@ const ProjectDetails = () => {
 
     const [openTask, setOpenTask] = useState(false)
     const { taskProject, loading } = useProjectTask(id)
+    console.log('taskProject = ', taskProject)
 
     const allProject = useSelector(state => state.projectData.data);
     const selectedProjectDetails = allProject.find(project => project._id === id)

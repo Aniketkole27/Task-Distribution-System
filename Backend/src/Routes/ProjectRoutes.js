@@ -25,5 +25,5 @@ projectRoutes.delete("/delete/:id", ensureAuthenticated, handleDeleteProjectById
 
 // All Project Tasks Route
 
-projectRoutes.get("/tasks/:id", ensureAuthenticated, handleGetAllTaskByProjectId)
-projectRoutes.post("/tasks/create/:id", ensureAuthenticated, handleCreateTaskByProjectId)
+// projectRoutes.get("/tasks/:id", ensureAuthenticated, handleGetAllTaskByProjectId)
+// projectRoutes.post("/tasks/create/:id", ensureAuthenticated, handleCreateTaskByProjectId)

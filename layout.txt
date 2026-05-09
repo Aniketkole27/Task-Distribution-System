@@ -1,0 +1,109 @@
+Task_Distribution_System/
+│
+├── Backend/                            # Node.js + Express Backend
+│   ├── src/
+│   │   ├── controllers/                # Application Logic (Thin Layer)
+│   │   │   ├── auth.controller.js
+│   │   │   ├── project.controller.js
+│   │   │   ├── task.controller.js
+│   │   │   └── todo.controller.js
+│   │   │
+│   │   ├── models/                     # Mongoose Schemas
+│   │   │   ├── user.model.js
+│   │   │   ├── project.model.js
+│   │   │   ├── task.model.js
+│   │   │   └── todo.model.js
+│   │   │
+│   │   ├── routes/                     # API Routes
+│   │   │   ├── auth.routes.js
+│   │   │   ├── project.routes.js
+│   │   │   ├── task.routes.js         ✅ (ADD THIS)
+│   │   │   └── todo.routes.js
+│   │   │
+│   │   ├── middleware/                 # Auth + Role Middleware
+│   │   │   ├── auth.middleware.js
+│   │   │   └── role.middleware.js      ✅ (IMPORTANT)
+│   │   │
+│   │   ├── services/                   # Business Logic Layer (NEW)
+│   │   │   ├── task.service.js
+│   │   │   └── project.service.js
+│   │   │
+│   │   ├── utils/
+│   │   │   └── roles.js                # RBAC Config
+│   │   │
+│   │   └── database.js
+│   │
+│   ├── index.js
+│   ├── .env
+│   └── package.json
+│
+├── Frontend/                           # React + Vite Frontend
+│   ├── src/
+│   │
+│   │   ├── app/                        # Redux Store
+│   │   │   ├── store.js
+│   │   │   ├── authSlice.js
+│   │   │   ├── taskSlice.js           ✅ (ADD THIS)
+│   │   │   ├── todoSlice.js
+│   │   │   └── teamSlice.js
+│   │
+│   │   ├── layouts/                    # Layout System (SINGLE)
+│   │   │   └── DashboardLayout.jsx    ✅ (ONE LAYOUT ONLY)
+│   │
+│   │   ├── features/                   # Feature-Based Architecture
+│   │   │
+│   │   │   ├── dashboard/              ⭐ CORE (ROLE-BASED)
+│   │   │   │   ├── components/         # Shared UI
+│   │   │   │   │   ├── StatsCard.jsx
+│   │   │   │   │   ├── TaskList.jsx
+│   │   │   │   │   └── ActivityFeed.jsx
+│   │   │   │   │
+│   │   │   │   ├── AdminView.jsx       # Admin/SubAdmin Logic
+│   │   │   │   ├── UserView.jsx        # User Logic
+│   │   │   │   └── Dashboard.jsx       # Role Switcher
+│   │   │   │
+│   │   │   ├── tasks/                  ⭐ MAIN SYSTEM FEATURE
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── TaskCard.jsx
+│   │   │   │   │   ├── TaskDetails.jsx
+│   │   │   │   │   └── TaskActions.jsx
+│   │   │   │   ├── api/
+│   │   │   │   └── Tasks.jsx
+│   │   │   │
+│   │   │   ├── projects/
+│   │   │   │   ├── components/
+│   │   │   │   └── Projects.jsx
+│   │   │   │
+│   │   │   ├── team/
+│   │   │   │   ├── components/
+│   │   │   │   └── Team.jsx
+│   │   │   │
+│   │   │   ├── todos/
+│   │   │   │   ├── components/
+│   │   │   │   └── Todos.jsx
+│   │   │   │
+│   │   │   └── calendar/
+│   │   │       └── Calendar.jsx
+│   │   │
+│   │   ├── shared/                    # Reusable Global Components
+│   │   │   └── components/
+│   │   │       ├── Sidebar.jsx       ⭐ Role-Based Menu
+│   │   │       ├── ToggleTheme.jsx
+│   │   │       └── Greeting.jsx
+│   │   │
+│   │   ├── api/                       # Axios Config
+│   │   │   └── axios.js
+│   │   │
+│   │   ├── routes/                    # Central Routing (NEW)
+│   │   │   └── AppRoutes.jsx
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── public/
+│   ├── vite.config.js
+│   └── package.json
+│
+├── layout.txt
+└── README.md

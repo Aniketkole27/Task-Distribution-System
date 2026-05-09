@@ -9,22 +9,29 @@ const taskReviewSchema = new mongoose.Schema(
       ref: 'Task',
       required: true,
     },
-    assingedTo: {
+
+    assignedTo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
+
     reviewer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
+
     decision: {
       type: String,
       enum: ['approved', 'rejected'],
       required: true,
     },
-    comment: String,
+    
+    comment: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

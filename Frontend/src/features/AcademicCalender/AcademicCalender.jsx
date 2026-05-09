@@ -69,10 +69,8 @@ function AcademicCalender() {
   }, 0);
 
   return (
-    <div className="bg-card text-foreground rounded-lg pb-3 shadow h-full flex flex-col">
-      <div>
-        <Greeting />
-      </div>
+    <div className="bg-card text-foreground rounded-lg pb-3 shadow h-full flex flex-col gap-4">
+      <Greeting />
 
       <div className="px-4 pb-4 flex flex-1 flex-col gap-4">
         <div className="grid gap-3 md:grid-cols-2">

@@ -19,9 +19,9 @@ const Greeting = () => {
     else greet = "Good Night"
 
     return (
-        <main className='border-b px-4 mb-4 mt-1 pb-4 border-border'>
-            <div className='flex p-0.5 items-center justify-between'>
-                <div>
+        <main className='w-full px-6 py-4 bg-card border border-border rounded-xl shadow-sm'>
+            <div className='flex p-1 items-center justify-between'>
+                <div className='flex flex-col gap-1'>
                     <span className='block text-sm font-bold'>
                         {
                             profile?.name ? (
@@ -33,7 +33,9 @@ const Greeting = () => {
                     </span>
                     <span className='block text-xs text-muted-foreground'>{date}</span>
                 </div>
-                <ThemeToggle />
+                <div>
+                    <ThemeToggle />
+                </div>
             </div>
         </main>
     )

@@ -11,15 +11,18 @@ const taskSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     dueDate: {
       type: String,
       required: true,
     },
+
     priority: {
       type: String,
-      enum: ['low', 'medium', 'high'],
+      enum: ['low', 'medium', 'urgent'],
       default: 'medium',
     },
+
     project: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Project',
@@ -34,29 +37,31 @@ const taskSchema = new mongoose.Schema(
 
     assignedBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Admin or Subadmin
+      ref: 'User',
       required: true,
     },
 
     status: {
       type: String,
-      enum: ['todo', 'in-progress', 'review', 'completed', 'failed'],
+      enum: [
+        'todo',
+        'in-progress',
+        'submitted',
+        'under-review',
+        'approved',
+        'rejected',
+      ],
       default: 'todo',
     },
 
-    submittedAt: {
-      type: Date,
-      default: null,
-    },
-
-    reviewedAt: {
-      type: Date,
-      default: null,
-    },
-
-    reviewComment: {
+    submissionNote: {
       type: String,
+      default: "",
     },
+
+    submittedAt: Date,
+    lastReviewedAt: Date,
+
   },
   { timestamps: true }
 );
