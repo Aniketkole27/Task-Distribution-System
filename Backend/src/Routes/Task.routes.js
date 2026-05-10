@@ -1,4 +1,5 @@
 import express from 'express';
+import { ensureAuthenticated } from '../MiddleWare/Auth.js'
 
 import {
     getAllTaskByProjectId,
@@ -8,5 +9,5 @@ import {
 export const taskRoutes = express.Router()
 
 taskRoutes.get("/:id", getAllTaskByProjectId)
-taskRoutes.post("/task/:id", createTaskByProjectId)
+taskRoutes.post("/create/:id", ensureAuthenticated, createTaskByProjectId)
 

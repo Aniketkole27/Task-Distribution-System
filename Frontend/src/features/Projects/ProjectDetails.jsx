@@ -19,7 +19,7 @@ const ProjectDetails = () => {
 
     const [openTask, setOpenTask] = useState(false)
     const { taskProject, loading } = useProjectTask(id)
-    console.log('taskProject = ', taskProject)
+    // console.log('taskProject = ', taskProject)
 
     const allProject = useSelector(state => state.projectData.data);
     const selectedProjectDetails = allProject.find(project => project._id === id)
@@ -35,7 +35,11 @@ const ProjectDetails = () => {
 
             <Greeting />
             {openTask && (
-                <CreateTask openTask={openTask} setOpenTask={setOpenTask} />
+                <CreateTask
+                    openTask={openTask}
+                    setOpenTask={setOpenTask}
+                    selectedProjectDetails={selectedProjectDetails}
+                />
             )}
             <NavigationSection
                 setOpenTask={setOpenTask}

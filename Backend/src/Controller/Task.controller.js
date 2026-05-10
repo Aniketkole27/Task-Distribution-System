@@ -41,7 +41,14 @@ const getAllTaskByProjectId = async (req, res) => {
 }
 
 const createTaskByProjectId = async (req, res) => {
+    console.log(req.user)
     try {
+        if (!req.user) {
+            return res.status(401).json({
+                message: "Unauthorized",
+                status: "error",
+            });
+        }
 
         if (req.user.role !== "admin" && req.user.role !== "sub-admin") {
             return res.status(403).json({
@@ -68,7 +75,7 @@ const createTaskByProjectId = async (req, res) => {
             })
         }
 
-        const userId = await User.findOne({ email: assignedTo })
+        const userId = await User.findOne({ name: assignedTo })
 
         const newTask = await Task.create({
             title,
@@ -81,6 +88,7 @@ const createTaskByProjectId = async (req, res) => {
             assignedBy: req.user.sub,
         })
 
+
         if (!newTask) {
             return res.status(400).json({
                 message: "Failed to create task",
@@ -88,12 +96,13 @@ const createTaskByProjectId = async (req, res) => {
             })
         }
 
-        return req.status(200).json({
+        return res.status(200).json({
             message: "successfully created task",
             data: newTask
         })
 
     } catch (error) {
+        // console.log(error)
         return res.status(500).json({
             status: "error",
             message: "Internal Server Error",

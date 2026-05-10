@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import API from '../../../api/axiosInstance'
 
-const CreateTask = ({ setOpenTask }) => {
+const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
 
     const allUsers = useSelector(state => state.currentUser.allUsers)
 
@@ -12,21 +13,34 @@ const CreateTask = ({ setOpenTask }) => {
         }
     }, [])
 
-
-
     const [formData, setFormData] = useState({
-        name: "",
+        title: "",
         description: "",
-        date: "",
+        dueDate: "",
         priority: "",
         assignedTo: "",
-        projectId: "",
+        status: "todo"
     })
+
+    const handleSubmitForm = async (data) => {
+        if (!selectedProjectDetails?._id) {
+            console.error('Project ID is missing');
+            return;
+        }
+        try {
+            const response = await API.post(`/task/create/${selectedProjectDetails._id}`, data)
+            console.log('Task created successfully:', response.data);
+            setOpenTask(false); // Close modal on success
+        } catch (error) {
+            console.error('Error creating task:', error);
+        }
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
+
     return (
         <div
             className='fixed inset-0 bg-background/80 border z-50 flex items-start justify-center'
@@ -43,9 +57,9 @@ const CreateTask = ({ setOpenTask }) => {
                 <div className='flex-1 overflow-y-auto max-h-[80vh] px-6 pb-4 mx-auto'>
                     <InputField
                         label={"Task Title"}
-                        placeholder={"Write project name"}
-                        name="name"
-                        value={formData.name}
+                        placeholder={"Write project title"}
+                        name="title"
+                        value={formData.title}
                         onChange={handleChange}
                     />
                     <InputField
@@ -59,23 +73,23 @@ const CreateTask = ({ setOpenTask }) => {
                     />
                     <InputField
                         label={"Due Date"}
-                        placeholder={"Write project name"}
+                        placeholder={"Write project title"}
                         type='date'
-                        name="date"
-                        value={formData.date}
+                        name="dueDate"
+                        value={formData.dueDate}
                         onChange={handleChange}
                     />
-                    <InputField label={"Priority"} name="priority" as="select" defaultValue="" onChange={handleChange}>
+                    <InputField label={"Priority"} name="priority" as="select" value={formData.priority} onChange={handleChange}>
                         <option value="" disabled>
                             Select Priority
                         </option>
-                        <option value="high">High</option>
+                        <option value="urgent">High</option>
                         <option value="medium">Medium</option>
                         <option value="low">Low</option>
 
                     </InputField>
 
-                    <InputField label={"Assigned To"} name="assignedTo" as="select" defaultValue="" onChange={handleChange}>
+                    <InputField label={"Assigned To"} name="assignedTo" as="select" value={formData.assignedTo} onChange={handleChange}>
                         <option value="" disabled>
                             Select Member to Assign
                         </option>
@@ -83,22 +97,13 @@ const CreateTask = ({ setOpenTask }) => {
                         {
                             // Map through team members and create options
                             allUsers.map((user) => (
-                                <option key={user.id} value={user.id}>
+                                <option key={user._id} value={user.name}>
                                     {user.name}
                                 </option>
                             ))
                         }
 
                     </InputField>
-
-                    {/* <InputField
-                        label={"Assigned To"}
-                        placeholder={"assigned to"}
-                        type='type'
-                        name="assignedTo"
-                        value={formData.assignedTo}
-                        onChange={handleChange}
-                    /> */}
 
                     <div className="p-4 border-t flex justify-center gap-2">
                         <button
@@ -108,7 +113,8 @@ const CreateTask = ({ setOpenTask }) => {
                             Cancel
                         </button>
                         <button onClick={() => {
-                            setOpenTask(false)
+                            // setOpenTask(false)
+                            handleSubmitForm(formData)
                             console.log(formData)
                         }}
                             className="px-4 py-2 text-sm bg-black text-white rounded">
