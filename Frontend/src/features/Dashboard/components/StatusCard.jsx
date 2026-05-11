@@ -1,5 +1,5 @@
 import React from 'react'
-import { Users, Rocket, Folder, ArrowUpRight, CheckCircle2 } from 'lucide-react'
+import { Users, Rocket, Folder } from 'lucide-react'
 
 const StatusCard = ({ totalMembers, totalProjects, totalActiveProjects }) => {
     return (
@@ -7,26 +7,23 @@ const StatusCard = ({ totalMembers, totalProjects, totalActiveProjects }) => {
             <Card
                 title={"Total Members"}
                 value={totalMembers}
-                icon={<Users size={20} />}
-                color="text-indigo-600"
-                bgColor="bg-indigo-50"
-                borderColor="border-indigo-100"
+                icon={<Users size={16} />}
+                color="text-indigo-500"
+                bgColor="bg-indigo-500/10"
             />
             <Card
                 title={"Total Projects"}
                 value={totalProjects}
-                icon={<Folder size={20} />}
-                color="text-emerald-600"
-                bgColor="bg-emerald-50"
-                borderColor="border-emerald-100"
+                icon={<Folder size={16} />}
+                color="text-emerald-500"
+                bgColor="bg-emerald-500/10"
             />
             <Card
                 title={"Active Projects"}
                 value={totalActiveProjects}
-                icon={<Rocket size={20} />}
-                color="text-amber-600"
-                bgColor="bg-amber-50"
-                borderColor="border-amber-100"
+                icon={<Rocket size={16} />}
+                color="text-amber-500"
+                bgColor="bg-amber-500/10"
             />
         </>
     )
@@ -34,25 +31,20 @@ const StatusCard = ({ totalMembers, totalProjects, totalActiveProjects }) => {
 
 export default StatusCard
 
-const Card = ({ title, value, icon, color, bgColor, borderColor }) => {
+const Card = ({ title, value, icon, color, bgColor }) => {
     return (
-        <div className={`p-6 bg-card border ${borderColor} rounded-2xl shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 group overflow-hidden relative`}>
-            <div className='flex items-start justify-between relative z-10'>
-                <div className='space-y-4'>
-                    <div className={`p-3 rounded-xl ${bgColor} ${color} w-fit shadow-inner`}>
-                        {icon}
-                    </div>
-                    <div>
-                        <h3 className='text-muted-foreground font-medium text-xs uppercase tracking-wider mb-1'>{title}</h3>
-                        <div className='flex items-baseline gap-2'>
-                            <p className='text-3xl font-bold tracking-tight text-foreground'>{value}</p>
-                        </div>
-                    </div>
-                </div>
+        <div className="flex items-center gap-4 p-4 bg-card border border-border/50 rounded-xl shadow-sm transition-all hover:border-blue-500/30 group">
+            <div className={`flex items-center justify-center w-10 h-10 rounded-lg ${bgColor} ${color} transition-transform group-hover:scale-110`}>
+                {icon}
             </div>
-
-            {/* Soft decorative background shape */}
-            <div className={`absolute -right-4 -bottom-4 w-24 h-24 rounded-full ${bgColor} opacity-20 blur-2xl group-hover:opacity-30 transition-opacity`} />
+            <div className='flex flex-col'>
+                <span className='text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60'>
+                    {title}
+                </span>
+                <span className='text-xl font-extrabold tracking-tight text-foreground'>
+                    {value}
+                </span>
+            </div>
         </div>
     )
 }

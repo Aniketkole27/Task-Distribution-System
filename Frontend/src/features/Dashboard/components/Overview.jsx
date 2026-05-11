@@ -11,7 +11,7 @@ const Overview = () => {
     const onlyAccess = currentUser.role === "admin" || currentUser.role === "sub-admin"
 
     return (
-        <div className='p-6 mx-4 bg-card border border-border rounded-xl shadow-sm h-fit'>
+        <div className='p-6 bg-card border border-border rounded-xl shadow-sm h-fit'>
             <div className='flex items-center justify-between mb-8'>
                 <div className='space-y-1'>
                     <h2 className='text-lg font-bold tracking-tight'>Recent Projects</h2>

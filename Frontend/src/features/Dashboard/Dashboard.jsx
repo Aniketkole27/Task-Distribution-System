@@ -5,12 +5,10 @@ import Overview from './components/Overview'
 
 const Dashboard = () => {
   return (
-    <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 min-h-full'>
+    <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 px-4 pt-4 h-full overflow-auto'>
       <Greeting />
-      <div className='flex flex-col gap-6'>
-        <Grid />
-        <Overview />
-      </div>
+      <Grid />
+      <Overview />
     </div>
   )
 }

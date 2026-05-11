@@ -69,12 +69,12 @@ function AcademicCalender() {
   }, 0);
 
   return (
-    <div className="bg-card text-foreground rounded-lg pb-3 shadow h-full flex flex-col gap-4">
+    <div className=" text-foreground rounded-2xl pb-6 shadow h-full flex flex-col gap-6 px-4 pt-4 overflow-auto">
       <Greeting />
 
-      <div className="px-4 pb-4 flex flex-1 flex-col gap-4">
+      <div className="pb-4 flex flex-1 flex-col gap-6">
         <div className="grid gap-3 md:grid-cols-2">
-          <div className="rounded border border-border p-4 shadow">
+          <div className="bg-card rounded border border-border p-4 shadow">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">Academic Calendar</p>
             <h2 className="mt-2 text-2xl font-semibold text-foreground">{currentMonthLabel}</h2>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -82,21 +82,21 @@ function AcademicCalender() {
             </p>
           </div>
 
-          <div className="rounded border border-border p-4 shadow">
+          <div className="bg-card rounded border border-border p-4 shadow">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">This Month</p>
             <div className="mt-3 flex items-end justify-between gap-3">
               <div>
                 <p className="text-3xl font-semibold text-foreground">{currentMonthEvents}</p>
                 <p className="text-sm text-muted-foreground">Scheduled items</p>
               </div>
-              <p className="rounded bg-muted px-3 py-1 text-xs font-medium text-stone-600">
+              <p className="rounded bg-background border border-border px-3 py-1 text-xs font-medium text-stone-600">
                 Click a day to add an event
               </p>
             </div>
           </div>
         </div>
 
-        <div className="rounded border border-border p-4 shadow flex-1 flex flex-col h-[700px] overflow-hidden">
+        <div className="bg-card rounded border border-border p-4 shadow flex-1 flex flex-col h-[700px] overflow-hidden">
           <CalenderHeader
             currentDate={currentDate}
             onPrevMonth={handlePrevMonth}

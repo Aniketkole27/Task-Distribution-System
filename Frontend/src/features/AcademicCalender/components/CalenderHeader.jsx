@@ -6,7 +6,7 @@ function CalenderHeader({ currentDate, onPrevMonth, onNextMonth, onToday }) {
     const year = currentDate.getFullYear();
 
     return (
-        <div className="mb-4 flex flex-col gap-3 rounded border border-border bg-background px-4 py-3 md:flex-row md:items-center md:justify-between">
+        <div className="mb-4 flex flex-col gap-3 rounded border border-border px-4 py-3 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
                 <div>
                     <h2 className="text-xl font-semibold text-foreground">{monthName} {year}</h2>
