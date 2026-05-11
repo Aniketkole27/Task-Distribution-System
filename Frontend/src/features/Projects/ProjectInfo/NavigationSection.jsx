@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, ChevronRight, Plus, FolderKanban, Info } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ProjectPanelDetails from './ProjectPanelDetails'
 import { useSelector } from 'react-redux'
 
-const NavigationSection = ({ setOpenTask, selectedProjectDetails }) => {
+const NavigationSection = ({ setOpenTask, selectedProjectDetails, activeTab, setActiveTab }) => {
     const navigate = useNavigate()
-    const [isOpen, setIsOpen] = useState(false);
     const userProfile = useSelector(state => state.currentUser.profile)
 
     // Permission Logic
@@ -22,47 +21,64 @@ const NavigationSection = ({ setOpenTask, selectedProjectDetails }) => {
     const canCreateTask = isAdmin || isSubAdmin
 
     return (
-        <div className='flex justify-between items-center mx-4'>
-            <div className='flex flex-col gap-3'>
-                <div className="flex items-center gap-1 text-sm text-foreground dark:text-foreground">
+        <div className='flex justify-between items-center px-4 py-3 bg-background/50 backdrop-blur-md sticky top-0 z-40 border-b border-border/50'>
+            {/* Breadcrumbs & Tabs Section */}
+            <div className='flex items-center gap-6'>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-muted/40 rounded-full border border-border/50 shadow-sm">
                     <button
                         onClick={() => navigate(`${basePath}/projects`)}
-                        className="hover:text-blue-500 flex items-center gap-1 text-sm text-foreground dark:text-foreground"
+                        className="text-muted-foreground hover:text-blue-500 transition-colors flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
                     >
-                        projects
+                        <FolderKanban size={14} />
+                        Projects
                     </button>
-                    <span>/</span>
-                    <div
-                        onClick={() => setIsOpen(true)}
-                        className='hover:text-blue-500 cursor-pointer flex items-center gap-1 text-sm text-foreground'>
-                        <span className="text-foreground dark:text-foreground font-medium">
+
+                    <ChevronRight size={14} className="text-muted-foreground/40" />
+
+                    <div className='flex items-center gap-1.5'>
+                        <span className="text-foreground font-bold text-xs uppercase tracking-wider">
                             {selectedProjectDetails?.name}
-                        </span>
-                        <span className='cursor-pointer p-1 text-foreground dark:text-foreground rounded-full hover:bg-stone-300 dark:hover:bg-border active:bg-stone-400'>
-                            <ArrowUpRight size={13} />
                         </span>
                     </div>
                 </div>
 
+                {/* Modern Tabs */}
             </div>
-            <div className='flex flex-col gap-2'>
+
+            <div className='flex items-center p-1 bg-muted/50 rounded-xl border border-border/40 shadow-inner'>
+                <button
+                    onClick={() => setActiveTab('tasks')}
+                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${activeTab === 'tasks'
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-background/50'}`}
+                >
+                    Tasks
+                </button>
+                <button
+                    onClick={() => setActiveTab('details')}
+                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${activeTab === 'details'
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-background/50'}`}
+                >
+                    Project Info
+                </button>
+            </div>
+
+            {/* Actions Section */}
+            <div className='flex items-center gap-3'>
                 {canCreateTask && (
                     <button
                         onClick={() => setOpenTask(true)}
-                        className='cursor-pointer text-shadow-xs border border-border dark:border-border  px-4 py-2 rounded font-medium text-foreground dark:text-foreground shadow hover:border-blue-300 hover:bg-blue-100  hover:text-blue-500 active:bg-blue-200 transition-colors duration-300'
+                        className='flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 active:translate-y-0'
                     >
+                        <Plus size={18} />
                         Create Task
                     </button>
                 )}
-                <ProjectPanelDetails
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                    project={selectedProjectDetails}
-                />
             </div>
         </div>
     )
 }
 
-
 export default NavigationSection
+

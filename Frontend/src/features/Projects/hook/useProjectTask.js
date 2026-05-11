@@ -17,7 +17,7 @@ const useProjectTask = (id) => {
       // console.log("response = ", response.data)
 
       if (project) {
-        setTaskProject({ "project": [{ ...project }], "tasks": response.data.data || [] });
+        setTaskProject({ "project": { ...project }, "tasks": response.data.data || [] });
       }
       // setTasks(response.data.tasks || [])
 

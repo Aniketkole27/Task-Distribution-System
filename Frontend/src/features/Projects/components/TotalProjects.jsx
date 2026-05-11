@@ -20,7 +20,7 @@ const TotalProjects = () => {
 
 
     return (
-        <div className='p-6 mx-4 bg-card border border-border rounded-xl shadow-sm mt-6'>
+        <div className='p-6 bg-card border border-border rounded-xl shadow-sm'>
             <div className='flex items-center justify-between mb-8'>
                 <div className='space-y-1'>
                     <h2 className='text-lg font-bold tracking-tight'>All Projects</h2>

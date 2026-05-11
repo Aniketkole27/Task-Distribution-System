@@ -2,18 +2,22 @@ import React from 'react'
 import FilterButton from './FilterButton'
 import SearchProject from './SearchProject'
 import { useSelector } from 'react-redux'
+import { Plus } from 'lucide-react'
 
 const FilterSection = ({ setOpen }) => {
   const userProfile = useSelector(state => state.currentUser.profile)
   const isAdmin = userProfile?.role === 'admin'
 
   return (
-    <div className='p-6 mt-6 mx-4 bg-card border border-border rounded-xl flex items-center justify-between shadow-sm'>
-      <div className="flex items-center gap-6">
+    <div className='p-4 bg-card border border-border rounded-2xl flex flex-col md:flex-row items-center justify-between shadow-sm gap-4'>
+      <div className="flex items-center gap-4 w-full md:w-auto">
         <FilterButton />
         <div className="h-8 w-px bg-border hidden md:block" />
-        <SearchProject />
+        <div className="flex-1 md:flex-initial">
+          <SearchProject />
+        </div>
       </div>
+
       {isAdmin && (
         <button
           type="button"
@@ -27,4 +31,3 @@ const FilterSection = ({ setOpen }) => {
 }
 
 export default FilterSection
-

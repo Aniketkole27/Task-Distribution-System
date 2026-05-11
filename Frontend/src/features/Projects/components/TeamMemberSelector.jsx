@@ -59,12 +59,12 @@ const TeamMemberSelect = ({ allUsers, handleAddTeamMember, handleRemoveTeamMembe
       />
 
       {open && filteredMembers?.length > 0 && (
-        <div className="absolute z-10 w-full bg-background dark:bg-card border rounded shadow max-h-48 overflow-y-auto">
+        <div className="absolute bottom-full left-0 mb-2 z-[60] w-full bg-card border border-border rounded-xl shadow-2xl max-h-48 overflow-y-auto animate-in fade-in slide-in-from-bottom-2 duration-200">
           {filteredMembers?.map((member) => (
             <div
               key={member._id}
               onClick={() => addMember(member)}
-              className="px-3 py-2 cursor-pointer hover:bg-muted dark:hover:bg-muted dark:bg-muted text-sm"
+              className="px-4 py-2.5 cursor-pointer hover:bg-muted text-sm font-medium transition-colors"
             >
               {member.name}
             </div>
