@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux'
 
 const ProjectStatistic = ({ taskProject }) => {
 
-  const allData = useSelector(state => state.projectData.data);
+  // const allData = useSelector(state => state.projectData.data);
 
 
   const taskInfoObject = taskProject.tasks.reduce(
     (acc, task) => {
       acc.totalTask++;
 
-      if (task.status === "completed") acc.completed++;
-      else if (task.status === "in-review") acc.inReview++;
-      else if (task.status === "failed") acc.failed++;
+      if (task.status === "approved") acc.completed++;
+      else if (task.status === "under-review") acc.inReview++;
+      else if (task.status === "rejected") acc.failed++;
 
       return acc;
     },
@@ -36,7 +36,7 @@ export default ProjectStatistic
 const LabelData = ({ label, value, icon, color = "bg-background dark:bg-card" }) => {
   return (
     <div className='p-4 border rounded border-border dark:border-border shadow'>
-      <div className='flex mb-3 gap-2 items-start '>
+      <div className='flex mb-1 gap-2 items-start '>
         <div className='flex flex-col gap-2 items-center justify-center'>
           <p className={`text-xs font-medium px-2 py-1 rounded ${color}`}>
             {icon}

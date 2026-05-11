@@ -13,7 +13,7 @@ const TeamList = ({ allMembers }) => {
     );
 
     return (
-        <div className='p-6 mx-4 bg-card border border-border rounded-xl shadow-sm'>
+        <div className='p-6 bg-card border border-border rounded-xl shadow-sm'>
             <div className='space-y-8'>
                 {/* Admin Section */}
                 <div>

@@ -7,7 +7,7 @@ const TopSection = ({ setOpen }) => {
   const isAdmin = userProfile?.role === 'admin'
 
   return (
-    <div className='p-4 mt-4 mx-4 border border-border rounded'>
+    <div className='p-4 border border-border rounded-xl bg-card'>
       <div className='flex items-center justify-between'>
         <SearchMember />
         {isAdmin && (

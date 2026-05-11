@@ -3,7 +3,7 @@ import React from 'react'
 
 const AddTodo = ({ setOpenAddTask }) => {
     return (
-        <div className='flex justify-center py-6 px-4'>
+        <div className='flex justify-center py-6'>
             <div className='flex gap-3 items-center w-full max-w-2xl'>
                 <div
                     className='flex items-center bg-muted/70 hover:bg-muted relative rounded-lg flex-1 px-3 py-2 text-sm transition-colors cursor-pointer group'

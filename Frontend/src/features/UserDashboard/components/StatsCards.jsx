@@ -11,7 +11,7 @@ const StatsCards = ({ statsData = { total: 0, completed: 0, inProgress: 0, overd
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
             {stats.map((stat, index) => (
-                <div key={index} className={`flex items-center p-4 rounded-xl border bg-white dark:bg-[#0f172a] shadow-sm hover:shadow-md transition-shadow duration-300 ${stat.border}`}>
+                <div key={index} className={`flex items-center p-4 rounded-xl border bg-card  shadow-sm hover:shadow-md transition-shadow duration-300 border-border`}>
                     <div className={`p-3 rounded-lg ${stat.bg} mr-4`}>
                         {stat.icon}
                     </div>

@@ -22,7 +22,7 @@ const Todos = () => {
     }
 
     return (
-        <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 h-full'>
+        <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 px-4 pt-4 h-full overflow-auto'>
             <Greeting />
             <div className='bg-card text-foreground rounded-lg shadow flex-1 flex flex-col overflow-hidden'>
                 <AddTodo

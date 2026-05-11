@@ -42,7 +42,7 @@ const UserDashboard = () => {
     const recentTasks = [...allTasks].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).slice(0, 4);
 
     return (
-        <div className="flex flex-col gap-6 w-full max-w-7xl mx-auto">
+        <div className="flex flex-col gap-6 bg-card text-foreground rounded-2xl pb-6 px-4 pt-4 h-full overflow-auto">
             <Greeting />
 
             <div className="w-full">

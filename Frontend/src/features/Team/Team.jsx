@@ -11,12 +11,10 @@ function Team() {
   const allMembers = useSelector(state => state.currentUser.allUsers);
 
   return (
-    <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 min-h-full'>
+    <div className='flex flex-col gap-6 bg-background text-foreground rounded-2xl pb-6 px-4 pt-4 min-h-full overflow-auto'>
       <Greeting />
-      <div className='flex flex-col gap-6'>
-        <TopSection setOpen={setOpen} />
-        <TeamList allMembers={allMembers} />
-      </div>
+      <TopSection setOpen={setOpen} />
+      <TeamList allMembers={allMembers} />
       {open ? <CreateMember setOpen={setOpen} /> : null}
       <MemberDetailsSidebar />
     </div>

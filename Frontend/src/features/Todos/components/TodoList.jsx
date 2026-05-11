@@ -8,7 +8,7 @@ const TodoList = () => {
     console.log(allTask)
 
     return (
-        <div className='pb-10 px-4'>
+        <div className='pb-10'>
             <div className='space-y-3 mt-4 w-full max-w-2xl mx-auto'>
                 {(!Array.isArray(allTask) || allTask.length === 0) ? (
                     <div className='flex flex-col items-center justify-center py-20 bg-background/50 rounded-2xl border border-dashed border-border'>
