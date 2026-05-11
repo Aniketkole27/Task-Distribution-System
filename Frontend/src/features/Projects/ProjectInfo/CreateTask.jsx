@@ -28,7 +28,7 @@ const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
             return;
         }
         try {
-            const response = await API.post(`/task/create/${selectedProjectDetails._id}`, data)
+            const response = await API.post(`/api/task/create/${selectedProjectDetails._id}`, data)
             console.log('Task created successfully:', response.data);
             setOpenTask(false); // Close modal on success
         } catch (error) {

@@ -8,34 +8,6 @@ const initialState = {
     loading: false,
     error: null,
 }
-
-// const currentUser = useSelector((state) => state.currentUser.profile)
-// const editTodos = async (id, updateData) => {
-//     try {
-//         const response = await API.put(`api/todos/update/${id}`, updateData)
-//         return response.data
-//     } catch (error) {
-//         console.error("Error updating todo:", error)
-//     }
-// }
-// const deleteTodos = async (id) => {
-//     try {
-//         const response = await API.delete(`api/todos/delete/${id}`)
-//         return response.data
-//     } catch (error) {
-//         console.error("Error deleting todo:", error)
-//     }
-// }
-// const addTodos = async (taskData) => {
-//     try {
-//         const response = await API.post(`api/todos/add`, taskData)
-//         triggerRefetch(state.callTodos + 1)
-//         return response.data
-//     } catch (error) {
-//         console.error("Error adding todo:", error)
-//     }
-// }
-
 // 👉 Get all todos
 export const fetchTodos = createAsyncThunk(
     "todos/fetchTodos",
@@ -114,41 +86,6 @@ const todoSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-
-        // triggerRefetch(state) {
-        //     state.callTodos += 1;
-        // },
-
-        // setTask(state, action) {
-        //     state.allTask = action.payload
-        // },
-
-        // handleAdd(state, action) {
-        //     state.allTask.push(action.payload)
-        //     state.allTask.push(addTodos(action.payload))
-        // },
-
-        // handleComplete(state, action) {
-        //     const task = state.allTask.find(t => t._id === action.payload._id)
-        //     if (task) {
-        //         task.isCompleted = !task.isCompleted
-        //     }
-
-        //     editTodos(action.payload._id, { isCompleted: !action.payload.isCompleted })
-        // },
-
-        // handleEdit(state, action) {
-        //     const task = state.allTask.find(t => (t._id === action.payload.id || t.id === action.payload.id))
-        //     if (task) {
-        //         task.title = action.payload.title
-        //     }
-        //     editTodos(action.payload.id, { title: action.payload.title })
-        // },
-
-        // handleDelete(state, action) {
-        //     state.allTask = state.allTask.filter(t => t._id !== action.payload)
-        //     deleteTodos(action.payload)
-        // }
 
         builder
             // 👉 fetchTodos

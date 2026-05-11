@@ -68,6 +68,7 @@ const handleCreateProject = async (req, res) => {
             createdBy: req.user.sub,
             status: "active"
         })
+        
 
         if (!project) {
             return res.status(403).json({
