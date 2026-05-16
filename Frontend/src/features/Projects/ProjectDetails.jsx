@@ -12,10 +12,12 @@ import CreateTask from './ProjectInfo/CreateTask'
 import { fetchTasksOnProjectId } from '@/app/projectTaskSlice'
 
 import ProjectPanelDetails from './ProjectInfo/ProjectPanelDetails'
+import TaskDetailsModal from '../JiraBoard/components/TaskDetailsModal'
 
 const ProjectDetails = () => {
     const { id } = useParams()
     const [openTask, setOpenTask] = useState(false)
+    const [selectedTask, setSelectedTask] = useState(null)
     const [activeTab, setActiveTab] = useState('tasks') // 'tasks' or 'details'
     const dispatch = useDispatch()
     const [selectedProjectDetails, setSelectedProjectDetails] = useState({});
@@ -85,7 +87,7 @@ const ProjectDetails = () => {
                                 )}
                             </div>
                         ) : (
-                            <TaskList />
+                            <TaskList onTaskClick={(task) => setSelectedTask(task)} />
                         )}
                     </div>
                 ) : (
@@ -94,6 +96,18 @@ const ProjectDetails = () => {
                     </div>
                 )}
             </div>
+            {selectedTask && (
+                <TaskDetailsModal
+                    task={{
+                        ...selectedTask,
+                        project: selectedTask.project?.name
+                            ? selectedTask.project
+                            : { name: selectedProjectDetails?.name || "Project" }
+                    }}
+                    status={selectedTask.status}
+                    onClose={() => setSelectedTask(null)}
+                />
+            )}
         </div>
     )
 }

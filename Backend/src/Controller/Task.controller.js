@@ -111,8 +111,46 @@ const createTaskByProjectId = async (req, res) => {
     }
 }
 
+const getAllTaskByUserId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id })
+        if (!user) {
+            return res.status(404).json({
+                status: "error",
+                message: "user not found, user Id is invalid",
+            })
+        }
+
+        const task = await Task.find({ assignedTo: user._id })
+            .populate("assignedBy", "name email")
+            .populate("project", "name")
+            .populate("assignedTo", "name email")
+
+        if (task.length === 0) {
+            return res.status(404).json({
+                status: "error",
+                message: "No tasks found for this user",
+            })
+        }
+
+        return res.status(200).json({
+            message: "Tasks retrieved successfully",
+            data: task
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
 
 export {
     getAllTaskByProjectId,
-    createTaskByProjectId
+    createTaskByProjectId,
+    getAllTaskByUserId
 }

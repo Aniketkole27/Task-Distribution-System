@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { fetchTasksOnProjectId } from '@/app/projectTaskSlice'
 import { Calendar, MoreVertical, CheckCircle2, Clock, AlertCircle, User2, AlertTriangle, ChevronDown } from 'lucide-react'
 
-const TaskList = () => {
+const TaskList = ({ onTaskClick }) => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const { projectTasks, filters, loading } = useSelector((state) => state.projectTask)
@@ -34,7 +34,7 @@ const TaskList = () => {
     <div className='m-4'>
       {/* All Task */}
       <div className='min-h-[400px]'>
-        <TaskFormate tasks={filteredTasks} />
+        <TaskFormate tasks={filteredTasks} onTaskClick={onTaskClick} />
       </div>
     </div>
   )
@@ -42,12 +42,13 @@ const TaskList = () => {
 
 export default TaskList
 
-const TaskFormate = ({ tasks }) => {
+const TaskFormate = ({ tasks, onTaskClick }) => {
   return (
     <div className="grid gap-3">
       {tasks?.map((task) => (
         <div
           key={task._id}
+          onClick={() => onTaskClick(task)}
           className='group relative bg-card hover:bg-muted/40 transition-all duration-300 border border-border/60 rounded-xl p-4 shadow-sm hover:shadow-md flex items-center justify-between gap-4 cursor-pointer overflow-hidden'
         >
           {/* Accent Glow on Hover */}

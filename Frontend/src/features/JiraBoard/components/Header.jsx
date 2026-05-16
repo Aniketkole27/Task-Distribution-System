@@ -81,7 +81,10 @@ const Header = () => {
 
             <div className="px-2">
                 <button
-                    onClick={() => setShowProjectSidebar(true)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setShowProjectSidebar(true);
+                    }}
                     className="text-xs font-bold text-muted-foreground hover:text-blue-500 transition-colors flex items-center gap-2 uppercase tracking-widest"
                 >
                     <Layout size={14} className="text-blue-500" />

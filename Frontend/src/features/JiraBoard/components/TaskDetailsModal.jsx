@@ -2,16 +2,28 @@ import { X, Layout, Clock, User, AlignLeft, Flag, Hash, Calendar, Send } from "l
 import { useState } from "react";
 import ReviewSubmissionModal from "./ReviewSubmissionModal";
 
-const TaskDetailsModal = ({ task, status = "Todo", onClose }) => {
+const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
     if (!task) return null;
 
+    // Map backend statuses to UI display labels
+    const statusMap = {
+        'todo': 'Todo',
+        'in-progress': 'In Progress',
+        'submitted': 'Review',
+        'under-review': 'Review',
+        'approved': 'Done',
+        'rejected': 'Rejected'
+    };
+
+    const status = statusMap[rawStatus] || rawStatus;
+
     const {
-        id = "TSK-000",
+        _id: id = "TSK-000",
         title = "Optimize experience for mobile web",
         description = "Implement responsive design patterns for the checkout flow and ensure cross-browser compatibility.",
-        projectName = "E-Commerce App",
-        assignedBy = "John Doe",
+        project = { name: "E-Commerce App" },
+        assignedBy = { name: "John Doe" },
         dueDate = "Dec 15, 2027",
         priority = "High"
     } = task;
@@ -128,7 +140,7 @@ const TaskDetailsModal = ({ task, status = "Todo", onClose }) => {
                                 <Layout className="w-4 h-4 text-slate-400 mt-0.5" />
                                 <div className="flex flex-col">
                                     <span className="text-[10px] font-bold text-slate-500 uppercase">Project</span>
-                                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{projectName}</span>
+                                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{project?.name || "N/A"}</span>
                                 </div>
                             </div>
 
@@ -136,7 +148,7 @@ const TaskDetailsModal = ({ task, status = "Todo", onClose }) => {
                                 <User className="w-4 h-4 text-slate-400 mt-0.5" />
                                 <div className="flex flex-col">
                                     <span className="text-[10px] font-bold text-slate-500 uppercase">Assigned By</span>
-                                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{assignedBy}</span>
+                                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{assignedBy?.name || assignedBy}</span>
                                 </div>
                             </div>
 
@@ -145,6 +157,14 @@ const TaskDetailsModal = ({ task, status = "Todo", onClose }) => {
                                 <div className="flex flex-col">
                                     <span className="text-[10px] font-bold text-slate-500 uppercase">Due Date</span>
                                     <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{dueDate}</span>
+                                </div>
+                            </div>
+
+                            <div className="flex items-start gap-3">
+                                <Clock className="w-4 h-4 text-slate-400 mt-0.5" />
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase">Status</span>
+                                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{status}</span>
                                 </div>
                             </div>
 

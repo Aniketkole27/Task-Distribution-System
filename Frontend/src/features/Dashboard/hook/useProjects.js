@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllProjects } from "../api/fetchAllProjects";
 
-const useProjects = () => {
+const useProjects = (enabled = true) => {
     const [allProjects, setAllProjects] = useState([])
     const [loading, setLoading] = useState(true)
 
     const getAllProjects = async () => {
-        setLoading(false)
+        if (!enabled) return;
+        setLoading(true)
         try {
             const response = await fetchAllProjects();
             setAllProjects(response.data.projects || [])
@@ -20,8 +21,10 @@ const useProjects = () => {
     }
 
     useEffect(() => {
-        getAllProjects()
-    }, [])
+        if (enabled) {
+            getAllProjects()
+        }
+    }, [enabled])
 
     return { loading, allProjects, refetch: getAllProjects }
 }

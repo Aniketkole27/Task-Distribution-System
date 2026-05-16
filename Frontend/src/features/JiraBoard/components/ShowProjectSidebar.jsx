@@ -4,10 +4,12 @@ import React from 'react'
 const ShowProjectSidebar = ({ showProjectSidebar, setShowProjectSidebar }) => {
     return (
         <div
-            onClick={(e) => e.stopPropagation()}
+            onClick={() => setShowProjectSidebar(false)}
             className={`fixed inset-0 z-50 transition-opacity ${showProjectSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" />
-            <div className="fixed right-0 top-0 h-full w-80 bg-white dark:bg-[#0f172a] z-50 p-4 rounded-l-2xl border border-slate-200/50 dark:border-slate-800/50 shadow-lg">
+            <div 
+                onClick={(e) => e.stopPropagation()}
+                className="fixed right-0 top-0 h-full w-80 bg-white dark:bg-[#0f172a] z-50 p-4 rounded-l-2xl border border-slate-200/50 dark:border-slate-800/50 shadow-lg">
                 <div className='flex items-center justify-between mb-4'>
                     <h2 className="text-xl font-semibold  text-slate-900 dark:text-slate-100">Your Projects</h2>
                     <span

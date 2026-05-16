@@ -4,6 +4,7 @@ import teamSlice from './teamSlice'
 import projectDataSlice from "./projectDataSlice"
 import todoSlice from "./todoSlice"
 import projectTaskSlice from "./projectTaskSlice"
+import jiraSlice from "./jiraSlice"
 
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
         team: teamSlice,
         projectData: projectDataSlice,
         todos: todoSlice,
-        projectTask: projectTaskSlice
+        projectTask: projectTaskSlice,
+        jira: jiraSlice,
     }
 })

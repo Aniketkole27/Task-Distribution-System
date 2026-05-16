@@ -2,7 +2,7 @@ import { useState } from "react"
 import TaskCard from "./TaskCard"
 import { ChevronDown } from "lucide-react"
 
-const SectionCard = ({ title, tasks = [] }) => {
+const SectionCard = ({ title, tasks }) => {
     const [showCard, setShowCard] = useState(true)
 
     // Unified styling using the design system
@@ -16,11 +16,11 @@ const SectionCard = ({ title, tasks = [] }) => {
     const config = sectionConfig[title] || sectionConfig["Todo"];
 
     return (
-        <div className={`border border-border bg-card rounded-2xl p-4 h-full min-h-[calc(100vh-250px)] flex flex-col shadow-sm`}>
+        <div className="border border-border bg-card rounded-2xl p-4 h-full flex flex-col shadow-sm overflow-hidden">
             <div className="flex items-center justify-between mb-5 px-1">
-                <div className="flex items-center gap-2">
-                    <div className={`w-1.5 h-1.5 rounded-full ${config.dot}`} />
-                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{title}</h3>
+                <div className="flex items-center gap-2 min-w-0">
+                    <div className={`shrink-0 w-1.5 h-1.5 rounded-full ${config.dot}`} />
+                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] truncate">{title}</h3>
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -40,9 +40,9 @@ const SectionCard = ({ title, tasks = [] }) => {
                 </div>
             </div>
 
-            <div className="space-y-3 flex-1 overflow-y-auto pr-1 scrollbar-hide">
+            <div className="space-y-3 flex-1 overflow-y-auto pr-1  scrollbar-hide">
                 {showCard && tasks.map((task) => (
-                    <TaskCard key={task.id} task={task} status={title} />
+                    <TaskCard key={task._id} task={task} status={title} />
                 ))}
             </div>
         </div>

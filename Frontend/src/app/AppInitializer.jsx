@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useProjects } from '@features/dashboard/hook/useProjects'
 import { setAllUsers, updateProfile } from './currentUserSlice'
 import { setData } from "./projectDataSlice"
@@ -7,8 +7,11 @@ import { useGetAllUsers } from '@features/dashboard/hook/useGetAllUsers'
 
 const AppInitializer = ({ children }) => {
     const dispatch = useDispatch();
-    const { allProjects } = useProjects()
-    const { users } = useGetAllUsers()
+    const { profile } = useSelector((state) => state.currentUser);
+    const isAdmin = profile?.role === 'admin' || profile?.role === 'sub-admin';
+
+    const { allProjects } = useProjects(isAdmin)
+    const { users } = useGetAllUsers(isAdmin)
 
 
 
