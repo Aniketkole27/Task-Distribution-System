@@ -46,7 +46,7 @@ const taskSchema = new mongoose.Schema(
       enum: [
         'todo',
         'in-progress',
-        'submitted',
+        // 'submitted',
         'under-review',
         'approved',
         'rejected',
@@ -55,6 +55,11 @@ const taskSchema = new mongoose.Schema(
     },
 
     submissionNote: {
+      type: String,
+      default: "",
+    },
+
+    adminNote: {
       type: String,
       default: "",
     },

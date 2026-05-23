@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit"
 import API from "../api/axiosInstance"
+import { updateTaskStatus } from "./jiraSlice"
 
 const initialState = {
     projectTasks: [],
@@ -33,6 +34,16 @@ const addTaskInProjectWithId = createAsyncThunk(
         }
     })
 
+const updateTaskStatusApproveOrReject = createAsyncThunk(
+    "task/updateTaskStatusApproveOrReject",
+    async ({ taskId, status, adminNote }, { rejectWithValue }) => {
+        try {
+            const response = await API.put(`/api/task/${taskId}`, { status, adminNote })
+            return response.data.data
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Failed to update task")
+        }
+    })
 
 const projectTaskSlice = createSlice({
     name: "projectTask",
@@ -70,6 +81,21 @@ const projectTaskSlice = createSlice({
                 state.loading = false;
                 state.projectTasks.push(action.payload);
             })
+            // Update task in project task list when status is changed
+            .addCase(updateTaskStatus.fulfilled, (state, action) => {
+                state.projectTasks = state.projectTasks.map(task =>
+                    task._id === action.payload._id ? action.payload : task
+                );
+            })
+
+        // update review status approve or rejects
+        // .addCase(updateTaskStatusApproveOrReject.pending, (state, action) => {
+        //     state.loading = true;
+        // })
+        // .addCase(updateTaskStatusApproveOrReject.fulfilled, (state, action) => {
+        //     state.loading = false;
+        //     state.projectTasks = state.projectTasks.map(task => task._id === action.payload._id ? action.payload : task)
+        // })
     }
 
 })
@@ -77,6 +103,6 @@ const projectTaskSlice = createSlice({
 export const { setFilters, resetFilters } = projectTaskSlice.actions;
 export {
     fetchTasksOnProjectId,
-    addTaskInProjectWithId
+    addTaskInProjectWithId,
 }
 export default projectTaskSlice.reducer;

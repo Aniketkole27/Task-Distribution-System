@@ -22,9 +22,9 @@ const RecentTasks = ({ tasks = [] }) => {
             <div className="space-y-3">
                 {tasks.length > 0 ? (
                     tasks.map((task) => (
-                        <div key={task.id} className="flex items-center justify-between p-4 rounded-xl border border-border/50 bg-muted/30 hover:bg-muted/50 transition-all group">
+                        <div key={task._id} className="flex items-center justify-between p-4 rounded-xl border border-border/50 bg-muted/30 hover:bg-muted/50 transition-all group">
                             <div className="flex items-center gap-4">
-                                {task.status === "Done" ? (
+                                {task.status === "approved" || task.status === "done" ? (
                                     <div className="p-2 bg-emerald-500/10 rounded-lg">
                                         <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                                     </div>
@@ -36,13 +36,13 @@ const RecentTasks = ({ tasks = [] }) => {
                                 <div>
                                     <h4 className="text-sm font-bold text-foreground group-hover:text-blue-500 transition-colors">{task.title}</h4>
                                     <div className="flex items-center gap-2 mt-0.5">
-                                        <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">#{task.id}</span>
-                                        <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">• {task.projectName}</span>
+                                        <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">#{task._id?.slice(-4)}</span>
+                                        <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">• {task.project?.name || "Unknown Project"}</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex flex-col items-end">
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${task.status === 'Done' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'}`}>
+                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${task.status === 'approved' || task.status === 'done' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'}`}>
                                     {task.status}
                                 </span>
                                 <span className="text-[10px] font-bold text-muted-foreground/60 mt-2">Due {formatDate(task.dueDate)}</span>
