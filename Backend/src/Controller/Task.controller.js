@@ -128,9 +128,9 @@ const getAllTaskByUserId = async (req, res) => {
             .populate("assignedTo", "name email")
 
         if (task.length === 0) {
-            return res.status(404).json({
-                status: "error",
-                message: "No tasks found for this user",
+            return res.status(200).json({
+                message: "Tasks retrieved successfully",
+                data: []
             })
         }
 
@@ -148,9 +148,120 @@ const getAllTaskByUserId = async (req, res) => {
     }
 }
 
+const updateTaskStatus = async (req, res) => {
+    try {
+        const { status } = req.body
+        const { id } = req.params;
+        const userRole = req.user.role;
+        const userId = req.user.sub;
+
+        let query = { _id: id };
+
+        // 1. Permission checks for Approve/Reject
+        if (status === "rejected" || status === "approved") {
+            if (userRole === "user") {
+                return res.status(403).json({
+                    message: "Forbidden: Only Admin and Sub-Admin can approve or reject tasks",
+                    status: "error",
+                })
+            }
+
+            if (userRole === "sub-admin") {
+                // Sub-admin can only approve/reject tasks they assigned
+                query.assignedBy = userId;
+            }
+            // Admin has no extra query restriction (can manage everything)
+        } else {
+            // 2. Ownership check for other status updates (e.g., moving to in-progress)
+            if (userRole === "user") {
+                // Regular users can only update tasks assigned to them
+                query.assignedTo = userId;
+            }
+        }
+
+        const task = await Task.findOneAndUpdate(query, { status }, { new: true })
+            .populate("assignedBy", "name email")
+            .populate("project", "name")
+            .populate("assignedTo", "name email");
+
+        if (!task) {
+            return res.status(404).json({
+                status: "error",
+                message: userRole === 'user'
+                    ? "Task not found or you don't have permission to update this task"
+                    : (userRole === 'sub-admin' && (status === "approved" || status === "rejected"))
+                        ? "Task not found or you can only approve/reject tasks assigned by you"
+                        : "Task not found, task Id is invalid",
+            })
+        }
+
+        return res.status(200).json({
+            message: "Task status updated successfully",
+            status: "success",
+            data: task
+        })
+    } catch (error) {
+        console.error("Update Task Status Error:", error)
+        return res.status(500).json({
+            status: "error",
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+const handlemoveForReview = async (req, res) => {
+    try {
+        if (req.user.role !== "user") {
+            return res.status(403).json({
+                status: "error",
+                message: "Only User can submit task"
+            });
+        }
+
+        const { id } = req.params
+        const { submitDescription } = req.body;
+
+        const existingTask = await Task.findById(id)
+        if (!existingTask) {
+            return res.status(404).json({
+                status: "error",
+                message: "Task not found, task Id is invalid",
+            })
+        }
+
+        const updatedTask = await Task.findOneAndUpdate(
+            { _id: id },
+            {
+                status: "under-review",
+                submissionNote: submitDescription,
+                submitedAt: Date.now(),
+            },
+            { new: true }
+        )
+        .populate("assignedBy", "name email")
+        .populate("project", "name")
+        .populate("assignedTo", "name email");
+        return res.status(200).json({
+            message: "Task submitted successfully",
+            status: "success",
+            data: updatedTask
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
 
 export {
     getAllTaskByProjectId,
     createTaskByProjectId,
-    getAllTaskByUserId
+    getAllTaskByUserId,
+    updateTaskStatus,
+    handlemoveForReview
 }

@@ -1,14 +1,18 @@
 import { X, Send } from "lucide-react";
 import { useState } from "react";
+import { moveForReview } from "../../../app/jiraSlice"
+import { useDispatch } from "react-redux";
 
 const ReviewSubmissionModal = ({ task, onClose, onSubmit }) => {
-    const [description, setDescription] = useState("");
 
+    const [description, setDescription] = useState("");
+    const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
         // Here we would typically make an API call
         if (onSubmit) {
             onSubmit(description);
+            dispatch(moveForReview({ taskId: task._id, submitDescription: description }))
         }
         onClose();
     };
@@ -47,14 +51,14 @@ const ReviewSubmissionModal = ({ task, onClose, onSubmit }) => {
                                 What did you complete?
                             </label>
                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                Provide a brief summary of the work done for task <span className="font-bold text-slate-700 dark:text-slate-300">{task?.id || 'TSK-000'}</span>.
+                                Provide a brief summary of the work done in task <span className="font-bold text-slate-700 dark:text-slate-300">{task?.title || 'TSK-000'}</span>.
                             </p>
                         </div>
                         <textarea
                             id="review-description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="I have completed the responsive design and tested it across modern browsers..."
+                            placeholder="I have completed timetable for next semester.."
                             className="w-full min-h-[120px] p-3 text-sm text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-y transition-shadow placeholder:text-slate-400 dark:placeholder:text-slate-500"
                             required
                         />

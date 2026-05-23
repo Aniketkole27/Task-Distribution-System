@@ -4,7 +4,8 @@ import { X, Layout, AlignLeft, Calendar, Zap, UserPlus } from 'lucide-react'
 import { addTaskInProjectWithId } from '@/app/projectTaskSlice'
 
 const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
-    const allUsers = useSelector(state => state.currentUser.allUsers)
+    // const allUsers = useSelector(state => state.currentUser.allUsers)
+    const allUsers = selectedProjectDetails.teamMembers || [];
     const dispatch = useDispatch()
 
     useEffect(() => {

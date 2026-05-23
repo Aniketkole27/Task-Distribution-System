@@ -10,11 +10,12 @@ const SectionCard = ({ title, tasks }) => {
         "Todo": { dot: "bg-muted-foreground", accent: "border-muted" },
         "In Progress": { dot: "bg-blue-500", accent: "border-blue-500/20" },
         "Review": { dot: "bg-amber-500", accent: "border-amber-500/20" },
-        "Done": { dot: "bg-emerald-500", accent: "border-emerald-500/20" }
+        "Done": { dot: "bg-emerald-500", accent: "border-emerald-500/20" },
+        "Rejected": { dot: "bg-rose-500", accent: "border-rose-500/20" }
     };
 
     const config = sectionConfig[title] || sectionConfig["Todo"];
-
+    ``
     return (
         <div className="border border-border bg-card rounded-2xl p-4 h-full flex flex-col shadow-sm overflow-hidden">
             <div className="flex items-center justify-between mb-5 px-1">

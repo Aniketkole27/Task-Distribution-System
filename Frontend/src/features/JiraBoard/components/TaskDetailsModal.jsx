@@ -1,22 +1,33 @@
-import { X, Layout, Clock, User, AlignLeft, Flag, Hash, Calendar, Send } from "lucide-react";
+import { X, Layout, Clock, User, AlignLeft, Flag, Hash, Calendar, Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import ReviewSubmissionModal from "./ReviewSubmissionModal";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTaskStatus } from "../../../app/jiraSlice";
 
 const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
     if (!task) return null;
 
+    const role = useSelector((state) => state.currentUser.profile)?.role;
+
     // Map backend statuses to UI display labels
     const statusMap = {
         'todo': 'Todo',
         'in-progress': 'In Progress',
-        'submitted': 'Review',
+        // 'submitted': 'Review',
         'under-review': 'Review',
         'approved': 'Done',
         'rejected': 'Rejected'
     };
+    const dispatch = useDispatch();
 
-    const status = statusMap[rawStatus] || rawStatus;
+    const handleUpdateStatus = (newStatus) => {
+        dispatch(updateTaskStatus({ taskId: task._id, status: newStatus }));
+        onClose();
+    };
+
+    const actualRawStatus = task?.status || rawStatus;
+    const status = statusMap[actualRawStatus?.toLowerCase()] || actualRawStatus?.toLowerCase();
 
     const {
         _id: id = "TSK-000",
@@ -43,7 +54,7 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header Pattern / Accent */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-indigo-500 via-purple-500 to-indigo-500" />
 
                 {/* Header Actions */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
@@ -89,8 +100,8 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                             </div>
                         </div>
 
-                        {/* Additional Sections for Review and Done */}
-                        {(status === "Review" || status === "Done") && (
+                        {/* Additional Sections for Review, Done, and Rejected */}
+                        {(status === "Review" || status === "Done" || status === "Rejected") && role === 'user' && (
                             <div className="flex flex-col gap-3">
                                 <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
                                     <AlignLeft className="w-5 h-5 text-emerald-500" />
@@ -98,14 +109,14 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                                 </div>
                                 <div className="bg-emerald-50/50 dark:bg-emerald-500/10 rounded-xl p-4 border border-emerald-200/50 dark:border-emerald-500/20">
                                     <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
-                                        {task.reviewDescription || "I have completed the responsive design and tested it across modern browsers as requested."}
+                                        {task.submissionNote || "No submission notes."}
                                     </p>
                                 </div>
                             </div>
                         )}
 
-                        {/* Admin feedback for Review and Done */}
-                        {(status === "Review" || status === "Done") && (
+                        {/* Admin feedback for Review, Done, and Rejected */}
+                        {(status === "Review" || status === "Done" || status === "Rejected") && (
                             <div className="flex flex-col gap-3">
                                 <div className="flex items-center justify-between text-slate-800 dark:text-slate-200">
                                     <div className="flex items-center gap-2">
@@ -114,12 +125,12 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                                     </div>
                                     {status === "Review" && (
                                         <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400">
-                                            {task.reviewStatus || "Pending Review"}
+                                            {task.status || "Pending Review"}
                                         </span>
                                     )}
                                 </div>
                                 {
-                                    status === "Done" && (
+                                    (status === "Done" || status === "Rejected") && (
                                         <div className="bg-amber-50/50 dark:bg-amber-500/10 rounded-xl p-4 border border-amber-200/50 dark:border-amber-500/20">
                                             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
                                                 {task.adminFeedback || "No feedback from admin."}
@@ -188,19 +199,18 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                         {status === "In Progress" ? "Cancel" : "Close"}
                     </button>
 
-                    {status === "Todo" && (
+                    {status === "Todo" && role === 'user' && (
                         <button
                             className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
                             onClick={() => {
-                                console.log("Add to Progress clicked");
-                                onClose();
+                                handleUpdateStatus("in-progress");
                             }}
                         >
                             Add to Progress
                         </button>
                     )}
 
-                    {status === "In Progress" && (
+                    {(status === "In Progress" || status === "Rejected") && role === 'user' && (
                         <button
                             onClick={() => setIsReviewModalOpen(true)}
                             className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
@@ -209,10 +219,29 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                             Send for Review
                         </button>
                     )}
+
+                    {status === "Review" && (role === 'admin' || role === 'sub-admin') && (
+                        <>
+                            <button
+                                onClick={() => handleUpdateStatus("rejected")}
+                                className="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
+                            >
+                                <X className="w-4 h-4" />
+                                Reject
+                            </button>
+                            <button
+                                onClick={() => handleUpdateStatus("approved")}
+                                className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
+                            >
+                                <CheckCircle2 className="w-4 h-4" />
+                                Approve
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
 
-            {isReviewModalOpen && status === "In Progress" && (
+            {isReviewModalOpen && (status === "In Progress" || status === "Rejected") && (
                 <ReviewSubmissionModal
                     task={task}
                     onClose={() => setIsReviewModalOpen(false)}

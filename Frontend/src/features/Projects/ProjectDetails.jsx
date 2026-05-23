@@ -107,7 +107,7 @@ const ProjectDetails = () => {
                     status={selectedTask.status}
                     onClose={() => setSelectedTask(null)}
                 />
-            )}
+            )}  
         </div>
     )
 }

@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { fetchTasksOnProjectId } from '@/app/projectTaskSlice'
-import { Calendar, MoreVertical, CheckCircle2, Clock, AlertCircle, User2, AlertTriangle, ChevronDown } from 'lucide-react'
+import { updateTaskStatus } from '@/app/jiraSlice'
+import { Calendar, MoreVertical, CheckCircle2, Clock, AlertCircle, User2, AlertTriangle, ChevronDown, X } from 'lucide-react'
 
 const TaskList = ({ onTaskClick }) => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const { projectTasks, filters, loading } = useSelector((state) => state.projectTask)
+  const role = useSelector((state) => state.currentUser.profile)?.role
 
   useEffect(() => {
     if (id) {
@@ -33,8 +35,8 @@ const TaskList = ({ onTaskClick }) => {
   return (
     <div className='m-4'>
       {/* All Task */}
-      <div className='min-h-[400px]'>
-        <TaskFormate tasks={filteredTasks} onTaskClick={onTaskClick} />
+      <div className='min-h-100'>
+        <TaskFormate tasks={filteredTasks} onTaskClick={onTaskClick} role={role} dispatch={dispatch} />
       </div>
     </div>
   )
@@ -42,7 +44,12 @@ const TaskList = ({ onTaskClick }) => {
 
 export default TaskList
 
-const TaskFormate = ({ tasks, onTaskClick }) => {
+const TaskFormate = ({ tasks, onTaskClick, role, dispatch }) => {
+  const handleStatusUpdate = (e, taskId, status) => {
+    e.stopPropagation();
+    dispatch(updateTaskStatus({ taskId, status }));
+  };
+
   return (
     <div className="grid gap-3">
       {tasks?.map((task) => (
@@ -91,10 +98,10 @@ const TaskFormate = ({ tasks, onTaskClick }) => {
             <div className='flex flex-col items-end'>
               <p className='text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50 mb-1'>Assigned To</p>
               <div className='flex items-center gap-2 bg-muted/50 px-2 py-1 rounded-full border border-border/40 hover:border-border transition-colors'>
-                <span className='text-[11px] font-semibold text-foreground truncate max-w-[100px]'>
+                <span className='text-[11px] font-semibold text-foreground truncate max-w-25'>
                   {task.assignedTo?.name || (typeof task.assignedTo === 'string' ? 'User: ' + task.assignedTo.slice(-4) : 'Unassigned')}
                 </span>
-                <div className='w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-1 ring-white/10'>
+                <div className='w-6 h-6 rounded-full bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-1 ring-white/10'>
                   {getInitials(task.assignedTo?.name || task.assignedTo)}
                 </div>
               </div>

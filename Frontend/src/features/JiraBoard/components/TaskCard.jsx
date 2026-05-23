@@ -20,7 +20,7 @@ const TaskCard = ({ task, status }) => {
         default: { label: 'Low', dot: 'bg-emerald-500', text: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' }
     };
 
-    const config = priorityConfig[priority.toLowerCase()] || priorityConfig.default;
+    const config = priorityConfig[priority?.toLowerCase()] || priorityConfig.default;
 
     const isRejected = task.status === 'rejected';
 
@@ -54,7 +54,7 @@ const TaskCard = ({ task, status }) => {
 
                 {/* Title & Description */}
                 <div className="space-y-1.5">
-                    <h4 className="text-sm font-bold text-foreground leading-snug group-hover:text-blue-500 transition-colors duration-300 line-clamp-2 break-words">
+                    <h4 className="text-sm font-bold text-foreground leading-snug group-hover:text-blue-500 transition-colors duration-300 line-clamp-2 wrap-break-word">
                         {title}
                     </h4>
                     <p className="text-[11px] text-muted-foreground/80 leading-relaxed line-clamp-2 font-medium italic">

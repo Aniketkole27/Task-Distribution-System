@@ -1,24 +1,26 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Greeting from "../../shared/components/Greeting"
 import StatsCards from "./components/StatsCards"
 import TaskProgress from "./components/TaskProgress"
 import RecentTasks from "./components/RecentTasks"
-import dashboardData from "../../../public/data.json"
+import { fetchTaskByUser } from "../../app/jiraSlice";
 
 const UserDashboard = () => {
-    // Flatten all tasks and inject their status based on the section title
-    const allTasks = dashboardData.reduce((acc, section) => {
-        const tasksWithStatus = section.tasks.map(task => ({
-            ...task,
-            status: section.title
-        }));
-        return [...acc, ...tasksWithStatus];
-    }, []);
+    const dispatch = useDispatch();
+    const userProfile = useSelector((state) => state.currentUser.profile);
+    const { tasks: allTasks = [], loading } = useSelector((state) => state.jira);
 
-    console.log(allTasks)
+    useEffect(() => {
+        if (userProfile?._id) {
+            dispatch(fetchTaskByUser({ userId: userProfile._id }));
+        }
+    }, [dispatch, userProfile]);
 
     const totalTasks = allTasks.length;
-    const completedTasks = allTasks.filter(t => t.status === "Done").length;
-    const inProgressTasks = allTasks.filter(t => t.status === "In Progress").length;
+    // Map backend statuses to dashboard metrics
+    const completedTasks = allTasks.filter(t => t.status === "approved" || t.status === "done").length;
+    const inProgressTasks = allTasks.filter(t => t.status === "in-progress" || t.status === "under-review").length;
 
     // Calculate overdue (due date before today)
     const today = new Date();
@@ -26,7 +28,8 @@ const UserDashboard = () => {
     today.setHours(0, 0, 0, 0);
 
     const overdueTasks = allTasks.filter(t => {
-        if (t.status === "Done") return false;
+        if (t.status === "approved" || t.status === "done") return false;
+        if (!t.dueDate) return false;
         const dueDate = new Date(t.dueDate);
         return dueDate < today;
     }).length;
@@ -38,8 +41,10 @@ const UserDashboard = () => {
         overdue: overdueTasks
     };
 
-    // Sort by due date for recent tasks demo
-    const recentTasks = [...allTasks].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).slice(0, 4);
+    const recentTasks = [...allTasks]
+        .filter(t => t.dueDate)
+        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+        .slice(0, 4);
 
     return (
         <div className="flex flex-col gap-6 bg-card text-foreground rounded-2xl pb-6 px-4 pt-4 h-full overflow-auto">
