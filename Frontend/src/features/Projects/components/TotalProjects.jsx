@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Calendar } from 'lucide-react'
+import { Calendar, Info } from 'lucide-react'
 
 const TotalProjects = () => {
     const projectData = useSelector((state) => state.projectData.data)
@@ -88,6 +88,17 @@ const ProjectItem = ({ id, title, dueDate, status, onlyAccess }) => {
                 <span className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold border uppercase tracking-wider ${config.color}`}>
                     {status}
                 </span>
+                <button 
+                    type="button"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`${onlyAccess ? currentUser.role === "admin" ? "/admin" : "/manager" : ""}/projects/${id}`, { state: { activeTab: 'details' } });
+                    }}
+                    className="p-1.5 text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-full transition-colors flex items-center justify-center bg-muted/20 cursor-pointer"
+                    title="View & Edit Project Info"
+                >
+                    <Info size={16} />
+                </button>
             </div>
         </div>
     )

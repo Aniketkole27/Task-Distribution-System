@@ -128,9 +128,9 @@ const getAllTaskByUserId = async (req, res) => {
             .populate("assignedTo", "name email")
 
         if (task.length === 0) {
-            return res.status(200).json({
-                message: "Tasks retrieved successfully",
-                data: []
+            return res.status(404).json({
+                status: "error",
+                message: "No tasks found for this user",
             })
         }
 
@@ -150,7 +150,7 @@ const getAllTaskByUserId = async (req, res) => {
 
 const updateTaskStatus = async (req, res) => {
     try {
-        const { status } = req.body
+        const { status, adminNote } = req.body
         const { id } = req.params;
         const userRole = req.user.role;
         const userId = req.user.sub;
@@ -179,7 +179,14 @@ const updateTaskStatus = async (req, res) => {
             }
         }
 
-        const task = await Task.findOneAndUpdate(query, { status }, { new: true })
+        // Build update data — include adminNote for approve/reject actions
+        const updateData = { status };
+        if ((status === "approved" || status === "rejected") && adminNote !== undefined) {
+            updateData.adminNote = adminNote;
+            updateData.lastReviewedAt = Date.now();
+        }
+
+        const task = await Task.findOneAndUpdate(query, updateData, { new: true })
             .populate("assignedBy", "name email")
             .populate("project", "name")
             .populate("assignedTo", "name email");
@@ -239,9 +246,9 @@ const handlemoveForReview = async (req, res) => {
             },
             { new: true }
         )
-        .populate("assignedBy", "name email")
-        .populate("project", "name")
-        .populate("assignedTo", "name email");
+            .populate("assignedBy", "name email")
+            .populate("project", "name")
+            .populate("assignedTo", "name email");
         return res.status(200).json({
             message: "Task submitted successfully",
             status: "success",

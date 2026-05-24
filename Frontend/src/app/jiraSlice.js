@@ -29,9 +29,11 @@ const fetchTaskByUser = createAsyncThunk(
 
 const updateTaskStatus = createAsyncThunk(
     "jira/updateTaskStatus",
-    async ({ taskId, status }, { rejectWithValue }) => {
+    async ({ taskId, status, adminNote }, { rejectWithValue }) => {
         try {
-            const response = await API.put(`/api/task/${taskId}`, { status })
+            const payload = { status };
+            if (adminNote !== undefined) payload.adminNote = adminNote;
+            const response = await API.put(`/api/task/${taskId}`, payload)
             return response.data.data
         } catch (error) {
             return rejectWithValue(error.response?.data || "Failed to update task")

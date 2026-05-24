@@ -13,7 +13,8 @@ const TopSection = ({ setOpen }) => {
         {isAdmin && (
           <button
             onClick={() => setOpen(true)}
-            className='cursor-pointer text-shadow-xs border border-border  px-4 py-2 rounded font-medium text-foreground shadow hover:border-blue-300 hover:bg-blue-100  h hover:text-blue-500 active:bg-blue-200 transition-colors duration-300'>
+            className="px-5 py-2.5 bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 backdrop-blur-md rounded-full font-semibold text-sm border border-sky-500/20 hover:border-sky-500/40 shadow-lg shadow-sky-500/10 active:scale-[0.98] transition-all duration-300 cursor-pointer"
+          >
             New Member
           </button>
         )}

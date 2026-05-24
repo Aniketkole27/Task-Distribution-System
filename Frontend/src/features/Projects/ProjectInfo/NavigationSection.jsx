@@ -48,16 +48,16 @@ const NavigationSection = ({ setOpenTask, selectedProjectDetails, activeTab, set
             <div className='flex items-center p-1 bg-muted/50 rounded-xl border border-border/40 shadow-inner'>
                 <button
                     onClick={() => setActiveTab('tasks')}
-                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${activeTab === 'tasks'
-                        ? 'bg-blue-600 text-white shadow-md'
+                    className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 ${activeTab === 'tasks'
+                        ? 'bg-sky-500/8 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30 dark:border-sky-500/40 shadow-sm'
                         : 'text-muted-foreground hover:text-foreground hover:bg-background/50'}`}
                 >
                     Tasks
                 </button>
                 <button
                     onClick={() => setActiveTab('details')}
-                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${activeTab === 'details'
-                        ? 'bg-blue-600 text-white shadow-md'
+                    className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 ${activeTab === 'details'
+                        ? 'bg-sky-500/8 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30 dark:border-sky-500/40 shadow-sm'
                         : 'text-muted-foreground hover:text-foreground hover:bg-background/50'}`}
                 >
                     Project Info
@@ -69,7 +69,7 @@ const NavigationSection = ({ setOpenTask, selectedProjectDetails, activeTab, set
                 {canCreateTask && (
                     <button
                         onClick={() => setOpenTask(true)}
-                        className='flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 active:translate-y-0'
+                        className="flex items-center gap-1.5 px-5 py-2.5 bg-sky-500/8 dark:bg-sky-500/15 hover:bg-sky-500/15 dark:hover:bg-sky-500/25 text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 rounded-full font-semibold text-sm border border-sky-500/30 dark:border-sky-500/40 hover:border-sky-500/50 dark:hover:border-sky-500/60 shadow-[0_2px_8px_rgba(14,165,233,0.08)] dark:shadow-[0_2px_12px_rgba(14,165,233,0.15)] active:scale-[0.97] transition-all duration-300 cursor-pointer"
                     >
                         <Plus size={18} />
                         Create Task

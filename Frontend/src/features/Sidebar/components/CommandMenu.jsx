@@ -11,14 +11,28 @@ import {
     UserPlus,
     Search,
     Command as CommandIcon,
-    X
+    X,
+    Layout
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const CommandMenu = ({ open, setOpen }) => {
     const [value, setValue] = useState("")
     const navigate = useNavigate()
+    const userProfile = useSelector((state) => state.currentUser.profile)
+    const role = userProfile?.role
+
+    const getBasePath = () => {
+        if (role === 'admin') return '/admin'
+        if (role === 'sub-admin') return '/manager'
+        return '/user'
+    }
+
+    const basePath = getBasePath()
+    const isAdmin = role === 'admin'
+    const isSubAdmin = role === 'sub-admin'
 
     // Toggle the menu when ⌘K is pressed
     useEffect(() => {
@@ -74,65 +88,86 @@ const CommandMenu = ({ open, setOpen }) => {
 
                     <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Navigation</span>}>
                         <Item
-                            onSelect={() => runCommand(() => navigate('/admin/dashboard'))}
+                            onSelect={() => runCommand(() => navigate(`${basePath}/dashboard`))}
                             icon={<LayoutDashboard className="h-4 w-4" />}
                             label="Dashboard"
                             shortcut="G D"
                         />
+                        {role === 'user' && (
+                            <Item
+                                onSelect={() => runCommand(() => navigate(`${basePath}/jiraboard`))}
+                                icon={<Layout className="h-4 w-4" />}
+                                label="Jira Board"
+                                shortcut="G J"
+                            />
+                        )}
+                        {(isAdmin || isSubAdmin) && (
+                            <Item
+                                onSelect={() => runCommand(() => navigate(`${basePath}/projects`))}
+                                icon={<Folder className="h-4 w-4" />}
+                                label="Projects"
+                                shortcut="G P"
+                            />
+                        )}
+                        {(isAdmin || isSubAdmin) && (
+                            <Item
+                                onSelect={() => runCommand(() => navigate(`${basePath}/team`))}
+                                icon={<Users className="h-4 w-4" />}
+                                label="Team"
+                                shortcut="G T"
+                            />
+                        )}
                         <Item
-                            onSelect={() => runCommand(() => navigate('/admin/projects'))}
-                            icon={<Folder className="h-4 w-4" />}
-                            label="Projects"
-                            shortcut="G P"
-                        />
-                        <Item
-                            onSelect={() => runCommand(() => navigate('/admin/team'))}
-                            icon={<Users className="h-4 w-4" />}
-                            label="Team"
-                            shortcut="G T"
-                        />
-                        <Item
-                            onSelect={() => runCommand(() => navigate('/admin/todos'))}
+                            onSelect={() => runCommand(() => navigate(`${basePath}/todos`))}
                             icon={<ListCheck className="h-4 w-4" />}
                             label="Todo's"
                             shortcut="G L"
                         />
-                        <Item
-                            onSelect={() => runCommand(() => navigate('/admin/academic-calendar'))}
-                            icon={<Calendar className="h-4 w-4" />}
-                            label="Academic Calendar"
-                            shortcut="G C"
-                        />
+                        {(isAdmin || isSubAdmin) && (
+                            <Item
+                                onSelect={() => runCommand(() => navigate(`${basePath}/academic-calendar`))}
+                                icon={<Calendar className="h-4 w-4" />}
+                                label="Academic Calendar"
+                                shortcut="G C"
+                            />
+                        )}
                     </Command.Group>
 
-                    <div className="h-px bg-border my-2 mx-2 opacity-50" />
-
-                    <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Actions</span>}>
-                        <Item
-                            onSelect={() => runCommand(() => console.log('New Project'))}
-                            icon={<FolderPlus className="h-4 w-4 text-blue-500" />}
-                            label="New Project"
-                            className="hover:bg-blue-50/50"
-                        />
-                        <Item
-                            onSelect={() => runCommand(() => console.log('Add Todo'))}
-                            icon={<Plus className="h-4 w-4 text-green-500" />}
-                            label="Add Task"
-                            className="hover:bg-green-50/50"
-                        />
-                        <Item
-                            onSelect={() => runCommand(() => console.log('Invite'))}
-                            icon={<UserPlus className="h-4 w-4 text-purple-500" />}
-                            label="Invite Member"
-                            className="hover:bg-purple-50/50"
-                        />
-                    </Command.Group>
+                    {(isAdmin || isSubAdmin) && (
+                        <>
+                            <div className="h-px bg-border my-2 mx-2 opacity-50" />
+                            <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Actions</span>}>
+                                {isAdmin && (
+                                    <Item
+                                        onSelect={() => runCommand(() => console.log('New Project'))}
+                                        icon={<FolderPlus className="h-4 w-4 text-blue-500" />}
+                                        label="New Project"
+                                        className="hover:bg-blue-50/50"
+                                    />
+                                )}
+                                <Item
+                                    onSelect={() => runCommand(() => console.log('Add Todo'))}
+                                    icon={<Plus className="h-4 w-4 text-green-500" />}
+                                    label="Add Task"
+                                    className="hover:bg-green-50/50"
+                                />
+                                {isAdmin && (
+                                    <Item
+                                        onSelect={() => runCommand(() => console.log('Invite'))}
+                                        icon={<UserPlus className="h-4 w-4 text-purple-500" />}
+                                        label="Invite Member"
+                                        className="hover:bg-purple-50/50"
+                                    />
+                                )}
+                            </Command.Group>
+                        </>
+                    )}
 
                     <div className="h-px bg-border my-2 mx-2 opacity-50" />
 
                     <Command.Group heading={<span className="px-2 py-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">System</span>}>
                         <Item
-                            onSelect={() => runCommand(() => navigate('/admin/settings'))}
+                            onSelect={() => runCommand(() => navigate(`${basePath}/settings`))}
                             icon={<Settings className="h-4 w-4" />}
                             label="Settings"
                             shortcut="⌘ ,"

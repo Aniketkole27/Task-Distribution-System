@@ -1,12 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { X, Layout, AlignLeft, Calendar, Zap, UserPlus } from 'lucide-react'
+import { X, Layout, AlignLeft, Calendar, Zap, UserPlus, Plus } from 'lucide-react'
 import { addTaskInProjectWithId } from '@/app/projectTaskSlice'
+import CustomSelect from '@/shared/components/CustomSelect'
+import CustomDatePicker from '@/shared/components/CustomDatePicker'
+
+const priorityOptions = [
+    { value: "urgent", label: "Urgent", dotColor: "bg-red-500" },
+    { value: "medium", label: "Medium", dotColor: "bg-amber-500" },
+    { value: "low", label: "Low", dotColor: "bg-emerald-500" },
+]
+
+const getInitials = (name) => {
+    if (!name) return "";
+    return name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
+}
 
 const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
     // const allUsers = useSelector(state => state.currentUser.allUsers)
     const allUsers = selectedProjectDetails.teamMembers || [];
     const dispatch = useDispatch()
+    const containerRef = useRef(null)
 
     useEffect(() => {
         document.body.style.overflow = 'hidden'
@@ -38,6 +52,8 @@ const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
         }))
     }
 
+
+
     return (
         <div
             className='fixed inset-0 bg-background/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all'
@@ -62,7 +78,7 @@ const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
                 </div>
 
                 {/* Form Content */}
-                <div className='p-6 space-y-5 overflow-y-auto max-h-[75vh]'>
+                <div ref={containerRef} className='p-6 space-y-5 overflow-y-auto max-h-[75vh]'>
                     <div className='space-y-1.5'>
                         <label className='flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-1'>
                             <AlignLeft size={14} className="text-blue-500" />
@@ -100,13 +116,12 @@ const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
                                 <Calendar size={14} className="text-blue-500" />
                                 Due Date
                             </label>
-                            <input
-                                required
-                                type="date"
+                            <CustomDatePicker
                                 name="dueDate"
                                 value={formData.dueDate}
                                 onChange={handleChange}
-                                className='w-full px-4 py-2 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all cursor-pointer'
+                                placeholder="Select due date"
+                                openDirection="bottom"
                             />
                         </div>
 
@@ -115,39 +130,48 @@ const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
                                 <Zap size={14} className="text-blue-500" />
                                 Priority
                             </label>
-                            <select
-                                required
+                            <CustomSelect
                                 name="priority"
                                 value={formData.priority}
                                 onChange={handleChange}
-                                className='w-full px-4 py-2 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all cursor-pointer appearance-none'
-                            >
-                                <option value="urgent">Urgent</option>
-                                <option value="medium">Medium</option>
-                                <option value="low">Low</option>
-                            </select>
+                                options={priorityOptions}
+                                placeholder="Select Priority"
+                                openDirection="top"
+                            />
                         </div>
                     </div>
 
                     <div className='space-y-1.5'>
-                        <label className='flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-1'>
-                            <UserPlus size={14} className="text-blue-500" />
-                            Assign To
-                        </label>
-                        <select
-                            required
+                        <div className="flex items-center justify-between px-1">
+                            <label className='flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70'>
+                                <UserPlus size={14} className="text-blue-500" />
+                                Assign To
+                            </label>
+                            {/* <button
+                                type="button"
+                                title="Add new team member"
+                                className="text-blue-500 hover:text-blue-600 transition-colors bg-blue-500/10 hover:bg-blue-500/20 p-1 rounded-md flex items-center justify-center"
+                            >
+                                <Plus size={12} strokeWidth={3} />
+                            </button> */}
+                        </div>
+                        <CustomSelect
                             name="assignedTo"
                             value={formData.assignedTo}
                             onChange={handleChange}
-                            className='w-full px-4 py-2.5 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all cursor-pointer'
-                        >
-                            <option value="" disabled>Select Team Member</option>
-                            {allUsers.map((user) => (
-                                <option key={user._id} value={user.name}>
-                                    {user.name}
-                                </option>
-                            ))}
-                        </select>
+                            options={allUsers.map((user) => ({
+                                value: user.name,
+                                label: user.name,
+                                icon: (
+                                    <div className="w-5 h-5 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center text-[9px] font-extrabold shrink-0 border border-blue-500/20 shadow-sm animate-in zoom-in-50 duration-200">
+                                        {getInitials(user.name)}
+                                    </div>
+                                )
+                            }))}
+                            placeholder="Select Team Member"
+                            openDirection="bottom"
+                            autoScrollOnOpen={true}
+                        />
                     </div>
                 </div>
 
@@ -155,14 +179,14 @@ const CreateTask = ({ setOpenTask, selectedProjectDetails }) => {
                 <div className="p-6 border-t border-border bg-muted/30 flex items-center justify-end gap-3">
                     <button
                         onClick={() => setOpenTask(false)}
-                        className="px-5 py-2 text-sm font-semibold hover:bg-muted rounded-xl transition-colors"
+                        className="px-5 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-full transition-colors"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSubmit}
                         disabled={!formData.title || !formData.description || !formData.dueDate || !formData.priority || !formData.assignedTo}
-                        className="px-6 py-2 text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50 disabled:shadow-none"
+                        className="px-6 py-2.5 bg-emerald-500/8 dark:bg-emerald-500/15 hover:bg-emerald-500/15 dark:hover:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 rounded-full font-semibold text-sm border border-emerald-500/30 dark:border-emerald-500/40 hover:border-emerald-500/50 dark:hover:border-emerald-500/60 shadow-[0_2px_8px_rgba(16,185,129,0.08)] dark:shadow-[0_2px_12px_rgba(16,185,129,0.15)] active:scale-[0.97] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                         Create Task
                     </button>
