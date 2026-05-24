@@ -6,6 +6,7 @@ import { updateTaskStatus } from "../../../app/jiraSlice";
 
 const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [adminNote, setAdminNote] = useState('');
     if (!task) return null;
 
     const role = useSelector((state) => state.currentUser.profile)?.role;
@@ -22,7 +23,11 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
     const dispatch = useDispatch();
 
     const handleUpdateStatus = (newStatus) => {
-        dispatch(updateTaskStatus({ taskId: task._id, status: newStatus }));
+        const payload = { taskId: task._id, status: newStatus };
+        if ((newStatus === 'approved' || newStatus === 'rejected') && adminNote.trim()) {
+            payload.adminNote = adminNote.trim();
+        }
+        dispatch(updateTaskStatus(payload));
         onClose();
     };
 
@@ -40,7 +45,7 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
     } = task;
 
     const priorityConfig = {
-        high: { label: 'Urgent', dot: 'bg-red-500', text: 'text-red-600 dark:text-red-400', bg: 'bg-red-500/10' },
+        urgent: { label: 'Urgent', dot: 'bg-red-500', text: 'text-red-600 dark:text-red-400', bg: 'bg-red-500/10' },
         medium: { label: 'Medium', dot: 'bg-amber-500', text: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-500/10' },
         default: { label: 'Low', dot: 'bg-emerald-500', text: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-500/10' }
     };
@@ -98,10 +103,20 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                                     {description}
                                 </p>
                             </div>
+                            {/* 
+                            <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
+                                <AlignLeft className="w-5 h-5 text-emerald-500" />
+                                <h3 className="text-sm font-bold uppercase tracking-wider">Submission Notes</h3>
+                            </div>
+                            <div className="bg-emerald-50/50 dark:bg-emerald-500/10 rounded-xl p-4 border border-emerald-200/50 dark:border-emerald-500/20">
+                                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
+                                    {task.submissionNote || "No submission notes."}
+                                </p>
+                            </div> */}
                         </div>
 
                         {/* Additional Sections for Review, Done, and Rejected */}
-                        {(status === "Review" || status === "Done" || status === "Rejected") && role === 'user' && (
+                        {(status === "Review" || status === "Done" || status === "Rejected") && (
                             <div className="flex flex-col gap-3">
                                 <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
                                     <AlignLeft className="w-5 h-5 text-emerald-500" />
@@ -129,11 +144,20 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                                         </span>
                                     )}
                                 </div>
+                                {status === "Review" && (role === 'admin' || role === 'sub-admin') && (
+                                    <textarea
+                                        value={adminNote}
+                                        onChange={(e) => setAdminNote(e.target.value)}
+                                        placeholder="Write your review feedback here... (optional)"
+                                        rows={3}
+                                        className="w-full px-4 py-3 text-sm bg-amber-50/50 dark:bg-amber-500/5 border border-amber-200/50 dark:border-amber-500/20 rounded-xl outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500/40 transition-all text-slate-700 dark:text-slate-300 font-medium placeholder:text-slate-400/60 dark:placeholder:text-slate-500 resize-none"
+                                    />
+                                )}
                                 {
                                     (status === "Done" || status === "Rejected") && (
                                         <div className="bg-amber-50/50 dark:bg-amber-500/10 rounded-xl p-4 border border-amber-200/50 dark:border-amber-500/20">
                                             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
-                                                {task.adminFeedback || "No feedback from admin."}
+                                                {task.adminNote || "No feedback from admin."}
                                             </p>
                                         </div>
                                     )
@@ -191,17 +215,17 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                 </div>
 
                 {/* Footer */}
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex justify-end gap-3">
+                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex justify-end items-center gap-3">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-sm font-bold rounded-lg transition-colors"
+                        className="px-5 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold rounded-full transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
                     >
                         {status === "In Progress" ? "Cancel" : "Close"}
                     </button>
 
                     {status === "Todo" && role === 'user' && (
                         <button
-                            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
+                            className="px-5 py-2.5 bg-sky-500/8 dark:bg-sky-500/15 hover:bg-sky-500/15 dark:hover:bg-sky-500/25 text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 rounded-full font-semibold text-sm border border-sky-500/30 dark:border-sky-500/40 hover:border-sky-500/50 dark:hover:border-sky-500/60 shadow-[0_2px_8px_rgba(14,165,233,0.08)] dark:shadow-[0_2px_12px_rgba(14,165,233,0.15)] active:scale-[0.97] transition-all duration-300 flex items-center gap-2 cursor-pointer"
                             onClick={() => {
                                 handleUpdateStatus("in-progress");
                             }}
@@ -213,7 +237,7 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                     {(status === "In Progress" || status === "Rejected") && role === 'user' && (
                         <button
                             onClick={() => setIsReviewModalOpen(true)}
-                            className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
+                            className="px-5 py-2.5 bg-sky-500/8 dark:bg-sky-500/15 hover:bg-sky-500/15 dark:hover:bg-sky-500/25 text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 rounded-full font-semibold text-sm border border-sky-500/30 dark:border-sky-500/40 hover:border-sky-500/50 dark:hover:border-sky-500/60 shadow-[0_2px_8px_rgba(14,165,233,0.08)] dark:shadow-[0_2px_12px_rgba(14,165,233,0.15)] active:scale-[0.97] transition-all duration-300 flex items-center gap-2 cursor-pointer"
                         >
                             <Send className="w-4 h-4" />
                             Send for Review
@@ -224,14 +248,14 @@ const TaskDetailsModal = ({ task, status: rawStatus = "Todo", onClose }) => {
                         <>
                             <button
                                 onClick={() => handleUpdateStatus("rejected")}
-                                className="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
+                                className="px-5 py-2.5 bg-rose-500/8 dark:bg-rose-500/15 hover:bg-rose-500/15 dark:hover:bg-rose-500/25 text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 rounded-full font-semibold text-sm border border-rose-500/30 dark:border-rose-500/40 hover:border-rose-500/50 dark:hover:border-rose-500/60 shadow-[0_2px_8px_rgba(244,63,94,0.08)] dark:shadow-[0_2px_12px_rgba(244,63,94,0.15)] active:scale-[0.97] transition-all duration-300 flex items-center gap-2 cursor-pointer"
                             >
                                 <X className="w-4 h-4" />
                                 Reject
                             </button>
                             <button
                                 onClick={() => handleUpdateStatus("approved")}
-                                className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm"
+                                className="px-5 py-2.5 bg-emerald-500/8 dark:bg-emerald-500/15 hover:bg-emerald-500/15 dark:hover:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 rounded-full font-semibold text-sm border border-emerald-500/30 dark:border-emerald-500/40 hover:border-emerald-500/50 dark:hover:border-emerald-500/60 shadow-[0_2px_8px_rgba(16,185,129,0.08)] dark:shadow-[0_2px_12px_rgba(16,185,129,0.15)] active:scale-[0.97] transition-all duration-300 flex items-center gap-2 cursor-pointer"
                             >
                                 <CheckCircle2 className="w-4 h-4" />
                                 Approve

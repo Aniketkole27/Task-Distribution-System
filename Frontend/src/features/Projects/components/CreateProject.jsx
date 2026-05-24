@@ -1,10 +1,24 @@
 import { useEffect, useState } from 'react'
 import TeamMemberSelect from './TeamMemberSelector'
-import { useSelector } from 'react-redux'
-import { X, Layout, AlignLeft, Calendar, Flag, Users } from 'lucide-react'
+import { useSelector, useDispatch } from 'react-redux'
+import { X, Layout, AlignLeft, Calendar, Flag, Users, Loader2 } from 'lucide-react'
+import CustomSelect from '@/shared/components/CustomSelect'
+import CustomDatePicker from '@/shared/components/CustomDatePicker'
+import { createProject } from '../api/createProject'
+import { fetchAllProjects } from '@/features/Dashboard/api/fetchAllProjects'
+import { setData } from '@/app/projectDataSlice'
+
+const priorityOptions = [
+  { value: "high", label: "High", dotColor: "bg-red-500" },
+  { value: "medium", label: "Medium", dotColor: "bg-amber-500" },
+  { value: "low", label: "Low", dotColor: "bg-emerald-500" },
+]
 
 function CreateProject({ setOpen }) {
   const allUsers = useSelector(state => state.currentUser.allUsers)
+  const dispatch = useDispatch()
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -40,10 +54,35 @@ function CreateProject({ setOpen }) {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Project Created:", formData);
-    setOpen(false);
+    setSubmitting(true);
+    setError('');
+    try {
+      const payload = {
+        name: formData.name,
+        description: formData.description,
+        priority: formData.priority,
+        dueDate: formData.date,
+        teamMembers: formData.teamMembers.map(member => member.name),
+      };
+      await createProject(payload);
+
+      // Refresh projects list in Redux store
+      const response = await fetchAllProjects();
+      dispatch(setData(response.data.projects || []));
+
+      setOpen(false);
+    } catch (err) {
+      const status = err.response?.status;
+      if (status === 403) {
+        setError('You do not have permission to create projects.');
+      } else {
+        setError(err.response?.data?.message || 'Failed to create project. Please try again.');
+      }
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -98,30 +137,33 @@ function CreateProject({ setOpen }) {
           />
 
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
-            <InputField
-              label="Due Date"
-              icon={<Calendar size={14} />}
-              type='date'
-              name="date"
-              required
-              value={formData.date}
-              onChange={handleChange}
-            />
-            <InputField 
-              label="Priority" 
-              icon={<Flag size={14} />}
-              name="priority" 
-              as="select" 
-              required
-              value={formData.priority}
-              onChange={handleChange}
-            >
-              <option value="" disabled>Select Priority</option>
-              <option value="urgent">Urgent</option>
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
-            </InputField>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2 px-1 text-muted-foreground'>
+                <Calendar size={14} />
+                <label className='text-[10px] font-bold uppercase tracking-widest'>Due Date</label>
+              </div>
+              <CustomDatePicker
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                placeholder="Select Due Date"
+                openDirection="bottom"
+              />
+            </div>
+            <div className='space-y-2'>
+              <div className='flex items-center gap-2 px-1 text-muted-foreground'>
+                <Flag size={14} />
+                <label className='text-[10px] font-bold uppercase tracking-widest'>Priority</label>
+              </div>
+              <CustomSelect
+                name="priority"
+                value={formData.priority}
+                onChange={handleChange}
+                options={priorityOptions}
+                placeholder="Select Priority"
+                openDirection="bottom"
+              />
+            </div>
           </div>
 
           <div className='space-y-2'>
@@ -137,20 +179,36 @@ function CreateProject({ setOpen }) {
           </div>
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="mx-6 mb-2 px-4 py-2.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-sm text-rose-500 font-medium">
+            {error}
+          </div>
+        )}
+
         {/* Footer */}
         <div className="px-6 py-4 bg-muted/30 border-t border-border flex justify-end gap-3">
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="px-5 py-2 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"
+            disabled={submitting}
+            className="px-5 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-full transition-colors disabled:opacity-50"
           >
             Cancel
           </button>
           <button 
             type="submit"
-            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/20 active:scale-95 transition-all"
+            disabled={submitting}
+            className="px-6 py-2.5 bg-emerald-500/8 dark:bg-emerald-500/15 hover:bg-emerald-500/15 dark:hover:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 rounded-full font-semibold text-sm border border-emerald-500/30 dark:border-emerald-500/40 hover:border-emerald-500/50 dark:hover:border-emerald-500/60 shadow-[0_2px_8px_rgba(16,185,129,0.08)] dark:shadow-[0_2px_12px_rgba(16,185,129,0.15)] active:scale-[0.97] transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:active:scale-100"
           >
-            Create Project
+            {submitting ? (
+              <>
+                <Loader2 size={14} className="animate-spin" />
+                Creating...
+              </>
+            ) : (
+              'Create Project'
+            )}
           </button>
         </div>
       </form>

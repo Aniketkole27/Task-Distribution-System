@@ -92,12 +92,16 @@ export default function SignIn() {
                     {errors.password && <span className="text-red-500 text-sm mt-1 block">{errors.password}</span>}
                 </div>
 
-                <button type="submit" disabled={loading} className=" relative w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 rounded-lg transition">
+                <button 
+                    type="submit" 
+                    disabled={loading} 
+                    className="relative w-full py-2.5 bg-sky-500/8 dark:bg-sky-500/15 hover:bg-sky-500/15 dark:hover:bg-sky-500/25 text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 rounded-full font-semibold text-sm border border-sky-500/30 dark:border-sky-500/40 hover:border-sky-500/50 dark:hover:border-sky-500/60 shadow-[0_2px_8px_rgba(14,165,233,0.08)] dark:shadow-[0_2px_12px_rgba(14,165,233,0.15)] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                >
                     {loading ? 'Signing in...' : 'Sign In'}
                     {
                         loading &&
-                        <span className="absolute inset-0 flex left-30 items-center justify-center">
-                            <span className="w-5 h-5 border-2 border-white  border-t-transparent rounded-full animate-spin"></span>
+                        <span className="absolute inset-y-0 right-6 flex items-center justify-center">
+                            <span className="w-4 h-4 border-2 border-sky-500 dark:border-sky-400 border-t-transparent rounded-full animate-spin"></span>
                         </span>
                     }
                 </button>

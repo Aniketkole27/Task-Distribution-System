@@ -1,8 +1,9 @@
-import { Search, Layout, User, Flag, ChevronDown, SlidersHorizontal, X } from "lucide-react";
+import { Search, Layout, User, Flag, X, SlidersHorizontal } from "lucide-react";
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../../../app/jiraSlice";
 import ShowProjectSidebar from "./ShowProjectSidebar";
+import CustomSelect from "@/shared/components/CustomSelect";
 
 const Header = () => {
     const [showProjectSidebar, setShowProjectSidebar] = useState(false);
@@ -24,6 +25,25 @@ const Header = () => {
         dispatch(setFilters({ search: '', project: '', assignedBy: '', priority: '' }));
         setIsSearchExpanded(false);
     };
+
+    const projectOptions = [
+        { value: '', label: 'All Projects' },
+        ...uniqueProjects.map(p => ({ value: p, label: p }))
+    ];
+
+    const assigneeOptions = [
+        { value: '', label: 'Assigned By' },
+        ...uniqueAssignees.map(a => ({ value: a, label: a }))
+    ];
+
+    const priorityOptions = [
+        { value: '', label: 'Any Priority' },
+        ...uniquePriorities.map(p => ({
+            value: p,
+            label: p.charAt(0).toUpperCase() + p.slice(1),
+            dotColor: p === 'urgent' ? 'bg-red-500' : p === 'medium' ? 'bg-amber-500' : 'bg-emerald-500'
+        }))
+    ];
 
     return (
         <div className="space-y-4">
@@ -55,71 +75,47 @@ const Header = () => {
 
                 {/* Filters */}
                 <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
-                    {/* <div className="flex items-center gap-2 px-4 py-2.5 bg-muted rounded-xl border border-border text-sm font-bold text-muted-foreground shrink-0 uppercase tracking-wider">
-                        <SlidersHorizontal className="w-4 h-4 text-blue-500" />
-                        <span className="hidden sm:inline">Filters</span>
-                    </div> */}
-
                     <div className="h-6 w-px bg-border hidden sm:block shrink-0" />
 
                     {/* Project Filter */}
-                    <div className="relative shrink-0">
-                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                            <Layout className="h-4 w-4 text-muted-foreground" />
-                        </div>
-                        <select 
+                    <div className="relative shrink-0 min-w-[160px]">
+                        <CustomSelect
+                            name="project"
                             value={filters.project}
                             onChange={(e) => handleFilterChange('project', e.target.value)}
-                            className="appearance-none block w-full pl-10 pr-10 py-2.5 border border-border rounded-xl bg-background text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer transition-all duration-300 hover:border-blue-500/50"
-                        >
-                            <option value="">All Projects</option>
-                            {uniqueProjects.map(project => (
-                                <option key={project} value={project}>{project}</option>
-                            ))}
-                        </select>
-                        <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
-                            <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                        </div>
+                            options={projectOptions}
+                            placeholder="All Projects"
+                            icon={<Layout className="h-4 w-4 text-blue-500" />}
+                            openDirection="bottom"
+                            searchable={uniqueProjects.length > 5}
+                        />
                     </div>
 
                     {/* Assigned By Filter */}
-                    <div className="relative shrink-0">
-                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                            <User className="h-4 w-4 text-muted-foreground" />
-                        </div>
-                        <select 
+                    <div className="relative shrink-0 min-w-[155px]">
+                        <CustomSelect
+                            name="assignedBy"
                             value={filters.assignedBy}
                             onChange={(e) => handleFilterChange('assignedBy', e.target.value)}
-                            className="appearance-none block w-full pl-10 pr-10 py-2.5 border border-border rounded-xl bg-background text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer transition-all duration-300 hover:border-blue-500/50"
-                        >
-                            <option value="">Assigned By</option>
-                            {uniqueAssignees.map(assignee => (
-                                <option key={assignee} value={assignee}>{assignee}</option>
-                            ))}
-                        </select>
-                        <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
-                            <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                        </div>
+                            options={assigneeOptions}
+                            placeholder="Assigned By"
+                            icon={<User className="h-4 w-4 text-violet-500" />}
+                            openDirection="bottom"
+                            searchable={uniqueAssignees.length > 5}
+                        />
                     </div>
 
                     {/* Priority Filter */}
-                    <div className="relative shrink-0">
-                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                            <Flag className="h-4 w-4 text-muted-foreground" />
-                        </div>
-                        <select 
+                    <div className="relative shrink-0 min-w-[145px]">
+                        <CustomSelect
+                            name="priority"
                             value={filters.priority}
                             onChange={(e) => handleFilterChange('priority', e.target.value)}
-                            className="appearance-none block w-full pl-10 pr-10 py-2.5 border border-border rounded-xl bg-background text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer transition-all duration-300 hover:border-blue-500/50"
-                        >
-                            <option value="">Any Priority</option>
-                            {uniquePriorities.map(priority => (
-                                <option key={priority} value={priority}>{priority}</option>
-                            ))}
-                        </select>
-                        <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
-                            <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                        </div>
+                            options={priorityOptions}
+                            placeholder="Any Priority"
+                            icon={<Flag className="h-4 w-4 text-amber-500" />}
+                            openDirection="bottom"
+                        />
                     </div>
 
                     {/* Clear Filters Button */}

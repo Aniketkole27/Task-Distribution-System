@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import CustomSelect from '@/shared/components/CustomSelect'
+import { ShieldCheck, User, Shield } from 'lucide-react'
 
 const SignUp = () => {
     const navigate = useNavigate()
@@ -114,20 +116,47 @@ const SignUp = () => {
 
                 <div className='flex gap-3'>
                     <div className='flex-1'>
-                        <label htmlFor="password" className='font-semibold mt-4 mb-2 block text-gray-800'>Assign Role:</label>
-                        <select id="role" name="role" value={formData.role} onChange={handleChange} className='border mb-2 py-2 px-3 outline-none rounded suggestion w-full'>
-                            <option value="">Select Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="sub-admin">Sub-Admin</option>
-                            <option value="user">User</option>
-                        </select>
-
+                        <label htmlFor="role" className='font-semibold mt-4 mb-2 block text-gray-800'>Assign Role:</label>
+                        <CustomSelect
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            placeholder="Select Role"
+                            openDirection="top"
+                            options={[
+                                {
+                                    value: 'admin',
+                                    label: 'Admin',
+                                    icon: <ShieldCheck size={15} className="text-violet-500" />,
+                                },
+                                {
+                                    value: 'sub-admin',
+                                    label: 'Sub-Admin',
+                                    icon: <Shield size={15} className="text-blue-500" />,
+                                },
+                                {
+                                    value: 'user',
+                                    label: 'User',
+                                    icon: <User size={15} className="text-emerald-500" />,
+                                },
+                            ]}
+                        />
                         {errors.role && <span className='text-red-500 text-sm mb-3 block'>{errors.role}</span>}
                     </div>
                 </div>
 
-                <button type="submit" disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 rounded-lg transition">
+                <button 
+                    type="submit" 
+                    disabled={loading} 
+                    className="relative w-full py-2.5 bg-sky-500/8 dark:bg-sky-500/15 hover:bg-sky-500/15 dark:hover:bg-sky-500/25 text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 rounded-full font-semibold text-sm border border-sky-500/30 dark:border-sky-500/40 hover:border-sky-500/50 dark:hover:border-sky-500/60 shadow-[0_2px_8px_rgba(14,165,233,0.08)] dark:shadow-[0_2px_12px_rgba(14,165,233,0.15)] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                >
                     {loading ? 'Creating account...' : 'Sign Up'}
+                    {
+                        loading &&
+                        <span className="absolute inset-y-0 right-6 flex items-center justify-center">
+                            <span className="w-4 h-4 border-2 border-sky-500 dark:border-sky-400 border-t-transparent rounded-full animate-spin"></span>
+                        </span>
+                    }
                 </button>
 
                 <div className='text-center mt-6'>

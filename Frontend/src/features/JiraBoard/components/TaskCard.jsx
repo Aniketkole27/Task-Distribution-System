@@ -15,7 +15,7 @@ const TaskCard = ({ task, status }) => {
     } = task || {};
 
     const priorityConfig = {
-        high: { label: 'Urgent', dot: 'bg-rose-500', text: 'text-rose-500', bg: 'bg-rose-500/10', border: 'border-rose-500/20' },
+        urgent: { label: 'Urgent', dot: 'bg-rose-500', text: 'text-rose-500', bg: 'bg-rose-500/10', border: 'border-rose-500/20' },
         medium: { label: 'Medium', dot: 'bg-amber-500', text: 'text-amber-500', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
         default: { label: 'Low', dot: 'bg-emerald-500', text: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' }
     };

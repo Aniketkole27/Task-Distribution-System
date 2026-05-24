@@ -11,7 +11,12 @@ const handleGetAllProjects = async (req, res) => {
             });
         }
 
-        const projects = await Project.find({})
+        // Admin sees all projects, sub-admin sees only projects they are a member of
+        const query = req.user.role === "admin"
+            ? {}
+            : { teamMembers: req.user.sub };
+
+        const projects = await Project.find(query)
             .populate("teamMembers", "name email")
             .populate("createdBy", "name email");
 
@@ -206,7 +211,7 @@ const handleDeleteProjectById = async (req, res) => {
         const { id } = req.params;
         const project = await Project.findByIdAndDelete(id);
         if (!project) {
-            return res.status(403).json({
+            return res.status(404).json({
                 message: "Project not found",
                 success: false
             })

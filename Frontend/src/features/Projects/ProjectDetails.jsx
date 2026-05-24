@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 import Greeting from '@shared/components/Greeting'
 import NavigationSection from './ProjectInfo/NavigationSection'
@@ -16,9 +15,10 @@ import TaskDetailsModal from '../JiraBoard/components/TaskDetailsModal'
 
 const ProjectDetails = () => {
     const { id } = useParams()
+    const location = useLocation()
     const [openTask, setOpenTask] = useState(false)
     const [selectedTask, setSelectedTask] = useState(null)
-    const [activeTab, setActiveTab] = useState('tasks') // 'tasks' or 'details'
+    const [activeTab, setActiveTab] = useState(location.state?.activeTab || 'tasks') // 'tasks' or 'details'
     const dispatch = useDispatch()
     const [selectedProjectDetails, setSelectedProjectDetails] = useState({});
     const projectData = useSelector(state => state.projectData.data)
@@ -80,7 +80,7 @@ const ProjectDetails = () => {
                                 {canCreateTask && (
                                     <button
                                         onClick={() => setOpenTask(true)}
-                                        className='bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20'
+                                        className="px-6 py-2.5 bg-sky-500/8 dark:bg-sky-500/15 hover:bg-sky-500/15 dark:hover:bg-sky-500/25 text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 rounded-full font-semibold text-sm border border-sky-500/30 dark:border-sky-500/40 hover:border-sky-500/50 dark:hover:border-sky-500/60 shadow-[0_2px_8px_rgba(14,165,233,0.08)] dark:shadow-[0_2px_12px_rgba(14,165,233,0.15)] active:scale-[0.97] transition-all duration-300 cursor-pointer"
                                     >
                                         Create First Task
                                     </button>
